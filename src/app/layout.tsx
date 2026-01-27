@@ -15,14 +15,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <nav>
-          <ul>
+        <nav className="navBar">
+          <Link href="/">
+            <h1>Ben Chamberlain</h1>
+          </Link>
+          <ul className="navBarLinks">
             <li>
               <Link href="/about">About</Link>
             </li>
-            <li>
-              <Link href="/">Home</Link>
-            </li>
+            <li></li>
           </ul>
         </nav>
         {children}
