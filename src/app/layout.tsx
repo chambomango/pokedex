@@ -21,9 +21,11 @@ export default function RootLayout({
           </Link>
           <ul className="navBarLinks">
             <li>
-              <Link href="/about">About</Link>
+              <Link href="/pokedex">Pokedex Demo</Link>
             </li>
-            <li></li>
+            <li>
+              <Link href="/about">About Me</Link>
+            </li>
           </ul>
         </nav>
         {children}

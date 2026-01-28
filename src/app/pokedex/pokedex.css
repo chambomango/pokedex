@@ -1,0 +1,81 @@
+:root {
+  --sprite-dimensions: 96px; /*must be in increments of 96 (the native image size)*/
+  --img-padding: 16px;
+  --columns: 6;
+  --grid-gap: 8px;
+  --card-height: fit-content;
+  --card-width: calc(
+    var(--sprite-dimensions) + var(--img-padding) * 2 + var(--card-border) * 2
+  );
+  --card-border: 1px;
+}
+
+.pokedex-container {
+  display: flex;
+  flex-direction: column;
+  margin: 80px auto 0;
+  max-width: calc(
+    (var(--columns) * var(--card-width)) +
+      ((var(--columns) - 1) * var(--grid-gap))
+  );
+}
+
+.poke-grid {
+  display: grid;
+  gap: var(--grid-gap);
+  align-items: start;
+  grid-template-columns: repeat(var(--columns), var(--card-width));
+  justify-content: center;
+}
+
+.poke-card {
+  border: var(--card-border) solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  cursor: pointer;
+  width: var(--card-width);
+  height: var(--card-height);
+}
+
+.poke-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.poke-card-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: var(--img-padding);
+}
+
+.poke-card-image img {
+  height: var(--sprite-dimensions);
+  width: var(--sprite-dimensions);
+  image-rendering: pixelated;
+}
+
+.poke-card-content {
+  padding: 4px 0;
+  text-align: center;
+}
+
+.poke-card-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  text-transform: capitalize;
+}
+
+.poke-card-id {
+  margin: 4px 0 0 0;
+  font-size: 14px;
+  color: #666;
+}
