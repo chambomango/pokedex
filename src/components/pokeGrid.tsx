@@ -3,7 +3,7 @@ import { NamedAPIResource } from "pokenode-ts";
 import { PokeDisplayCard } from "./pokeCard";
 import { idFromUrl } from "@/helpers/gridHelpers";
 import "./pokeGrid.css";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 type PokeGridProps = {
@@ -13,15 +13,17 @@ type PokeGridProps = {
 
 export default function PokeGrid(props: PokeGridProps) {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const updateParams = React.useCallback((name: string, value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (value) params.set(name, value);
-    else params.delete(name);
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
-  }, []);
+  const updateParams = React.useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(window.location.search);
+      if (value) params.set(name, value);
+      else params.delete(name);
+      router.push(`/pokedex?${params.toString()}`);
+    },
+    [router, searchParams],
+  );
 
   const updateType = React.useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -41,7 +43,8 @@ export default function PokeGrid(props: PokeGridProps) {
     <div className="pokedex-container">
       <div className="flex justify-between gap-[8px] mb-2 px-[2px]">
         <input
-          className="rounded-md border"
+          id="poke-search-input"
+          className="rounded-md border pl-2"
           placeholder="Search"
           onChange={updateSearch}
           defaultValue={searchParams.get("search") || ""}
@@ -51,7 +54,7 @@ export default function PokeGrid(props: PokeGridProps) {
             id="type"
             name="type"
             className="rounded-md border px-3 py-2 text-sm"
-            value={searchParams.get("type") || "All"}
+            value={searchParams.get("type") || "all"}
             onChange={updateType}
           >
             <option value="all">All Types</option>

@@ -26,14 +26,18 @@ export default async function PokedexPage({
     }),
   );
 
-  const pokemonFiltered =
+  const pokemonSearchFiltered = search
+    ? pokemons.filter((p1) =>
+        p1.name.toLowerCase().startsWith(search.toLowerCase()),
+      )
+    : pokemons;
+  const pokemonTypeFiltered =
     selectedType === "all"
-      ? pokemons
-      : pokemons
-          .filter((pok) => typesToPokemonNames.get(selectedType)?.has(pok.name))
-          .filter((pok2) =>
-            pok2.name.toLowerCase().startsWith(search.toLowerCase()),
-          );
+      ? pokemonSearchFiltered
+      : pokemonSearchFiltered.filter((pok) =>
+          typesToPokemonNames.get(selectedType)?.has(pok.name),
+        );
+  const pokemonFiltered = pokemonTypeFiltered;
 
   return (
     <div className="flex flex-col mt-[80px] mx-auto">
