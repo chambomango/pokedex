@@ -41,7 +41,7 @@ export default function PokeGrid(props: PokeGridProps) {
 
   return (
     <div className="pokedex-container">
-      <div className="flex justify-between gap-[8px] mb-2 px-[2px]">
+      <div className="flex justify-between gap-2 mb-2 px-[2px]">
         <input
           id="poke-search-input"
           className="rounded-md border pl-2"
@@ -49,7 +49,7 @@ export default function PokeGrid(props: PokeGridProps) {
           onChange={updateSearch}
           defaultValue={searchParams.get("search") || ""}
         ></input>
-        <div className="flex gap-[8px]">
+        <div className="flex gap-2">
           <select
             id="type"
             name="type"

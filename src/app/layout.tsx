@@ -23,9 +23,6 @@ export default function RootLayout({
             <li>
               <Link href="/pokedex">Pokedex Demo</Link>
             </li>
-            <li>
-              <Link href="/about">About Me</Link>
-            </li>
           </ul>
         </nav>
         {children}
