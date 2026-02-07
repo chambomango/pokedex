@@ -19,6 +19,24 @@
   }
 }
 
+@layer base {
+  h1 {
+    font-size: var(--text-5xl);
+    font-weight: 700;
+  }
+  h2 {
+    font-size: var(--text-3xl);
+    font-weight: 700;
+  }
+  h3 {
+    font-size: var(--text-lg);
+  }
+  a {
+    color: var(--color-blue-600);
+    text-decoration-line: underline;
+  }
+}
+
 body {
   background: var(--background);
   color: var(--foreground);

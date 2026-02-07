@@ -17,7 +17,7 @@ export default function RootLayout({
       <body>
         <nav className="navBar">
           <Link href="/">
-            <h1>Ben Chamberlain</h1>
+            <div>Home</div>
           </Link>
           <ul className="navBarLinks">
             <li>

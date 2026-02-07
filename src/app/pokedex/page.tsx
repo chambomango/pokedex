@@ -1,9 +1,9 @@
-import { NamedAPIResource, PokemonClient } from "pokenode-ts"; // Import the Client
+import { NamedAPIResource, PokemonClient } from "pokenode-ts";
 import PokeGrid from "@/components/pokeGrid";
 import { idFromUrl } from "@/helpers/gridHelpers";
 
 export default async function PokedexPage({
-  searchParams, // Can be string | string[] | undefined
+  searchParams,
 }: {
   searchParams?: Promise<{ type: string; search: string }>;
 }) {
