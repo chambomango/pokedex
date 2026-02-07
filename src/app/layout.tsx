@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Link from "next/link";
+import NavBar from "../components/navBar";
 
 export const metadata: Metadata = {
   title: "Ben's Profile",
@@ -15,16 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <nav className="navBar">
-          <Link href="/">
-            <div>Home</div>
-          </Link>
-          <ul className="navBarLinks">
-            <li>
-              <Link href="/pokedex">Pokedex Demo</Link>
-            </li>
-          </ul>
-        </nav>
+        <NavBar />
         {children}
       </body>
     </html>

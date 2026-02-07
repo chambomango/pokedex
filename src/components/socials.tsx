@@ -17,7 +17,7 @@ export default function Socials() {
         <div className="flex">
           <Image
             src="/logos/PNG/GitHub_Invertocat_Black.png"
-            alt="LinkedIn"
+            alt="GitHub"
             width={24}
             height={24}
           />
