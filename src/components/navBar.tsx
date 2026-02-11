@@ -13,7 +13,7 @@ export default function NavBar() {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/pokedex">Pokédex Demo</Link>
+          <Link href="/pokedex">Pokémon Viewer</Link>
         </li>
         <li>
           <a href="https://www.linkedin.com/in/ben-chamberlain/">

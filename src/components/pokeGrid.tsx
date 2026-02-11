@@ -1,13 +1,18 @@
 "use client";
 import { NamedAPIResource } from "pokenode-ts";
 import { PokeDisplayCard } from "./pokeCard";
-import { idFromUrl } from "@/helpers/gridHelpers";
+import {
+  capitalizeFirst,
+  formatGeneration,
+  idFromUrl,
+} from "@/helpers/gridHelpers";
 import "./pokeGrid.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 type PokeGridProps = {
   pokemonTypes: NamedAPIResource[];
+  generations: NamedAPIResource[];
   pokemon: NamedAPIResource[];
 };
 
@@ -25,6 +30,12 @@ export default function PokeGrid(props: PokeGridProps) {
     [router, searchParams],
   );
 
+  const updateGen = React.useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      updateParams("gen", e.target.value);
+    },
+    [],
+  );
   const updateType = React.useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       updateParams("type", e.target.value);
@@ -49,21 +60,39 @@ export default function PokeGrid(props: PokeGridProps) {
           onChange={updateSearch}
           defaultValue={searchParams.get("search") || ""}
         ></input>
-        <div className="flex gap-2">
-          <select
-            id="type"
-            name="type"
-            className="rounded-md border px-3 py-2 text-sm"
-            value={searchParams.get("type") || "all"}
-            onChange={updateType}
-          >
-            <option value="all">All Types</option>
-            {props.pokemonTypes.map((t) => (
-              <option key={t.name} value={t.name}>
-                {t.name}
-              </option>
-            ))}
-          </select>
+        <div className="flex gap-3">
+          <div className="flex gap-2">
+            <select
+              id="gen"
+              name="gen"
+              className="rounded-md border px-3 py-2 text-sm"
+              value={searchParams.get("gen") || "all"}
+              onChange={updateGen}
+            >
+              <option value="all">All Generations</option>
+              {props.generations.map((t) => (
+                <option key={t.name} value={t.name}>
+                  {formatGeneration(t.name)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex gap-2">
+            <select
+              id="type"
+              name="type"
+              className="rounded-md border px-3 py-2 text-sm"
+              value={searchParams.get("type") || "all"}
+              onChange={updateType}
+            >
+              <option value="all">All Types</option>
+              {props.pokemonTypes.map((t) => (
+                <option key={t.name} value={t.name}>
+                  {capitalizeFirst(t.name)}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 

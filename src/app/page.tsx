@@ -35,7 +35,7 @@ export default function Home() {
             <div className="flex items-start justify-between gap-3">
               <div>
                 <h4 className="text-lg font-semibold group-hover:underline">
-                  Pokédex Demo{" "}
+                  Pokémon Viewer{" "}
                   <span className="text-zinc-500">(work-in-progress)</span>
                 </h4>
                 <p className={`mt-2 text-sm text-zinc-600`}>
