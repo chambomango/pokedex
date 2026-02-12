@@ -9,8 +9,8 @@ export default async function PokedexPage({
   searchParams?: Promise<{ type: string; gen: string; search: string }>;
 }) {
   const searchParamsResult = await searchParams;
-  const selectedType = searchParamsResult?.type || "all";
-  const selectedGen = searchParamsResult?.gen || "all";
+  const selectedType = searchParamsResult?.type;
+  const selectedGen = searchParamsResult?.gen;
   const search = searchParamsResult?.search || "";
 
   const api = new PokemonClient();
@@ -39,10 +39,11 @@ export default async function PokedexPage({
   );
 
   const name = search.toLowerCase();
+
   const pokemonForType =
-    selectedType === "all" ? null : typesToPokemon.get(selectedType);
+    selectedType === undefined ? null : typesToPokemon.get(selectedType);
   const pokemonForGen =
-    selectedGen === "all" ? null : gensToPokemon.get(selectedGen);
+    selectedGen === undefined ? null : gensToPokemon.get(selectedGen);
   let pokemonFiltered = pokemons.filter((pok) => {
     if (name && !pok.name.toLowerCase().startsWith(name)) return false;
     if (pokemonForType && !pokemonForType.has(pok.name)) return false;

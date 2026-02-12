@@ -8,7 +8,7 @@ import {
 } from "@/helpers/gridHelpers";
 import "./pokeGrid.css";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -28,32 +28,47 @@ type PokeGridProps = {
 export default function PokeGrid(props: PokeGridProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [selectedType, setSelectedType] = React.useState("");
+  const [selectedGen, setSelectedGen] = React.useState("");
+
+  useEffect(() => {
+    const type = searchParams.get("type") || "all";
+    const gen = searchParams.get("gen") || "all";
+    setSelectedType(type);
+    setSelectedGen(gen);
+  }, [searchParams]);
 
   const updateParams = React.useCallback(
-    (name: string, value: string) => {
+    (name: string, value?: string) => {
       const params = new URLSearchParams(window.location.search);
       if (value) params.set(name, value);
       else params.delete(name);
       router.push(`/pokedex?${params.toString()}`);
     },
-    [router, searchParams],
+    [router],
   );
 
   const updateGen = React.useCallback(
-    (value: string) => updateParams("gen", value),
-    [],
+    (value: string) => {
+      setSelectedGen(value);
+      updateParams("gen", value === "all" ? undefined : value);
+    },
+    [updateParams],
   );
 
   const updateType = React.useCallback(
-    (value: string) => updateParams("type", value),
-    [],
+    (value: string) => {
+      setSelectedType(value);
+      updateParams("type", value === "all" ? undefined : value);
+    },
+    [updateParams],
   );
 
   const updateSearch = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       updateParams("search", e.target.value);
     },
-    [],
+    [updateParams],
   );
 
   return (
@@ -67,12 +82,13 @@ export default function PokeGrid(props: PokeGridProps) {
           defaultValue={searchParams.get("search") || ""}
         ></input>
         <div className="flex gap-3">
-          <Select
-            value={searchParams.get("gen") || "all"}
-            onValueChange={updateGen}
-          >
+          <Select value={selectedGen} onValueChange={updateGen}>
             <SelectTrigger className="w-full max-w-48">
-              <SelectValue />
+              {selectedGen === "" ? (
+                <span className="truncate">All Generations</span>
+              ) : (
+                <SelectValue />
+              )}
             </SelectTrigger>
             <SelectContent position="popper">
               <SelectGroup>
@@ -86,12 +102,13 @@ export default function PokeGrid(props: PokeGridProps) {
               </SelectGroup>
             </SelectContent>
           </Select>
-          <Select
-            value={searchParams.get("type") || "all"}
-            onValueChange={updateType}
-          >
+          <Select value={selectedType} onValueChange={updateType}>
             <SelectTrigger className="w-full max-w-48">
-              <SelectValue />
+              {selectedType === "" ? (
+                <span className="truncate">All Types</span>
+              ) : (
+                <SelectValue />
+              )}
             </SelectTrigger>
             <SelectContent position="popper">
               <SelectGroup>
