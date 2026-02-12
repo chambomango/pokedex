@@ -9,6 +9,15 @@ import {
 import "./pokeGrid.css";
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 type PokeGridProps = {
   pokemonTypes: NamedAPIResource[];
@@ -31,15 +40,12 @@ export default function PokeGrid(props: PokeGridProps) {
   );
 
   const updateGen = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      updateParams("gen", e.target.value);
-    },
+    (value: string) => updateParams("gen", value),
     [],
   );
+
   const updateType = React.useCallback(
-    (e: React.ChangeEvent<HTMLSelectElement>) => {
-      updateParams("type", e.target.value);
-    },
+    (value: string) => updateParams("type", value),
     [],
   );
 
@@ -61,34 +67,44 @@ export default function PokeGrid(props: PokeGridProps) {
           defaultValue={searchParams.get("search") || ""}
         ></input>
         <div className="flex gap-3">
-          <select
-            id="gen"
-            name="gen"
-            className="rounded-md border px-3 py-2 text-sm"
+          <Select
             value={searchParams.get("gen") || "all"}
-            onChange={updateGen}
+            onValueChange={updateGen}
           >
-            <option value="all">All Generations</option>
-            {props.generations.map((t) => (
-              <option key={t.name} value={t.name}>
-                {formatGeneration(t.name)}
-              </option>
-            ))}
-          </select>
-          <select
-            id="type"
-            name="type"
-            className="rounded-md border px-3 py-2 text-sm"
+            <SelectTrigger className="w-full max-w-48">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectGroup>
+                <SelectLabel>Generations</SelectLabel>
+                <SelectItem value="all">All Generations</SelectItem>
+                {props?.generations?.map((t) => (
+                  <SelectItem key={t.name} value={t.name}>
+                    {formatGeneration(t.name)}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Select
             value={searchParams.get("type") || "all"}
-            onChange={updateType}
+            onValueChange={updateType}
           >
-            <option value="all">All Types</option>
-            {props.pokemonTypes.map((t) => (
-              <option key={t.name} value={t.name}>
-                {capitalizeFirst(t.name)}
-              </option>
-            ))}
-          </select>
+            <SelectTrigger className="w-full max-w-48">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent position="popper">
+              <SelectGroup>
+                <SelectLabel>Types</SelectLabel>
+                <SelectItem value="all">All Types</SelectItem>
+                {props.pokemonTypes.map((t) => (
+                  <SelectItem key={t.name} value={t.name}>
+                    {capitalizeFirst(t.name)}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
       </div>
       <div className="mt-1">
