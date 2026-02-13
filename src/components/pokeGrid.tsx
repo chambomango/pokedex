@@ -12,31 +12,43 @@ type PokeGridProps = {
   pokemon: NamedAPIResource[];
 };
 
+const BATCH_SIZE = 32;
+
 export default function PokeGrid(props: PokeGridProps) {
-  const [pokemonShown, setPokemonShown] = React.useState(32);
-  const loadingRef = React.useRef<HTMLElement>(null);
+  const [pokemonShown, setPokemonShown] = React.useState(BATCH_SIZE * 2);
+  const observerRef = React.useRef<IntersectionObserver | null>(null);
 
   const visiblePokemon = React.useMemo(
     () => props.pokemon.slice(0, pokemonShown),
     [props.pokemon, pokemonShown],
   );
 
-  const showMorePokemon = React.useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      const first = entries[0];
-      if (!first?.isIntersecting) return;
-      console.log("settin");
-      setPokemonShown((prev) => Math.min(prev + 32, props.pokemon.length));
+  const loadingCallback = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+        observerRef.current = null;
+      }
+      if (!node) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (!entries[0]?.isIntersecting) return;
+          setPokemonShown((prev) =>
+            Math.min(prev + BATCH_SIZE, props.pokemon.length),
+          );
+        },
+        { rootMargin: "300px", threshold: 0 },
+      );
+      observer.observe(node);
+      observerRef.current = observer;
+
+      return () => observer.disconnect();
     },
-    [],
+    [props.pokemon.length],
   );
 
-  useEffect(() => {
-    if (!loadingRef.current) return;
-    const options = { root: null, threshold: 0 };
-    let observer = new IntersectionObserver(showMorePokemon, options);
-    observer.observe(loadingRef.current);
-  }, []);
+  React.useEffect(() => setPokemonShown(BATCH_SIZE * 2), [props.pokemon]);
 
   return (
     <div className="pokedex-container">
@@ -57,13 +69,10 @@ export default function PokeGrid(props: PokeGridProps) {
             );
           })}
         </div>
+        <div ref={loadingCallback} style={{ height: 1 }} />
         {pokemonShown < props.pokemon.length ? (
-          <span className="flex justify-center mt-3" ref={loadingRef}>
-            Loading...
-          </span>
-        ) : (
-          ""
-        )}
+          <span className="flex justify-center mt-3">Loading...</span>
+        ) : null}
       </div>
     </div>
   );

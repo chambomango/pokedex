@@ -68,7 +68,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
     <div className="flex justify-between mb-2">
       <input
         id="poke-search-input"
-        className="rounded-md border pl-2"
+        className="rounded-md w-75 border pl-2"
         placeholder="Search"
         onChange={updateSearch}
         defaultValue={searchParams.get("search") || ""}
