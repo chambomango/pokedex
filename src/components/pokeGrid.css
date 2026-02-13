@@ -1,8 +1,8 @@
 :root {
   --sprite-dimensions: 96px; /*must be in increments of 96 (the native image size)*/
-  --img-padding: 16px;
-  --columns: 6;
-  --grid-gap: 8px;
+  --img-padding: 8px;
+  --columns: 8;
+  --grid-gap: 10px;
   --card-height: fit-content;
   --card-width: calc(
     var(--sprite-dimensions) + var(--img-padding) * 2 + var(--card-border) * 2
@@ -13,7 +13,7 @@
 .pokedex-container {
   display: flex;
   flex-direction: column;
-  margin: 24px auto 0 auto;
+  margin: 24px auto 48px auto;
   max-width: calc(
     (var(--columns) * var(--card-width)) +
       ((var(--columns) - 1) * var(--grid-gap))
@@ -52,7 +52,7 @@
   justify-content: center;
   align-items: center;
   background-color: #f5f5f5;
-  padding: 14px var(--img-padding);
+  padding: 4px var(--img-padding);
 }
 
 .poke-card-image img {
@@ -75,7 +75,6 @@
 }
 
 .poke-card-id {
-  margin: 4px 0 0 0;
   font-size: 14px;
   color: #666;
 }

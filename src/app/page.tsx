@@ -28,7 +28,7 @@ export default function Home() {
       </p>
       <div className="mt-5 flex flex-col items-center">
         <div className="w-full max-w-xl">
-          <Link
+          {/* <Link
             href="/pokedex"
             className="text-center group block rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md hover:border-zinc-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
           >
@@ -39,14 +39,15 @@ export default function Home() {
                   <span className="text-zinc-500">(work-in-progress)</span>
                 </h4>
                 <p className={`mt-2 text-sm text-zinc-600`}>
-                  Pokémon grid with search capabilities and filtering for type.
+                  Pokémon display grid.
                 </p>
                 <p className={`mt-1 text-sm text-zinc-600`}>
-                  Patterns: lazy loading, search parameter handling.
+                  Patterns used: filtering, lazy loading, pagination via
+                  infinite scrolling, search parameter handling.
                 </p>
               </div>
             </div>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

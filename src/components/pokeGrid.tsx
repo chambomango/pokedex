@@ -1,23 +1,10 @@
 "use client";
 import { NamedAPIResource } from "pokenode-ts";
 import { PokeDisplayCard } from "./pokeCard";
-import {
-  capitalizeFirst,
-  formatGeneration,
-  idFromUrl,
-} from "@/helpers/gridHelpers";
+import { idFromUrl } from "@/helpers/gridHelpers";
 import "./pokeGrid.css";
-import { useRouter, useSearchParams } from "next/navigation";
+import PokeGridToolbar from "./pokeGridToolbar";
 import React, { useEffect } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
 
 type PokeGridProps = {
   pokemonTypes: NamedAPIResource[];
@@ -26,107 +13,40 @@ type PokeGridProps = {
 };
 
 export default function PokeGrid(props: PokeGridProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [selectedType, setSelectedType] = React.useState("");
-  const [selectedGen, setSelectedGen] = React.useState("");
+  const [pokemonShown, setPokemonShown] = React.useState(32);
+  const loadingRef = React.useRef<HTMLElement>(null);
+
+  const visiblePokemon = React.useMemo(
+    () => props.pokemon.slice(0, pokemonShown),
+    [props.pokemon, pokemonShown],
+  );
+
+  const showMorePokemon = React.useCallback(
+    (entries: IntersectionObserverEntry[]) => {
+      const first = entries[0];
+      if (!first?.isIntersecting) return;
+      console.log("settin");
+      setPokemonShown((prev) => Math.min(prev + 32, props.pokemon.length));
+    },
+    [],
+  );
 
   useEffect(() => {
-    const type = searchParams.get("type") || "all";
-    const gen = searchParams.get("gen") || "all";
-    setSelectedType(type);
-    setSelectedGen(gen);
-  }, [searchParams]);
-
-  const updateParams = React.useCallback(
-    (name: string, value?: string) => {
-      const params = new URLSearchParams(window.location.search);
-      if (value) params.set(name, value);
-      else params.delete(name);
-      router.push(`/pokedex?${params.toString()}`);
-    },
-    [router],
-  );
-
-  const updateGen = React.useCallback(
-    (value: string) => {
-      setSelectedGen(value);
-      updateParams("gen", value === "all" ? undefined : value);
-    },
-    [updateParams],
-  );
-
-  const updateType = React.useCallback(
-    (value: string) => {
-      setSelectedType(value);
-      updateParams("type", value === "all" ? undefined : value);
-    },
-    [updateParams],
-  );
-
-  const updateSearch = React.useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      updateParams("search", e.target.value);
-    },
-    [updateParams],
-  );
+    if (!loadingRef.current) return;
+    const options = { root: null, threshold: 0 };
+    let observer = new IntersectionObserver(showMorePokemon, options);
+    observer.observe(loadingRef.current);
+  }, []);
 
   return (
     <div className="pokedex-container">
-      <div className="flex justify-between mb-2">
-        <input
-          id="poke-search-input"
-          className="rounded-md border pl-2"
-          placeholder="Search"
-          onChange={updateSearch}
-          defaultValue={searchParams.get("search") || ""}
-        ></input>
-        <div className="flex gap-3">
-          <Select value={selectedGen} onValueChange={updateGen}>
-            <SelectTrigger className="w-full max-w-48">
-              {selectedGen === "" ? (
-                <span className="truncate">All Generations</span>
-              ) : (
-                <SelectValue />
-              )}
-            </SelectTrigger>
-            <SelectContent position="popper">
-              <SelectGroup>
-                <SelectLabel>Generations</SelectLabel>
-                <SelectItem value="all">All Generations</SelectItem>
-                {props?.generations?.map((t) => (
-                  <SelectItem key={t.name} value={t.name}>
-                    {formatGeneration(t.name)}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          <Select value={selectedType} onValueChange={updateType}>
-            <SelectTrigger className="w-full max-w-48">
-              {selectedType === "" ? (
-                <span className="truncate">All Types</span>
-              ) : (
-                <SelectValue />
-              )}
-            </SelectTrigger>
-            <SelectContent position="popper">
-              <SelectGroup>
-                <SelectLabel>Types</SelectLabel>
-                <SelectItem value="all">All Types</SelectItem>
-                {props.pokemonTypes.map((t) => (
-                  <SelectItem key={t.name} value={t.name}>
-                    {capitalizeFirst(t.name)}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
+      <PokeGridToolbar
+        pokemonTypes={props.pokemonTypes}
+        generations={props.generations}
+      />
       <div className="mt-1">
         <div className="poke-grid">
-          {props.pokemon.map((p) => {
+          {visiblePokemon.map((p) => {
             const id = idFromUrl(p.url);
             return (
               <PokeDisplayCard
@@ -137,6 +57,13 @@ export default function PokeGrid(props: PokeGridProps) {
             );
           })}
         </div>
+        {pokemonShown < props.pokemon.length ? (
+          <span className="flex justify-center mt-3" ref={loadingRef}>
+            Loading...
+          </span>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
