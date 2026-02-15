@@ -146,10 +146,6 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 .pixelated {
   image-rendering: pixelated;
 }
