@@ -112,12 +112,12 @@ export default function Home() {
             Full-Stack Software Engineer
           </h4>
           <div
-            className={`text-zinc-600 flex mb-4 font-semibold text-7xl ${spaceGrotesk.className}`}
+            className={`text-zinc-700 flex mb-4 font-semibold text-7xl ${spaceGrotesk.className}`}
           >
             benjamin
           </div>
           <div
-            className={`text-zinc-600 flex mb-8 font-semibold text-7xl ${spaceGrotesk.className}`}
+            className={`text-zinc-400 flex mb-8 font-semibold text-7xl ${spaceGrotesk.className}`}
           >
             chamberlain
           </div>

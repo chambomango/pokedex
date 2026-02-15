@@ -53,8 +53,8 @@ export default async function PokedexPage({
 
   return (
     <div className="flex flex-col mt-[80px] mx-auto">
-      <h1 className="mb-[8px] text-center">Pokémon Viewer</h1>
-      <h3 className="mb-[20px] text-center">
+      <h1 className="mb-[8px] text-center text-zinc-700">Pokémon Viewer</h1>
+      <h3 className="mb-[20px] text-center text-zinc-500">
         Search for your favorite pokémon and filter by generation and type
       </h3>
       <PokeGrid
