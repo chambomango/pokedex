@@ -5,9 +5,10 @@
   align-content: center;
   align-items: center;
   padding: 6px 12px;
-  background-color: #f5f5f5;
   color: #333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  /* background-color: #f5f5f5;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 .navBarLinks {
@@ -39,11 +40,6 @@
 
 .navBarLogo {
   font-size: 24px;
-  font-weight: bold;
-  color: #000;
-  padding: 8px 12px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 0 8px 8px;
 }

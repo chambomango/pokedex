@@ -1,55 +1,176 @@
+"use client";
+import {
+  Space_Grotesk,
+  Orbitron,
+  Orbit,
+  DM_Serif_Text,
+  Space_Mono,
+} from "next/font/google";
 import Link from "next/link";
-import { Space_Grotesk, Source_Code_Pro } from "next/font/google";
+import React from "react";
+
+//#region fonts
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 });
 
-const sourceCodePro = Source_Code_Pro({
+const orbitron = Orbitron({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "600", "700"],
 });
 
+const orbit = Orbit({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+});
+
+const dmserif = DM_Serif_Text({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+//#endregion
+
 export default function Home() {
+  const sectionAnimations = React.useCallback((node: HTMLDivElement | null) => {
+    if (!node) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("animate-show");
+        else entry.target.classList.remove("animate-show");
+      });
+    });
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, []);
+
+  const stopPropagation = React.useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) =>
+      event.stopPropagation(),
+    [],
+  );
+
   return (
-    <div className="flex flex-col justify-center items-center max-w-200 mt-20 mx-auto mb-0">
-      <h1 className={`mb-4 font-semibold text-6xl ${spaceGrotesk.className}`}>
-        Ben Chamberlain
-      </h1>
-      <p
-        className={`text-justify mb-4 px-26  text-zinc-600 ${sourceCodePro.className}`}
+    <div className="flex flex-col items-center justify-center mx-auto mb-40">
+      <section
+        ref={sectionAnimations}
+        className="animate-hidden max-w-106 h-[100vh]"
       >
-        Hi I'm Ben, welcome to my site. I'm a full-stack software developer with
-        4+ years experience developing enterprise applications. Here I post some
-        of my side projects I work on for fun. This site and all of the projects
-        within were created using TypeScript, React, and NextJS. To see the code
-        for this site visit the portfolio project on my GitHub.
-      </p>
-      <div className="mt-5 flex flex-col items-center">
-        <div className="w-full max-w-xl">
-          {/* <Link
-            href="/pokedex"
-            className="text-center group block rounded-2xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:shadow-md hover:border-zinc-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+        <div className="mt-30 flex flex-col">
+          <h4
+            className={`text-zinc-500 flex mb-6 font-semibold text-1xl ${spaceGrotesk.className}`}
           >
-            <div className="flex items-start justify-between gap-3">
-              <div>
-                <h4 className="text-lg font-semibold group-hover:underline">
-                  Pokémon Viewer{" "}
-                  <span className="text-zinc-500">(work-in-progress)</span>
-                </h4>
-                <p className={`mt-2 text-sm text-zinc-600`}>
-                  Pokémon display grid.
-                </p>
-                <p className={`mt-1 text-sm text-zinc-600`}>
-                  Patterns used: filtering, lazy loading, pagination via
-                  infinite scrolling, search parameter handling.
-                </p>
-              </div>
-            </div>
-          </Link> */}
+            Full-Stack Software Engineer
+          </h4>
+          <div
+            className={`text-zinc-600 flex mb-4 font-semibold text-7xl ${spaceGrotesk.className}`}
+          >
+            benjamin
+          </div>
+          <div
+            className={`text-zinc-600 flex mb-8 font-semibold text-7xl ${spaceGrotesk.className}`}
+          >
+            chamberlain
+          </div>
         </div>
-      </div>
+        <p
+          className={`text-justify mb-4 text-zinc-500 max-w-155 ${spaceGrotesk.className}`}
+        >
+          Hi I'm Ben, welcome to my site. Here I post some of my side projects I
+          work on for fun. To see the code for this site visit the portfolio
+          project on my GitHub.
+        </p>
+        {/* <img
+          className="mt-76 w-18 h-18 mx-auto"
+          src="/logos/SVG/arrow-down-wide-fill-zinc-light.svg"
+        /> */}
+      </section>
+
+      <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
+        <h2 className="text-zinc-600">About Me</h2>
+        <hr className="mt-2 mb-6"></hr>
+        <p
+          className={`text-justify mb-4 text-zinc-500 ${spaceGrotesk.className}`}
+        >
+          I'm a full-stack software developer with 4+ years experience
+          developing enterprise applications. I've worked in two positions and
+          specialize in responsive and clean UIs, scalable API services, and SQL
+          management.
+        </p>
+        <div className="mt-8 flex gap-4 justify-between">
+          <div className="flex flex-col items-center">
+            <h1 className="pt-4 text-zinc-600 h-22 content-center">4+</h1>
+            <p className="pt-4 px-4 text-zinc-500">Years of Professional</p>
+            <p className="pb-4 text-zinc-500">Experience</p>
+          </div>
+
+          <div className="flex flex-col items-center">
+            <div className="h-22 content-center">
+              <img
+                className="pt-4 w-18 h-18"
+                src="/logos/SVG/graduation-cap-fill-zinc.svg"
+              />
+            </div>
+            <div className="p-4 text-center">
+              <p className=" text-zinc-500">Bachelor's Degree</p>
+              <p className=" text-zinc-500">in Computer Science</p>
+              <p className=" text-zinc-500">University of New Hampshire</p>
+            </div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="h-22 content-center">
+              <img
+                className="pt-4 w-17 h-17"
+                src="/logos/SVG/map-pin-fill-zinc.svg"
+              />
+            </div>
+            <div className="p-4 text-center">
+              <p className=" text-zinc-500">Located in Barrington,</p>
+              <p className=" text-zinc-500">New Hampshire</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
+        <h2 className="text-zinc-600">Projects</h2>
+        <hr className="mt-2 mb-6"></hr>
+        <Link href="/pokedex">
+          <div className="border p-8 rounded-xl">
+            <h3 className="font-semibold mb-3 text-zinc-600">Pokemon Viewer</h3>
+            <p className="text-zinc-500">
+              View pokemon across all nine generations. Search for your favorite
+              or filter by type/generation.
+            </p>
+            {/* <p className="text-zinc-500">
+              Click on a pokemon to view more information about it such as it's
+              stats and moves
+            </p> */}
+            <p className="text-zinc-500 mb-5">
+              Patterns used: filtering, lazy loading, pagination via infinite
+              scrolling, search parameter handling.
+            </p>
+            {/* <div className="source-code">
+              <a
+                className="text-zinc-600 font-semibold border px-3 py-1 rounded-xl"
+                href="https://github.com/chambomango/portfolio"
+                onClick={stopPropagation}
+              >
+                Source code
+              </a>
+            </div> */}
+          </div>
+        </Link>
+      </section>
     </div>
   );
 }

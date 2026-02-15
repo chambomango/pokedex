@@ -2,12 +2,25 @@ import Link from "next/link";
 import Image from "next/image";
 import "./navBar.css";
 
-export default function NavBar() {
+import { Space_Grotesk } from "next/font/google";
+import DisplayPath from "./displayPath";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
+export default async function NavBar({ label }: { label: string }) {
   return (
     <nav className="navBar">
-      <Link href="/">
-        <div className="navBarLogo">BC</div>
-      </Link>
+      <div className="flex">
+        <Link href="/">
+          <div className={`navBarLogo text-zinc-600 ${spaceGrotesk.className}`}>
+            Ben
+          </div>
+        </Link>
+        <DisplayPath />
+      </div>
       <ul className="navBarLinks">
         <li>
           <Link href="/">Home</Link>
