@@ -146,6 +146,10 @@
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .pixelated {
   image-rendering: pixelated;
 }
@@ -157,6 +161,17 @@
 
 .animate-show {
   opacity: 1;
+}
+
+.arrow-show {
+  opacity: 0.7;
+  transition: opacity 2s ease;
+}
+
+.arrow-hide {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
 .source-code a:hover {

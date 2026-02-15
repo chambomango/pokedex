@@ -1,4 +1,5 @@
 "use client";
+import TechStackSection from "@/components/techStackSection";
 import {
   Space_Grotesk,
   Orbitron,
@@ -39,18 +40,59 @@ const dmserif = DM_Serif_Text({
 //#endregion
 
 export default function Home() {
+  const arrowRef = React.useRef<HTMLImageElement | null>(null);
+
   const sectionAnimations = React.useCallback((node: HTMLDivElement | null) => {
     if (!node) return;
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("animate-show");
-        else entry.target.classList.remove("animate-show");
+        entry.target.classList.toggle("animate-show", entry.isIntersecting);
       });
     });
     observer.observe(node);
 
     return () => observer.disconnect();
+  }, []);
+
+  const arrowHideAnimation = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!node) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (arrowRef.current && entry.isIntersecting) {
+            arrowRef.current.classList.add("arrow-hide");
+          }
+        });
+      });
+      observer.observe(node);
+
+      return () => observer.disconnect();
+    },
+    [],
+  );
+
+  const arrowShowAnimation = React.useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!node) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (arrowRef.current && entry.isIntersecting) {
+            arrowRef.current.classList.remove("arrow-hide");
+            arrowRef.current.classList.add("arrow-show");
+          }
+        });
+      });
+      observer.observe(node);
+
+      return () => observer.disconnect();
+    },
+    [],
+  );
+
+  const scrollToAboutSection = React.useCallback(() => {
+    document
+      .getElementById("about-section")
+      ?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   const stopPropagation = React.useCallback(
@@ -61,10 +103,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center mx-auto mb-40">
-      <section
-        ref={sectionAnimations}
-        className="animate-hidden max-w-106 h-[100vh]"
-      >
+      <span ref={arrowShowAnimation}></span>
+      <section className="animate-show max-w-106 h-[100vh]">
         <div className="mt-30 flex flex-col">
           <h4
             className={`text-zinc-500 flex mb-6 font-semibold text-1xl ${spaceGrotesk.className}`}
@@ -86,16 +126,29 @@ export default function Home() {
           className={`text-justify mb-4 text-zinc-500 max-w-155 ${spaceGrotesk.className}`}
         >
           Hi I'm Ben, welcome to my site. Here I post some of my side projects I
-          work on for fun. To see the code for this site visit the portfolio
-          project on my GitHub.
+          work on for fun. This site and all of the projects within were created
+          using TypeScript, React, and NextJS. To see the code for this site
+          click the link to my GitHub.
         </p>
-        {/* <img
-          className="mt-76 w-18 h-18 mx-auto"
-          src="/logos/SVG/arrow-down-wide-fill-zinc-light.svg"
-        /> */}
+        <button
+          className="mt-60 flex mx-auto cursor-pointer"
+          onClick={scrollToAboutSection}
+        >
+          <img
+            ref={arrowRef}
+            id="arrow-down"
+            className="block cursor-pointer animate-show w-16 mx-auto"
+            src="/logos/SVG/arrow-down-wide-fill-zinc-light.svg"
+          />
+        </button>
       </section>
 
-      <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
+      <section
+        ref={sectionAnimations}
+        id="about-section"
+        className="mb-60 animate-hidden w-200 "
+      >
+        <span ref={arrowHideAnimation}></span>
         <h2 className="text-zinc-600">About Me</h2>
         <hr className="mt-2 mb-6"></hr>
         <p
@@ -106,7 +159,7 @@ export default function Home() {
           specialize in responsive and clean UIs, scalable API services, and SQL
           management.
         </p>
-        <div className="mt-8 flex gap-4 justify-between">
+        <div className="mt-10 flex gap-4 justify-between">
           <div className="flex flex-col items-center">
             <h1 className="pt-4 text-zinc-600 h-22 content-center">4+</h1>
             <p className="pt-4 px-4 text-zinc-500">Years of Professional</p>
@@ -141,35 +194,79 @@ export default function Home() {
         </div>
       </section>
 
+      <section ref={sectionAnimations} className="mb-60 animate-hidden w-200 ">
+        <h2 className="text-zinc-600">Technology Stack</h2>
+        <hr className="mt-2 mb-6"></hr>
+        <div className="flex flex-col gap-6 justify-between">
+          <TechStackSection
+            title="Languages"
+            items={[
+              "TypeScript",
+              "HTML",
+              "CSS",
+              "C#",
+              "Python",
+              "Java",
+              "Scala",
+              "C++",
+              "PowerShell",
+              "SQL",
+            ]}
+          />
+          <TechStackSection
+            title="Front-End"
+            items={["React", "Redux", "Next.js", "Blazor"]}
+          />
+          <TechStackSection title="Back-End" items={["ASP.NET", "Node.js"]} />
+          <TechStackSection
+            title="DevOps & Cloud"
+            items={[
+              "Azure DevOps",
+              "Amazon Web Services",
+              "Vercel",
+              "GitHub Actions",
+            ]}
+          />
+          <TechStackSection
+            title="Tools"
+            items={["Docker", "Postman", "Git", "GitHub"]}
+          />
+        </div>
+      </section>
+
       <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
         <h2 className="text-zinc-600">Projects</h2>
         <hr className="mt-2 mb-6"></hr>
-        <Link href="/pokedex">
-          <div className="border p-8 rounded-xl">
+        <div className="w-80 border p-8 rounded-xl">
+          <Link
+            className="hover:underline hover:decoration-zinc-600"
+            href="/pokedex"
+          >
             <h3 className="font-semibold mb-3 text-zinc-600">Pokemon Viewer</h3>
-            <p className="text-zinc-500">
-              View pokemon across all nine generations. Search for your favorite
-              or filter by type/generation.
-            </p>
-            {/* <p className="text-zinc-500">
+          </Link>
+          <p className="text-zinc-500">
+            View pokemon across all nine generations. Search for your favorite
+            or filter by type/generation.
+          </p>
+          {/* <p className="text-zinc-500">
               Click on a pokemon to view more information about it such as it's
               stats and moves
             </p> */}
-            <p className="text-zinc-500 mb-5">
-              Patterns used: filtering, lazy loading, pagination via infinite
-              scrolling, search parameter handling.
-            </p>
-            {/* <div className="source-code">
-              <a
-                className="text-zinc-600 font-semibold border px-3 py-1 rounded-xl"
-                href="https://github.com/chambomango/portfolio"
-                onClick={stopPropagation}
-              >
-                Source code
-              </a>
-            </div> */}
+          <br />
+          <p className="text-zinc-500 mb-5">
+            Technical patterns used: filtering, lazy loading, pagination via
+            infinite scrolling, search parameter handling.
+          </p>
+          <div className="source-code">
+            <a
+              className="text-zinc-600 font-semibold border px-3 py-1 rounded-md"
+              href="https://github.com/chambomango/portfolio"
+              onClick={stopPropagation}
+            >
+              Source code
+            </a>
           </div>
-        </Link>
+        </div>
       </section>
     </div>
   );
