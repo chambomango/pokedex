@@ -16,7 +16,6 @@ const BATCH_SIZE = 32;
 
 export default function PokeGrid(props: PokeGridProps) {
   const [pokemonShown, setPokemonShown] = React.useState(BATCH_SIZE * 2);
-  const observerRef = React.useRef<IntersectionObserver | null>(null);
 
   const visiblePokemon = React.useMemo(
     () => props.pokemon.slice(0, pokemonShown),
@@ -25,10 +24,6 @@ export default function PokeGrid(props: PokeGridProps) {
 
   const loadingCallback = React.useCallback(
     (node: HTMLDivElement | null) => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-        observerRef.current = null;
-      }
       if (!node) return;
 
       const observer = new IntersectionObserver(
@@ -41,7 +36,6 @@ export default function PokeGrid(props: PokeGridProps) {
         { rootMargin: "300px", threshold: 0 },
       );
       observer.observe(node);
-      observerRef.current = observer;
 
       return () => observer.disconnect();
     },
