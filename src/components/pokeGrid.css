@@ -30,31 +30,21 @@
   grid-template-columns: repeat(var(--columns), var(--card-width));
   justify-content: center;
 }
-
 .poke-card {
-  border: var(--card-border) solid #ddd;
-  border-radius: 8px;
+  border: 1px solid rgb(228 228 231); /* zinc-200 */
+  border-radius: 12px;
+  background: white;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-  cursor: pointer;
-  width: var(--card-width);
-  height: var(--card-height);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
 }
 
 .poke-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .poke-card-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fafafa;
+  background: rgb(250 250 250); /* zinc-50 */
   padding: 4px var(--img-padding);
 }
 

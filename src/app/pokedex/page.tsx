@@ -52,18 +52,18 @@ export default async function PokedexPage({
   });
 
   return (
-    <div className="mx-auto flex flex-col px-4 pt-18">
-      <div className="mb-4 space-y-2">
-        <h1 className="mb-6 text-4xl font-semibold tracking-wide text-zinc-800">
+    <div className="mx-auto flex flex-col px-4 pt-14 sm:pt-18">
+      <div className="mb-6">
+        <h1 className="text-4xl font-semibold tracking-wide text-zinc-800">
           Interactive Pokédex
         </h1>
 
-        <p className="text-base text-zinc-600">
+        <p className="mt-3 text-base text-zinc-600">
           Explore Pokémon by generation and type. Select any Pokémon to view
           detailed stats, abilities, and evolution data.
         </p>
 
-        <p className="text-xs text-zinc-600">
+        <p className="mt-2 text-xs text-zinc-500">
           Pokémon and Pokédex are trademarks of Nintendo. This project is a
           fan-made application for educational purposes only.
         </p>
