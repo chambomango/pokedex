@@ -14,6 +14,7 @@ import {
 import { PokemonStatsChart } from "@/components/pokemonStatsChart";
 import EvolutionTree from "@/components/evolutionTree";
 import Link from "next/link";
+import { PokemonBreadcrumb } from "@/components/pokemonBreadcrumb";
 
 export default async function PokemonPage({
   params,
@@ -50,66 +51,74 @@ export default async function PokemonPage({
   );
 
   return (
-    <div className="flex flex-col mt-10 gap-8 mb-40">
-      <div className="flex justify-between items-center">
-        <div className="w-40">
-          {previousPokemon && (
-            <Link href={`/pokedex/${previousPokemon.name}`}>
-              <div className="flex gap-2 items-center text-zinc-600 hover:underline">
-                <img
-                  className="w-4.5"
-                  src="/logos/SVG/arrow-left-wide-line.svg"
-                />
-                <div className="text-center">
-                  <div>
-                    #{idFromUrl(previousPokemon.url)}{" "}
-                    {capitalizeFirst(previousPokemon.name)}
+    <div className="flex flex-col mt-4 gap-8 mb-40">
+      <div>
+        <div className="mb-8">
+          <PokemonBreadcrumb name={pokemonData.name} />
+        </div>
+        <div className="flex justify-between items-center">
+          <div className="w-40">
+            {previousPokemon && (
+              <Link href={`/pokedex/${previousPokemon.name}`}>
+                <div className="flex gap-2 items-center text-zinc-600 hover:underline">
+                  <img
+                    className="w-4.5"
+                    src="/logos/SVG/arrow-left-wide-line.svg"
+                  />
+                  <div className="text-center">
+                    <div>
+                      #{idFromUrl(previousPokemon.url)}{" "}
+                      {capitalizeFirst(previousPokemon.name)}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          )}
-        </div>
-        <div className="flex flex-col items-center self-center text-center">
-          <div className="border rounded-lg shadow-md w-fit">
-            <img
-              className="w-48 h-48 pixelated"
-              src={pokemonData.sprites.front_default || ""}
-              alt={pokemonData.name}
-              loading="lazy"
-              decoding="async"
-              width={192}
-              height={192}
-            />
+              </Link>
+            )}
           </div>
-          <h2 className="tracking-wide">{capitalizeFirst(pokemonData.name)}</h2>
-          <h3 className="text-zinc-600">#{pokemonData.id}</h3>
-        </div>
-        <div className="w-40">
-          {nextPokemon && (
-            <Link href={`/pokedex/${nextPokemon.name}`}>
-              <div className="flex gap-2 items-center text-zinc-600 hover:underline justify-end">
-                <div className="text-center">
-                  <div className="">
-                    #{idFromUrl(nextPokemon.url)}{" "}
-                    {capitalizeFirst(nextPokemon.name)}
+          <div className="flex flex-col items-center self-center text-center">
+            <div className="border rounded-lg shadow-md w-fit">
+              <img
+                className="w-48 h-48 pixelated"
+                src={pokemonData.sprites.front_default || ""}
+                alt={pokemonData.name}
+                loading="lazy"
+                decoding="async"
+                width={192}
+                height={192}
+              />
+            </div>
+            <h2 className="tracking-wide">
+              {capitalizeFirst(pokemonData.name)}
+            </h2>
+            <h3 className="text-zinc-600">#{pokemonData.id}</h3>
+          </div>
+          <div className="w-40">
+            {nextPokemon && (
+              <Link href={`/pokedex/${nextPokemon.name}`}>
+                <div className="flex gap-2 items-center text-zinc-600 hover:underline justify-end">
+                  <div className="text-center">
+                    <div className="">
+                      #{idFromUrl(nextPokemon.url)}{" "}
+                      {capitalizeFirst(nextPokemon.name)}
+                    </div>
                   </div>
+                  <img
+                    className="w-4.5"
+                    src="/logos/SVG/arrow-right-wide-line.svg"
+                  />
                 </div>
-                <img
-                  className="w-4.5"
-                  src="/logos/SVG/arrow-right-wide-line.svg"
-                />
-              </div>
-            </Link>
-          )}
+              </Link>
+            )}
+          </div>
         </div>
       </div>
+
       <div className="mt-4 flex flex-col gap-4">
         <h3 className="tracking-wide">
           <b>Basic Info</b>
         </h3>
         <div className="flex">
-          <h4 className="">
+          <h4 className="mr-1">
             {pokemonData.types.length > 1 ? "Types" : "Type"}
           </h4>
           <div className="flex ml-3 gap-2">
@@ -121,24 +130,20 @@ export default async function PokemonPage({
           </div>
         </div>
         <div className="flex gap-2">
-          <h4>Abilities</h4>
+          <h4 className="mr-1">Abilities</h4>
           {pokemonData.abilities.map((ability) => (
             <div key={ability.ability.name} className="border px-2 shadow-xs">
               {capitalizeFirst(ability.ability.name)}
             </div>
           ))}
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-baseline gap-4">
           <h4>Height</h4>
-          <div className="border px-2 shadow-xs">
-            {pokemonData.height / 10}m
-          </div>
+          <div>{pokemonData.height / 10}m</div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-baseline gap-4">
           <h4>Weight</h4>
-          <div className="border px-2 shadow-xs">
-            {pokemonData.weight / 10}kg
-          </div>
+          <div>{pokemonData.weight / 10}kg</div>
         </div>
       </div>
 

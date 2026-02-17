@@ -52,11 +52,23 @@ export default async function PokedexPage({
   });
 
   return (
-    <div className="flex flex-col mt-[80px] mx-auto">
-      <h1 className="mb-[8px] text-center text-zinc-700">Pokémon Viewer</h1>
-      <h3 className="mb-[20px] text-center text-zinc-500">
-        Search for your favorite pokémon and filter by generation and type
-      </h3>
+    <div className="mx-auto flex flex-col px-4 pt-18">
+      <div className="mb-4 space-y-2">
+        <h1 className="mb-6 text-4xl font-semibold tracking-wide text-zinc-800">
+          Interactive Pokédex
+        </h1>
+
+        <p className="text-base text-zinc-600">
+          Explore Pokémon by generation and type. Select any Pokémon to view
+          detailed stats, abilities, and evolution data.
+        </p>
+
+        <p className="text-xs text-zinc-600">
+          Pokémon and Pokédex are trademarks of Nintendo. This project is a
+          fan-made application for educational purposes only.
+        </p>
+      </div>
+
       <PokeGrid
         pokemon={pokemonFiltered}
         pokemonTypes={pokemonTypes}

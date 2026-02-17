@@ -10,7 +10,7 @@ const spaceGrotesk = Space_Grotesk({
 
 const getDisplayName = (pathname: string) => {
   if (pathname === "/") return "| Home";
-  if (pathname.startsWith("/pokedex")) return "| Pokémon Viewer";
+  if (pathname.startsWith("/pokedex")) return "| Pokédex";
   else return "";
 };
 

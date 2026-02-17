@@ -26,7 +26,7 @@ export default async function NavBar({ label }: { label: string }) {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/pokedex">Pokémon Viewer</Link>
+          <Link href="/pokedex">Pokédex</Link>
         </li>
         <li>
           <a href="https://www.linkedin.com/in/ben-chamberlain/">

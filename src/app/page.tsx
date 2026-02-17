@@ -242,7 +242,7 @@ export default function Home() {
             className="hover:underline hover:decoration-zinc-600"
             href="/pokedex"
           >
-            <h3 className="font-semibold mb-3 text-zinc-600">Pokemon Viewer</h3>
+            <h3 className="font-semibold mb-3 text-zinc-600">Pokédex</h3>
           </Link>
           <p className="text-zinc-500">
             View pokemon across all nine generations. Search for your favorite
