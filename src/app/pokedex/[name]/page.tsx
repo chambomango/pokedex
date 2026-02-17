@@ -114,7 +114,9 @@ export default async function PokemonPage({
           </h4>
           <div className="flex ml-3 gap-2">
             {pokemonData.types.map((t) => (
-              <PokeTypeBox key={t.type.name} type={t.type.name} />
+              <Link key={t.type.name} href={`/pokedex?type=${t.type.name}`}>
+                <PokeTypeBox type={t.type.name} />
+              </Link>
             ))}
           </div>
         </div>
