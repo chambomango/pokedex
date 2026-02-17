@@ -1,4 +1,4 @@
-import { Pokemon, PokemonClient } from "pokenode-ts";
+import { EvolutionClient, Pokemon, PokemonClient } from "pokenode-ts";
 import "../../../components/pokeGrid.css";
 import { capitalizeFirst, idFromUrl } from "@/helpers/gridHelpers";
 import PokeTypeBox, { typesToColors } from "@/components/pokeTypeBox";
@@ -26,6 +26,10 @@ export default async function PokemonPage({
   );
   const speciesData = await pokemonClient.getPokemonSpeciesByName(
     pokemonData.species.name,
+  );
+  const evolutionClient = new EvolutionClient();
+  const evolutionData = await evolutionClient.getEvolutionChainById(
+    idFromUrl(speciesData.evolution_chain.url),
   );
 
   //Todo... all one table, sorting on all, default to level learned down and level-up fowwn for method. Dropdown to only show certain methods. Split button for each generation...
@@ -57,8 +61,8 @@ export default async function PokemonPage({
       <h3>
         <b>Evolution Line</b>
       </h3>
-      <div>
-        <EvolutionLine chainUrl={speciesData.evolution_chain.url} />{" "}
+      <div className="flex items-center">
+        <EvolutionLine chainLink={evolutionData.chain} />{" "}
       </div>
       <div className="mt-8 flex flex-col gap-4">
         <h3>

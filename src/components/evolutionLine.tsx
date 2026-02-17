@@ -1,59 +1,43 @@
 import { idFromUrl } from "@/helpers/gridHelpers";
 import Link from "next/link";
-import { ChainLink, EvolutionClient } from "pokenode-ts";
-import { JSX } from "react";
+import { ChainLink } from "pokenode-ts";
 
 export default async function EvolutionLine({
-  chainUrl,
+  chainLink,
 }: {
-  chainUrl: string;
+  chainLink: ChainLink;
 }) {
-  const evolutionClient = new EvolutionClient();
-  const evolutionData = await evolutionClient.getEvolutionChainById(
-    idFromUrl(chainUrl),
-  );
-
-  const evolutionLine: { evolution: JSX.Element; level: number }[] = [];
-
-  function addToEvolulutionLine(
-    evChain: ChainLink,
-    evLine: { evolution: JSX.Element; level: number }[],
-    currentLevel: number,
-  ) {
-    evLine.push({
-      evolution: (
-        <div key={evChain.species.name} className="flex flex-col items-center">
+  return (
+    <>
+      <div className="flex items-center">
+        <div>
+          {/* <img className="w-8" src="/logos/SVG/arrow-right-long-line.svg"></img> */}
+        </div>
+        <div
+          key={chainLink.species.name}
+          className="flex flex-col items-center"
+        >
           <div>
             <img
               className="w-24 h-24 pixelated"
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${idFromUrl(evChain.species.url)}.png`}
-              alt={evChain.species.name}
+              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${idFromUrl(chainLink.species.url)}.png`}
+              alt={chainLink.species.name}
               loading="lazy"
               decoding="async"
               width={96}
               height={96}
             />
           </div>
-          <Link href={`/pokedex/${evChain.species.name}`}>
-            {evChain.species.name}
+          <Link href={`/pokedex/${chainLink.species.name}`}>
+            {chainLink.species.name}
           </Link>
         </div>
-      ),
-      level: currentLevel,
-    });
-
-    if (evChain.evolves_to === null) return;
-    else {
-      evChain.evolves_to.forEach((chain) => {
-        addToEvolulutionLine(chain, evolutionLine, currentLevel++);
-      });
-    }
-  }
-  addToEvolulutionLine(evolutionData.chain, evolutionLine, 0);
-
-  return (
-    <div className="flex space-between max-w-400">
-      {evolutionLine.map((line) => line.evolution)}
-    </div>
+      </div>
+      <div className="flex flex-col">
+        {chainLink.evolves_to.map((chain) => (
+          <EvolutionLine chainLink={chain} />
+        ))}
+      </div>
+    </>
   );
 }
