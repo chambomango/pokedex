@@ -12,7 +12,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { BarChartHorizontal } from "@/components/ui/barcharthorizontal";
-import EvolutionLine from "@/components/evolutionLine";
+import EvolutionLine from "@/components/evolutionBranches";
+import EvolutionLine2 from "@/components/evolutionLine copy";
+import EvolutionTree from "@/components/evolutionTree";
 
 export default async function PokemonPage({
   params,
@@ -58,12 +60,6 @@ export default async function PokemonPage({
         <h2>{capitalizeFirst(pokemonData.name)}</h2>
         <h3>#{pokemonData.id}</h3>
       </div>
-      <h3>
-        <b>Evolution Line</b>
-      </h3>
-      <div className="flex items-center">
-        <EvolutionLine chainLink={evolutionData.chain} />{" "}
-      </div>
       <div className="mt-8 flex flex-col gap-4">
         <h3>
           <b>Basic Info</b>
@@ -96,6 +92,12 @@ export default async function PokemonPage({
             {pokemonData.weight / 10}kg
           </div>
         </div>
+      </div>
+      <div>
+        <h3>
+          <b>Evolution Line</b>
+        </h3>
+        <EvolutionTree chainLink={evolutionData.chain} />{" "}
       </div>
       <div>
         <h3>
