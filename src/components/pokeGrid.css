@@ -10,14 +10,17 @@
   --card-border: 1px;
 }
 
-.pokedex-container {
-  display: flex;
-  flex-direction: column;
-  margin: 24px auto 48px auto;
+.poke-page {
   max-width: calc(
     (var(--columns) * var(--card-width)) +
       ((var(--columns) - 1) * var(--grid-gap))
   );
+}
+
+.pokedex-container {
+  display: flex;
+  flex-direction: column;
+  margin: 24px auto 48px auto;
 }
 
 .poke-grid {
@@ -55,7 +58,7 @@
   padding: 4px var(--img-padding);
 }
 
-.poke-card-image img {
+.poke-img {
   height: var(--sprite-dimensions);
   width: var(--sprite-dimensions);
   image-rendering: pixelated;
