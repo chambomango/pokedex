@@ -1,10 +1,26 @@
+"use client";
 import { ChainLink } from "pokenode-ts";
-import EvolutionLine from "./evolutionBranches";
+import { Xwrapper } from "react-xarrows";
+import EvolutionBranches from "./evolutionBranches";
 
-export default function EvolutionTree({ chainLink }: { chainLink: ChainLink }) {
+export default function EvolutionTree({
+  chainLink,
+  gap,
+  arrowColor,
+}: {
+  chainLink: ChainLink;
+  gap: string;
+  arrowColor: string;
+}) {
   return (
-    <div className="flex items-center">
-      <EvolutionLine chainLink={chainLink} />
+    <div className={`flex items-center gap-${gap}`}>
+      <Xwrapper>
+        <EvolutionBranches
+          chainLink={chainLink}
+          arrowColor={arrowColor}
+          gap={gap}
+        />
+      </Xwrapper>
     </div>
   );
 }

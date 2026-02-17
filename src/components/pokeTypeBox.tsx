@@ -51,7 +51,7 @@ export default function PokeTypeBox({ type }: { type: string }) {
   const color = typesToColors[type] || "#81a596";
   return (
     <div
-      className={`bg-${color} w-fit px-2 p-0.5 font-semibold`}
+      className="w-fit px-2 p-0.5 font-semibold tracking-wider border shadow-sm"
       style={{ backgroundColor: color, color: "white" }}
     >
       {capitalizeFirst(type)}
