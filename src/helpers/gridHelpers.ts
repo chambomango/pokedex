@@ -41,8 +41,8 @@ export function formatEvolutionMethod(details?: EvolutionDetail[]) {
   const detail = details?.[0];
   if (!detail) return "";
 
-  if (detail.min_level != null) return `Level ${d.min_level}`;
-  if (detail.item?.name) return `Use ${prettyName(d.item.name)}`;
+  if (detail.min_level != null) return `Level ${detail.min_level}`;
+  if (detail.item?.name) return `Use ${prettyName(detail.item.name)}`;
 
   if (detail.trigger?.name === "trade") {
     if (detail.held_item?.name)

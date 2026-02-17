@@ -38,7 +38,7 @@ export default async function PokemonPage({
         <div className="border rounded-lg shadow-md">
           <img
             className="w-48 h-48 pixelated"
-            src={pokemonData.sprites.front_default}
+            src={pokemonData.sprites.front_default || ""}
             alt={pokemonData.name}
             loading="lazy"
             decoding="async"

@@ -63,7 +63,11 @@ export default function EvolutionBranches({
                 key={child.species.name}
                 className={`flex gap-${gap} items-center`}
               >
-                <EvolutionBranches chainLink={child} arrowColor={arrowColor} />
+                <EvolutionBranches
+                  chainLink={child}
+                  arrowColor={arrowColor}
+                  gap={gap}
+                />
                 <Xarrow
                   start={parentId}
                   end={childId}
