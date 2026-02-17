@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/table";
 import { PokemonStatsChart } from "@/components/pokemonStatsChart";
 import EvolutionTree from "@/components/evolutionTree";
+import Link from "next/link";
 
 export default async function PokemonPage({
   params,
@@ -24,9 +25,25 @@ export default async function PokemonPage({
   const pokemonData: Pokemon = await pokemonClient.getPokemonByName(
     name as string,
   );
+
+  const hasPrev = pokemonData.id > 1;
+  const hasNext = pokemonData.id < 1025;
+  const offset = hasPrev ? pokemonData.id - 2 : 0;
+  const limit = (hasPrev ? 1 : 0) + 1 + (hasNext ? 1 : 0);
+  const surroundingPokemon = await pokemonClient.listPokemons(offset, limit);
+
+  const currentPokemonIndex = hasPrev ? 1 : 0;
+  const previousPokemon = hasPrev
+    ? surroundingPokemon.results[currentPokemonIndex - 1]
+    : null;
+  const nextPokemon = hasNext
+    ? surroundingPokemon.results[currentPokemonIndex + 1]
+    : null;
+
   const speciesData = await pokemonClient.getPokemonSpeciesByName(
     pokemonData.species.name,
   );
+
   const evolutionClient = new EvolutionClient();
   const evolutionData = await evolutionClient.getEvolutionChainById(
     idFromUrl(speciesData.evolution_chain.url),
@@ -34,21 +51,58 @@ export default async function PokemonPage({
 
   return (
     <div className="flex flex-col mt-10 gap-8 mb-40">
-      <div className="self-center text-center">
-        <div className="border rounded-lg shadow-md">
-          <img
-            className="w-48 h-48 pixelated"
-            src={pokemonData.sprites.front_default || ""}
-            alt={pokemonData.name}
-            loading="lazy"
-            decoding="async"
-            width={192}
-            height={192}
-          />
+      <div className="flex justify-between items-center">
+        <div className="w-40">
+          {previousPokemon && (
+            <Link href={`/pokedex/${previousPokemon.name}`}>
+              <div className="flex gap-2 items-center text-zinc-600 hover:underline">
+                <img
+                  className="w-4.5"
+                  src="/logos/SVG/arrow-left-wide-line.svg"
+                />
+                <div className="text-center">
+                  <div>
+                    #{idFromUrl(previousPokemon.url)}{" "}
+                    {capitalizeFirst(previousPokemon.name)}
+                  </div>
+                </div>
+              </div>
+            </Link>
+          )}
         </div>
-
-        <h2 className="tracking-wide">{capitalizeFirst(pokemonData.name)}</h2>
-        <h3 className="text-zinc-600">#{pokemonData.id}</h3>
+        <div className="flex flex-col items-center self-center text-center">
+          <div className="border rounded-lg shadow-md w-fit">
+            <img
+              className="w-48 h-48 pixelated"
+              src={pokemonData.sprites.front_default || ""}
+              alt={pokemonData.name}
+              loading="lazy"
+              decoding="async"
+              width={192}
+              height={192}
+            />
+          </div>
+          <h2 className="tracking-wide">{capitalizeFirst(pokemonData.name)}</h2>
+          <h3 className="text-zinc-600">#{pokemonData.id}</h3>
+        </div>
+        <div className="w-40">
+          {nextPokemon && (
+            <Link href={`/pokedex/${nextPokemon.name}`}>
+              <div className="flex gap-2 items-center text-zinc-600 hover:underline justify-end">
+                <div className="text-center">
+                  <div className="">
+                    #{idFromUrl(nextPokemon.url)}{" "}
+                    {capitalizeFirst(nextPokemon.name)}
+                  </div>
+                </div>
+                <img
+                  className="w-4.5"
+                  src="/logos/SVG/arrow-right-wide-line.svg"
+                />
+              </div>
+            </Link>
+          )}
+        </div>
       </div>
       <div className="mt-4 flex flex-col gap-4">
         <h3 className="tracking-wide">

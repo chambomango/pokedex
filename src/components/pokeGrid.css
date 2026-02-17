@@ -54,7 +54,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f5f5f5;
+  background-color: #fafafa;
   padding: 4px var(--img-padding);
 }
 
