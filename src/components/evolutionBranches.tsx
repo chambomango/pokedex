@@ -61,7 +61,8 @@ export default function EvolutionBranches({
             return (
               <div
                 key={child.species.name}
-                className={`flex gap-${gap} items-center`}
+                className="flex items-center"
+                style={{ gap: gap }}
               >
                 <EvolutionBranches
                   chainLink={child}

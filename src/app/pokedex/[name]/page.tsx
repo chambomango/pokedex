@@ -92,7 +92,11 @@ export default async function PokemonPage({
         </h3>
         <EvolutionTree
           chainLink={evolutionData.chain}
-          gap={idFromUrl(speciesData.evolution_chain.url) === 67 ? "100" : "40"}
+          gap={
+            idFromUrl(speciesData.evolution_chain.url) === 67
+              ? "400px"
+              : "160px"
+          }
           arrowColor={typesToColors[pokemonData.types[0].type.name]}
         />
       </div>
