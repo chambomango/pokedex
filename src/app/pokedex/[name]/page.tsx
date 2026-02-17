@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { BarChartHorizontal } from "@/components/ui/barcharthorizontal";
+import { PokemonStatsChart } from "@/components/pokemonStatsChart";
 import EvolutionTree from "@/components/evolutionTree";
 
 export default async function PokemonPage({
@@ -101,7 +101,7 @@ export default async function PokemonPage({
         <h3 className="tracking-wide">
           <b>Stats</b>
         </h3>
-        <BarChartHorizontal
+        <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
             return {
               key: prettyStat(stat.stat.name),

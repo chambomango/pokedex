@@ -38,27 +38,29 @@ export function prettyStat(s: string) {
 }
 
 export function formatEvolutionMethod(details?: EvolutionDetail[]) {
-  const d = details?.[0];
-  if (!d) return "";
+  const detail = details?.[0];
+  if (!detail) return "";
 
-  if (d.min_level != null) return `Level ${d.min_level}`;
-  if (d.item?.name) return `Use ${prettyName(d.item.name)}`;
+  if (detail.min_level != null) return `Level ${d.min_level}`;
+  if (detail.item?.name) return `Use ${prettyName(d.item.name)}`;
 
-  if (d.trigger?.name === "trade") {
-    if (d.held_item?.name)
-      return `Trade holding ${prettyName(d.held_item.name)}`;
-    if (d.trade_species?.name)
-      return `Trade for ${prettyName(d.trade_species.name)}`;
+  if (detail.trigger?.name === "trade") {
+    if (detail.held_item?.name)
+      return `Trade holding ${prettyName(detail.held_item.name)}`;
+    if (detail.trade_species?.name)
+      return `Trade for ${prettyName(detail.trade_species.name)}`;
     return "Trade";
   }
 
-  if (d.trigger?.name === "level-up") {
-    if (d.min_happiness != null)
-      return `Level up (Happiness ${d.min_happiness}+)`;
-    if (d.time_of_day) return `Level up (${prettyName(d.time_of_day)})`;
-    if (d.location?.name) return `Level up at ${prettyName(d.location.name)}`;
+  if (detail.trigger?.name === "level-up") {
+    if (detail.min_happiness != null)
+      return `Level up (Happiness ${detail.min_happiness}+)`;
+    if (detail.time_of_day)
+      return `Level up (${prettyName(detail.time_of_day)})`;
+    if (detail.location?.name)
+      return `Level up at ${prettyName(detail.location.name)}`;
     return "Level up";
   }
 
-  return d.trigger?.name ? prettyName(d.trigger.name) : "Evolve";
+  return detail.trigger?.name ? prettyName(detail.trigger.name) : "Evolve";
 }

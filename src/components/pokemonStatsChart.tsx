@@ -19,7 +19,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function BarChartHorizontal({
+export function PokemonStatsChart({
   chartData,
   barColor,
 }: {
@@ -27,10 +27,7 @@ export function BarChartHorizontal({
   barColor: string;
 }) {
   return (
-    <Card
-      //  className="border-none shadow-none"
-      className=""
-    >
+    <Card className="">
       <CardContent>
         <div className="h-48">
           <ChartContainer config={chartConfig} className="h-full w-full">
@@ -42,14 +39,7 @@ export function BarChartHorizontal({
                 left: -20,
               }}
             >
-              <XAxis
-                type="number"
-                dataKey="Value"
-                domain={[0, 255]}
-                // axisLine={false}
-                // tickLine={false}
-                // tickCount={0}
-              />
+              <XAxis type="number" dataKey="Value" domain={[0, 255]} />
               <YAxis
                 dataKey="key"
                 type="category"
