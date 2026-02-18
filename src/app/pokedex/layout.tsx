@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "../../components/pokeGrid.css";
 
 export const metadata: Metadata = {
   title: "Pokédex",
@@ -7,5 +6,5 @@ export const metadata: Metadata = {
 };
 
 export default function PokedexLayout({ children }: LayoutProps<"/pokedex">) {
-  return <div className="poke-page mx-auto">{children}</div>;
+  return <div className="mx-auto w-full max-w-7xl mt-8">{children}</div>;
 }

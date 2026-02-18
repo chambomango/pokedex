@@ -1,5 +1,4 @@
 import { EvolutionClient, Pokemon, PokemonClient } from "pokenode-ts";
-import "../../../components/pokeGrid.css";
 import { capitalizeFirst, idFromUrl, prettyStat } from "@/helpers/gridHelpers";
 import PokeTypeBox, { typesToColors } from "@/components/pokeTypeBox";
 import {
@@ -51,7 +50,7 @@ export default async function PokemonPage({
   );
 
   return (
-    <div className="flex flex-col mt-4 gap-8 mb-40">
+    <div className="flex flex-col mt-4 gap-8 mb-40 max-w-6xl">
       <div>
         <div className="mb-8">
           <PokemonBreadcrumb name={pokemonData.name} />

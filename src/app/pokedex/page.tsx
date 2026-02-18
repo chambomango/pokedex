@@ -52,7 +52,7 @@ export default async function PokedexPage({
   });
 
   return (
-    <div className="mx-auto flex flex-col px-4 pt-14 sm:pt-18">
+    <div className="mx-auto flex flex-col px-4 pt-6">
       <div className="mb-6">
         <h1 className="text-4xl font-semibold tracking-wide text-zinc-800">
           Interactive Pokédex
