@@ -16,8 +16,11 @@ export default async function PokedexPage({
   const api = new PokemonClient();
   const pokemons: NamedAPIResource[] = (await api.listPokemons(0, 1025))
     .results;
-  const pokemonTypes: NamedAPIResource[] = (await api.listTypes(0, 100))
-    .results;
+  const pokemonTypes: NamedAPIResource[] = (
+    await api.listTypes(0, 100)
+  ).results.filter(
+    (type) => !["unknown", "shadow", "stellar"].includes(type.name),
+  );
   const typesToPokemon: Map<string, Set<string>> = new Map();
   await Promise.all(
     pokemonTypes.map(async (type) => {

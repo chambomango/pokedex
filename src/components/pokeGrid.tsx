@@ -51,7 +51,7 @@ export default function PokeGrid(props: PokeGridProps) {
         />
       </div>
 
-      <div className="mt-4 grid gap-3 sm:gap-4 [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))]">
+      <div className="mt-1 grid gap-3 sm:gap-4 [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))]">
         {visiblePokemon.map((p) => {
           const id = idFromUrl(p.url);
           return (
