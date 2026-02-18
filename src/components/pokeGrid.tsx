@@ -42,31 +42,31 @@ export default function PokeGrid(props: PokeGridProps) {
   );
 
   React.useEffect(() => setPokemonShown(BATCH_SIZE * 2), [props.pokemon]);
-
   return (
-    <div className="mx-auto w-full">
-      <PokeGridToolbar
-        pokemonTypes={props.pokemonTypes}
-        generations={props.generations}
-      />
-      <div className="mt-3">
-        <div className="grid gap-2 sm:gap-2 [grid-template-columns:repeat(auto-fill,minmax(130px,1fr))]">
-          {visiblePokemon.map((p) => {
-            const id = idFromUrl(p.url);
-            return (
-              <PokeDisplayCard key={p.name} name={p.name} id={id.toString()} />
-            );
-          })}
-        </div>
-
-        <div ref={loadingCallback} className="h-px" />
-
-        {pokemonShown < props.pokemon.length ? (
-          <div className="mt-4 flex justify-center">
-            <span className="text-sm text-zinc-500">Loading…</span>
-          </div>
-        ) : null}
+    <div className="w-full">
+      <div className="mb-3">
+        <PokeGridToolbar
+          pokemonTypes={props.pokemonTypes}
+          generations={props.generations}
+        />
       </div>
+
+      <div className="grid gap-3 sm:gap-4 [grid-template-columns:repeat(auto-fill,minmax(140px,1fr))]">
+        {visiblePokemon.map((p) => {
+          const id = idFromUrl(p.url);
+          return (
+            <PokeDisplayCard key={p.name} name={p.name} id={id.toString()} />
+          );
+        })}
+      </div>
+
+      <div ref={loadingCallback} className="h-px" />
+
+      {pokemonShown < props.pokemon.length ? (
+        <div className="my-6 flex justify-center">
+          <span className="text-sm text-zinc-500">Loading…</span>
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -6,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function PokedexLayout({ children }: LayoutProps<"/pokedex">) {
-  return <div className="mx-auto w-full max-w-7xl mt-8">{children}</div>;
+  return (
+    <div className="mx-auto mt-8 flex h-[calc(100vh-2rem)] w-full max-w-7xl flex-col">
+      {children}
+    </div>
+  );
 }

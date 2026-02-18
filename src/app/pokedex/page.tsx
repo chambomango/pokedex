@@ -52,28 +52,24 @@ export default async function PokedexPage({
   });
 
   return (
-    <div className="mx-auto flex flex-col px-4 pt-6">
-      <div className="mb-6">
+    <div className="flex h-full flex-col px-4 pt-6">
+      <div className="mb-4">
         <h1 className="text-4xl font-semibold tracking-wide text-zinc-800">
           Interactive Pokédex
         </h1>
-
-        <p className="mt-3 text-base text-zinc-600">
-          Explore Pokémon by generation and type. Select any Pokémon to view
-          detailed stats, abilities, and evolution data.
-        </p>
-
         <p className="mt-2 text-xs text-zinc-500">
           Pokémon and Pokédex are trademarks of Nintendo. This project is a
           fan-made application for educational purposes only.
         </p>
       </div>
 
-      <PokeGrid
-        pokemon={pokemonFiltered}
-        pokemonTypes={pokemonTypes}
-        generations={generations}
-      />
+      <div className="min-h-0 flex-1">
+        <PokeGrid
+          pokemon={pokemonFiltered}
+          pokemonTypes={pokemonTypes}
+          generations={generations}
+        />
+      </div>
     </div>
   );
 }
