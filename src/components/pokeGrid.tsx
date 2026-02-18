@@ -44,14 +44,14 @@ export default function PokeGrid(props: PokeGridProps) {
   React.useEffect(() => setPokemonShown(BATCH_SIZE * 2), [props.pokemon]);
   return (
     <div className="w-full">
-      <div className="mb-3">
+      <div className="sticky top-0 z-20 -mx-4 bg-white/90 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/80 rounded-md">
         <PokeGridToolbar
           pokemonTypes={props.pokemonTypes}
           generations={props.generations}
         />
       </div>
 
-      <div className="grid gap-3 sm:gap-4 [grid-template-columns:repeat(auto-fill,minmax(140px,1fr))]">
+      <div className="mt-4 grid gap-3 sm:gap-4 [grid-template-columns:repeat(auto-fill,minmax(150px,1fr))]">
         {visiblePokemon.map((p) => {
           const id = idFromUrl(p.url);
           return (
