@@ -65,24 +65,25 @@ export default async function PokemonPage({
       return { ...moveData, version_group_details: move.version_group_details };
     },
   );
+
   const moves: MoveWithVersions[] = await Promise.all(moveTasks);
 
   return (
     <div className="mb-40 mx-auto max-w-5xl">
       <PokemonBreadcrumb name={pokemonData.name} />
-
-      <PrevNextPokemon
-        previousPokemon={previousPokemon}
-        nextPokemon={nextPokemon}
-      >
-        <div className="mt-9 flex gap-3 align-center justify-center items-center">
-          <h2 className="tracking-wide">{capitalizeFirst(pokemonData.name)}</h2>
-          <h2 className="font-medium text-zinc-400 text-center">
-            #{pokemonData.id}
-          </h2>
+      <div className="flex justify-between items-baseline">
+        <div className="mt-9 flex gap-4">
+          <h1 className="tracking-wide text-zinc-900">
+            {capitalizeFirst(pokemonData.name)}
+          </h1>
+          <h1 className="font-medium text-zinc-400">#{pokemonData.id}</h1>
         </div>
-      </PrevNextPokemon>
-      <div className="mt-9 flex items-start gap-18">
+        <PrevNextPokemon
+          previousPokemon={previousPokemon}
+          nextPokemon={nextPokemon}
+        />
+      </div>
+      <div className="mt-6 flex items-start gap-18">
         {/* POKEMON IMAGE */}
         <div className="flex flex-col">
           <h3 className="font-semibold mb-2">Sprite</h3>
@@ -120,17 +121,15 @@ export default async function PokemonPage({
       <div className="mt-8">
         <h3 className="font-semibold mb-2">Evolution Path</h3>
 
-        <div className="flex justify-self-center">
-          <EvolutionTree
-            chainLink={evolutionData.chain}
-            gap={
-              idFromUrl(speciesData.evolution_chain.url) === 67
-                ? "400px"
-                : "160px"
-            }
-            arrowColor={typesToColors[pokemonData.types[0].type.name]}
-          />
-        </div>
+        <EvolutionTree
+          chainLink={evolutionData.chain}
+          gap={
+            idFromUrl(speciesData.evolution_chain.url) === 67
+              ? "400px"
+              : "160px"
+          }
+          arrowColor={typesToColors[pokemonData.types[0].type.name]}
+        />
       </div>
 
       <div>

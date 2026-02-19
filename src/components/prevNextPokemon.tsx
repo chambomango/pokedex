@@ -10,11 +10,11 @@ export default function PrevNextPokemon({
 }: {
   previousPokemon: NamedAPIResource | null;
   nextPokemon: NamedAPIResource | null;
-  children: ReactNode;
+  children?: ReactNode;
 }) {
   return (
-    <div className="mb-2 flex justify-between items-baseline">
-      <div className="w-34">
+    <div className="flex justify-between items-center">
+      <div className="w-25">
         {previousPokemon && (
           <Link href={`/pokedex/${previousPokemon.name}`}>
             <div className="flex gap-2 items-center text-zinc-600 text-sm hover:underline">
@@ -24,10 +24,9 @@ export default function PrevNextPokemon({
               />
               <div className="text-center">
                 <div>
-                  {capitalizeFirst(previousPokemon.name)}{" "}
-                  {/* <span className="tracking-wide">{"("}</span> */}#
-                  {idFromUrl(previousPokemon.url)}
-                  {/* <span className="tracking-wide">{")"}</span> */}
+                  {capitalizeFirst(previousPokemon.name)}
+                  {/* {" "} */}
+                  {/* {idFromUrl(previousPokemon.url)} */}
                 </div>
               </div>
             </div>
@@ -35,16 +34,15 @@ export default function PrevNextPokemon({
         )}
       </div>
       <div>{children}</div>
-      <div className="w-34">
+      <div className="w-25">
         {nextPokemon && (
           <Link href={`/pokedex/${nextPokemon.name}`}>
             <div className="flex gap-2 items-center text-zinc-600 hover:underline text-sm justify-end">
               <div className="text-center">
                 <div>
-                  {capitalizeFirst(nextPokemon.name)}{" "}
-                  {/* <span className="tracking-wide">{"("}</span> */}#
-                  {idFromUrl(nextPokemon.url)}
-                  {/* <span className="tracking-wide">{")"}</span> */}
+                  {capitalizeFirst(nextPokemon.name)}
+                  {/* {" "} */}
+                  {/* {idFromUrl(nextPokemon.url)} */}
                 </div>
               </div>
               <img

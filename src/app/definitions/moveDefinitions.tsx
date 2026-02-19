@@ -2,16 +2,7 @@
 import { Move, PokemonMoveVersion } from "pokenode-ts";
 import { ColumnDef } from "@tanstack/react-table";
 import PokeTypeBox from "@/components/pokeTypeBox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { SortedHeader } from "@/components/dataTableHeaders";
 
 export type MoveWithVersions = Move & {
   version_group_details: PokemonMoveVersion[];
@@ -32,13 +23,13 @@ export const MOVE_COLUMNS: ColumnDef<MoveColumn>[] = [
     accessorKey: "level",
     header: ({ column }) => {
       return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        <SortedHeader
+          key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
+          column={column}
+          allowUnsorted={false}
         >
           Level
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
+        </SortedHeader>
       );
     },
     cell: (cell) => {
@@ -56,22 +47,61 @@ export const MOVE_COLUMNS: ColumnDef<MoveColumn>[] = [
   },
   {
     accessorKey: "name",
-    header: "Move",
+    header: ({ column }) => {
+      return (
+        <SortedHeader
+          key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
+          column={column}
+        >
+          Move
+        </SortedHeader>
+      );
+    },
   },
   {
     accessorKey: "type",
-    header: "Type",
+    header: ({ column }) => {
+      console.log(column.getIsSorted());
+      return (
+        <SortedHeader
+          key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
+          column={column}
+        >
+          Type
+        </SortedHeader>
+      );
+    },
     cell: (cell) => {
       return <PokeTypeBox type={cell.row.getValue("type")} />;
     },
   },
   {
     accessorKey: "pp",
-    header: "PP",
+    header: ({ column }) => {
+      console.log(column.getIsSorted());
+      return (
+        <SortedHeader
+          key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
+          column={column}
+        >
+          PP
+        </SortedHeader>
+      );
+    },
   },
   {
     accessorKey: "accuracy",
-    header: "Accuracy",
+    header: ({ column }) => {
+      console.log(column.getIsSorted());
+      return (
+        <SortedHeader
+          key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
+          column={column}
+        >
+          Accuracy
+        </SortedHeader>
+      );
+    },
     cell: (cell) => {
       const accuracy = cell.row.getValue<number | null>("accuracy");
       return accuracy ? <div>{accuracy}%</div> : <div>-</div>;
@@ -79,6 +109,16 @@ export const MOVE_COLUMNS: ColumnDef<MoveColumn>[] = [
   },
   {
     accessorKey: "methodLearned",
-    header: "Learned Via",
+    header: ({ column }) => {
+      console.log(column.getIsSorted());
+      return (
+        <SortedHeader
+          key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
+          column={column}
+        >
+          Learned Via
+        </SortedHeader>
+      );
+    },
   },
 ];
