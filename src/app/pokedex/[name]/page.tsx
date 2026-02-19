@@ -18,7 +18,11 @@ import {
   Egg,
   Ruler,
   Weight as WeightIcon,
+  Users,
+  Mars,
+  Venus,
 } from "lucide-react";
+import PrevNextPokemon from "@/components/prevNextPokemon";
 export default async function PokemonPage({
   params,
 }: {
@@ -65,66 +69,26 @@ export default async function PokemonPage({
   return (
     <div className="mb-40 mx-auto max-w-5xl">
       <PokemonBreadcrumb name={pokemonData.name} />
-      <div className="mt-6 flex justify-between items-center">
-        <div className="w-40">
-          {previousPokemon && (
-            <Link href={`/pokedex/${previousPokemon.name}`}>
-              <div className="flex gap-2 items-center text-zinc-600 hover:underline">
-                <img
-                  className="w-2"
-                  src="/logos/SVG/arrow-left-wide-line.svg"
-                />
-                <div className="text-center">
-                  <div>
-                    {capitalizeFirst(previousPokemon.name)}{" "}
-                    <span className="tracking-wide">{"("}</span>#
-                    {idFromUrl(previousPokemon.url)}
-                    <span className="tracking-wide">{")"}</span>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          )}
-        </div>
-        <div className="w-40">
-          {nextPokemon && (
-            <Link href={`/pokedex/${nextPokemon.name}`}>
-              <div className="flex gap-2 items-center text-zinc-600 hover:underline justify-end">
-                <div className="text-center">
-                  <div>
-                    {capitalizeFirst(nextPokemon.name)}{" "}
-                    <span className="tracking-wide">{"("}</span>#
-                    {idFromUrl(nextPokemon.url)}
-                    <span className="tracking-wide">{")"}</span>
-                  </div>
-                </div>
-                <img
-                  className="w-2"
-                  src="/logos/SVG/arrow-right-wide-line.svg"
-                />
-              </div>
-            </Link>
-          )}
-        </div>
-      </div>
-      <div className="mt-4 flex gap-3 align-center justify-center items-center">
+      <div className="mt-12 mb-2 flex gap-3 align-center justify-center items-center">
         <h2 className="tracking-wide text-center">
           {capitalizeFirst(pokemonData.name)}
         </h2>
         <h2 className="font-medium text-zinc-400 text-center">
-          {"("}#{pokemonData.id}
-          {")"}
+          #{pokemonData.id}
         </h2>
       </div>
-
-      <div className="flex items-end gap-20">
+      <PrevNextPokemon
+        previousPokemon={previousPokemon}
+        nextPokemon={nextPokemon}
+      />
+      <h3 className="font-semibold mt-9 mb-2">Overview</h3>
+      <div className=" flex items-start gap-18">
         {/* BASIC INFO SECTION */}
-        <div className="mt-8 flex flex-col min-w-[520px]">
-          <h3 className="font-semibold mb-2">Overview</h3>
+        <div className="flex flex-col min-w-[520px]">
           <div className="flex flex-col px-8 py-6 gap-4 border rounded-lg shadow-sm text-zinc-800">
             {/* TYPES */}
             <div className="flex items-baseline gap-4">
-              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+              <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
                 <Layers className="h-4 w-4 text-zinc-400" />
                 <span>{pokemonData.types.length > 1 ? "Types" : "Type"}</span>
               </div>
@@ -139,7 +103,7 @@ export default async function PokemonPage({
 
             {/* ABILITIES */}
             <div className="flex items-start gap-4">
-              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+              <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
                 <Sparkles className="h-4 w-4 text-zinc-400" />
                 <span>Abilities</span>
               </div>
@@ -147,7 +111,7 @@ export default async function PokemonPage({
                 {pokemonData.abilities.map((ability) => (
                   <div
                     key={ability.ability.name}
-                    className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
+                    className="text-zinc-500 font-semibold pr-2 py-0.5 rounded-sm"
                   >
                     {capitalizeFirst(ability.ability.name)}
                   </div>
@@ -157,7 +121,7 @@ export default async function PokemonPage({
 
             {/* EGG GROUP */}
             <div className="flex items-start gap-4">
-              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+              <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
                 <Egg className="h-4 w-4 text-zinc-400" />
                 <span>Egg Group</span>
               </div>
@@ -165,7 +129,7 @@ export default async function PokemonPage({
                 {speciesData.egg_groups.map((eggGroup) => (
                   <div
                     key={eggGroup.name}
-                    className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
+                    className="text-zinc-500 font-semibold pr-2 py-0.5 rounded-sm"
                   >
                     {capitalizeFirst(eggGroup.name)}
                   </div>
@@ -175,7 +139,7 @@ export default async function PokemonPage({
 
             {/* HEIGHT */}
             <div className="flex items-center gap-4">
-              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+              <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
                 <Ruler className="h-4 w-4 text-zinc-400" />
                 <span>Height</span>
               </div>
@@ -186,7 +150,7 @@ export default async function PokemonPage({
 
             {/* WEIGHT */}
             <div className="flex items-center gap-4">
-              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+              <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
                 <WeightIcon className="h-4 w-4 text-zinc-400" />
                 <span>Weight</span>
               </div>
@@ -194,9 +158,43 @@ export default async function PokemonPage({
                 {pokemonData.weight / 10} kg
               </div>
             </div>
+            {/* GENDER RATIO */}
+            <div className="flex items-center gap-4">
+              <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
+                <Users className="h-4 w-4 text-zinc-400" />
+                <span>Gender</span>
+              </div>
+
+              {speciesData.gender_rate === -1 ? (
+                <div className="text-zinc-500 font-semibold">Genderless</div>
+              ) : (
+                (() => {
+                  const femalePct = (speciesData.gender_rate / 8) * 100;
+                  const malePct = 100 - femalePct;
+                  return (
+                    <div className="flex items-center gap-3 text-zinc-500 font-semibold">
+                      {malePct > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Mars className="h-4 w-4 text-blue-600" />
+                          <span>{malePct.toFixed(1)}%</span>
+                        </div>
+                      )}
+                      {malePct > 0 && femalePct > 0 && (
+                        <span className="text-zinc-400">/</span>
+                      )}
+                      {femalePct > 0 && (
+                        <div className="flex items-center gap-1">
+                          <Venus className="h-4 w-4 text-pink-600" />
+                          <span>{femalePct.toFixed(1)}%</span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })()
+              )}
+            </div>
           </div>
         </div>
-
         {/* POKEMON IMAGE */}
         <div className="flex flex-col">
           <div className="w-fit px-4 flex items-center border rounded-lg shadow-sm">
@@ -215,7 +213,8 @@ export default async function PokemonPage({
 
       {/* STATS */}
       <div className="mt-8">
-        <h3 className="font-semibold  mb-2">Battle Stats</h3>
+        <h3 className="font-semibold mb-2">Base Stats</h3>
+        {/* todo: add total stat count, range at lvl 50, range at level 100 */}
         <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
             return {
