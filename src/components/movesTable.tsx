@@ -4,15 +4,6 @@ import {
   MoveWithVersions,
 } from "@/app/definitions/moveDefinitions";
 import { prettyPrintMove, prettyMoveMethod } from "@/helpers/gridHelpers";
-import PokeTypeBox from "./pokeTypeBox";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableHead,
-  TableBody,
-  TableCell,
-} from "./ui/table";
 import { DataTable } from "./dataTable";
 
 export default function MovesTable(props: { moves: MoveWithVersions[] }) {

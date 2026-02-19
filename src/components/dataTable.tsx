@@ -33,7 +33,6 @@ import {
   SelectContent,
   SelectItem,
 } from "./ui/select";
-import { DataTablePagination } from "./dataTablePagination";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
