@@ -1,35 +1,24 @@
 import {
   EvolutionClient,
-  Move,
   MoveClient,
   Pokemon,
   PokemonClient,
-  PokemonMoveVersion,
 } from "pokenode-ts";
-import {
-  capitalizeFirst,
-  idFromUrl,
-  prettyMoveMethod,
-  prettyPrintMove,
-  prettyStat,
-} from "@/helpers/gridHelpers";
+import { capitalizeFirst, idFromUrl, prettyStat } from "@/helpers/gridHelpers";
 import PokeTypeBox, { typesToColors } from "@/components/pokeTypeBox";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { PokemonStatsChart } from "@/components/pokemonStatsChart";
 import EvolutionTree from "@/components/evolutionTree";
 import Link from "next/link";
 import { PokemonBreadcrumb } from "@/components/pokemonBreadcrumb";
 import { MoveWithVersions } from "@/app/definitions/moveDefinitions";
 import MovesTable from "@/components/movesTable";
-
+import {
+  Layers,
+  Sparkles,
+  Egg,
+  Ruler,
+  Weight as WeightIcon,
+} from "lucide-react";
 export default async function PokemonPage({
   params,
 }: {
@@ -119,15 +108,19 @@ export default async function PokemonPage({
       </h2>
       <h3 className="text-zinc-600 text-center">#{pokemonData.id}</h3>
 
-      <div className="mt-8 flex justify-between items-start h-81">
-        <div className="h-full flex flex-col">
+      <div className="mt-8 flex justify-between items-end h-81.5 gap-12">
+        {/* BASIC INFO SECTION */}
+        <div className="h-full flex flex-col min-w-[520px]">
           <h3 className="font-semibold mb-2">Basic Info</h3>
-          <div className="flex flex-col px-8 py-4 h-full justify-between border rounded-lg shadow-sm text-zinc-800">
-            <div className="flex items-baseline ">
-              <h4 className="mr-1">
-                {pokemonData.types.length > 1 ? "Types" : "Type"}
-              </h4>
-              <div className="flex ml-3 gap-2">
+
+          <div className="flex flex-col h-72.5 px-8 py-6 h-full justify-between border rounded-lg shadow-sm text-zinc-800">
+            {/* TYPES */}
+            <div className="flex items-baseline gap-4">
+              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+                <Layers className="h-4 w-4 text-zinc-400" />
+                <span>{pokemonData.types.length > 1 ? "Types" : "Type"}</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
                 {pokemonData.types.map((t) => (
                   <Link key={t.type.name} href={`/pokedex?type=${t.type.name}`}>
                     <PokeTypeBox type={t.type.name} />
@@ -135,44 +128,69 @@ export default async function PokemonPage({
                 ))}
               </div>
             </div>
-            <div className="flex items-baseline gap-2">
-              <h4 className="mr-1">Abilities</h4>
-              {pokemonData.abilities.map((ability) => (
-                <div
-                  key={ability.ability.name}
-                  className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
-                >
-                  {capitalizeFirst(ability.ability.name)}
-                </div>
-              ))}
+
+            {/* ABILITIES */}
+            <div className="flex items-center gap-4">
+              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+                <Sparkles className="h-4 w-4 text-zinc-400" />
+                <span>Abilities</span>
+              </div>
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {pokemonData.abilities.map((ability) => (
+                  <div
+                    key={ability.ability.name}
+                    className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
+                  >
+                    {capitalizeFirst(ability.ability.name)}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex items-baseline gap-2">
-              <h4 className="mr-1">Egg Group</h4>
-              {speciesData.egg_groups.map((eggGroup) => (
-                <div
-                  key={eggGroup.name}
-                  className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
-                >
-                  {capitalizeFirst(eggGroup.name)}
-                </div>
-              ))}
+
+            {/* EGG GROUP */}
+            <div className="flex items-center gap-4">
+              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+                <Egg className="h-4 w-4 text-zinc-400" />
+                <span>Egg Group</span>
+              </div>
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {speciesData.egg_groups.map((eggGroup) => (
+                  <div
+                    key={eggGroup.name}
+                    className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
+                  >
+                    {capitalizeFirst(eggGroup.name)}
+                  </div>
+                ))}
+              </div>
             </div>
-            <div className="flex items-baseline gap-4">
-              <h4>Height</h4>
+
+            {/* HEIGHT */}
+            <div className="flex items-center gap-4">
+              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+                <Ruler className="h-4 w-4 text-zinc-400" />
+                <span>Height</span>
+              </div>
               <div className="text-zinc-500 font-semibold">
                 {pokemonData.height / 10} m
               </div>
             </div>
-            <div className="flex items-baseline gap-4">
-              <h4>Weight</h4>
+
+            {/* WEIGHT */}
+            <div className="flex items-center gap-4">
+              <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
+                <WeightIcon className="h-4 w-4 text-zinc-400" />
+                <span>Weight</span>
+              </div>
               <div className="text-zinc-500 font-semibold">
                 {pokemonData.weight / 10} kg
               </div>
             </div>
           </div>
         </div>
-        <div className="">
-          <div className="h-9" />
+
+        {/* POKEMON IMAGE */}
+        <div>
           <div className="w-fit border rounded-xl shadow-sm px-4">
             <img
               className="w-72 h-72 pixelated"
