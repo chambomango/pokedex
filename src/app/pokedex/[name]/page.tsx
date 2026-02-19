@@ -1,5 +1,18 @@
-import { EvolutionClient, Pokemon, PokemonClient } from "pokenode-ts";
-import { capitalizeFirst, idFromUrl, prettyStat } from "@/helpers/gridHelpers";
+import {
+  EvolutionClient,
+  Move,
+  MoveClient,
+  Pokemon,
+  PokemonClient,
+  PokemonMoveVersion,
+} from "pokenode-ts";
+import {
+  capitalizeFirst,
+  idFromUrl,
+  prettyMoveMethod,
+  prettyPrintMove,
+  prettyStat,
+} from "@/helpers/gridHelpers";
 import PokeTypeBox, { typesToColors } from "@/components/pokeTypeBox";
 import {
   Table,
@@ -14,6 +27,8 @@ import { PokemonStatsChart } from "@/components/pokemonStatsChart";
 import EvolutionTree from "@/components/evolutionTree";
 import Link from "next/link";
 import { PokemonBreadcrumb } from "@/components/pokemonBreadcrumb";
+import { MoveWithVersions } from "@/app/definitions/moveDefinitions";
+import MovesTable from "@/components/movesTable";
 
 export default async function PokemonPage({
   params,
@@ -49,122 +64,131 @@ export default async function PokemonPage({
     idFromUrl(speciesData.evolution_chain.url),
   );
 
+  const moveClient = new MoveClient();
+  const moveTasks: Promise<MoveWithVersions>[] = pokemonData.moves.map(
+    async (move) => {
+      const moveData = await moveClient.getMoveByName(move.move.name);
+      return { ...moveData, version_group_details: move.version_group_details };
+    },
+  );
+  const moves: MoveWithVersions[] = await Promise.all(moveTasks);
+
   return (
-    <div className="flex flex-col mt-4 gap-8 mb-40 max-w-6xl">
-      <div>
-        <div className="mb-8">
-          <PokemonBreadcrumb name={pokemonData.name} />
-        </div>
-        <div className="flex justify-between items-center">
-          <div className="w-40">
-            {previousPokemon && (
-              <Link href={`/pokedex/${previousPokemon.name}`}>
-                <div className="flex gap-2 items-center text-zinc-600 hover:underline">
-                  <img
-                    className="w-4.5"
-                    src="/logos/SVG/arrow-left-wide-line.svg"
-                  />
-                  <div className="text-center">
-                    <div>
-                      #{idFromUrl(previousPokemon.url)}{" "}
-                      {capitalizeFirst(previousPokemon.name)}
-                    </div>
+    <div className="mt-4 mb-40 max-w-6xl">
+      <PokemonBreadcrumb name={pokemonData.name} />
+      <div className="mt-8 flex justify-between items-center">
+        <div className="w-40">
+          {previousPokemon && (
+            <Link href={`/pokedex/${previousPokemon.name}`}>
+              <div className="flex gap-2 items-center text-zinc-600 hover:underline">
+                <img
+                  className="w-2"
+                  src="/logos/SVG/arrow-left-wide-line.svg"
+                />
+                <div className="text-center">
+                  <div>
+                    #{idFromUrl(previousPokemon.url)}{" "}
+                    {capitalizeFirst(previousPokemon.name)}
                   </div>
                 </div>
-              </Link>
-            )}
-          </div>
-          <div className="flex flex-col items-center self-center text-center">
-            <div className="border rounded-lg shadow-md w-fit">
-              <img
-                className="w-48 h-48 pixelated"
-                src={pokemonData.sprites.front_default || ""}
-                alt={pokemonData.name}
-                loading="lazy"
-                decoding="async"
-                width={192}
-                height={192}
-              />
-            </div>
-            <h2 className="tracking-wide">
-              {capitalizeFirst(pokemonData.name)}
-            </h2>
-            <h3 className="text-zinc-600">#{pokemonData.id}</h3>
-          </div>
-          <div className="w-40">
-            {nextPokemon && (
-              <Link href={`/pokedex/${nextPokemon.name}`}>
-                <div className="flex gap-2 items-center text-zinc-600 hover:underline justify-end">
-                  <div className="text-center">
-                    <div className="">
-                      #{idFromUrl(nextPokemon.url)}{" "}
-                      {capitalizeFirst(nextPokemon.name)}
-                    </div>
+              </div>
+            </Link>
+          )}
+        </div>
+        <div className="w-40">
+          {nextPokemon && (
+            <Link href={`/pokedex/${nextPokemon.name}`}>
+              <div className="flex gap-2 items-center text-zinc-600 hover:underline justify-end">
+                <div className="text-center">
+                  <div className="">
+                    #{idFromUrl(nextPokemon.url)}{" "}
+                    {capitalizeFirst(nextPokemon.name)}
                   </div>
-                  <img
-                    className="w-4.5"
-                    src="/logos/SVG/arrow-right-wide-line.svg"
-                  />
                 </div>
-              </Link>
-            )}
-          </div>
+                <img
+                  className="w-2"
+                  src="/logos/SVG/arrow-right-wide-line.svg"
+                />
+              </div>
+            </Link>
+          )}
         </div>
       </div>
+      <h2 className="tracking-wide text-center mt-6">
+        {capitalizeFirst(pokemonData.name)}
+      </h2>
+      <h3 className="text-zinc-600 text-center">#{pokemonData.id}</h3>
 
-      <div className="mt-4 flex flex-col gap-4">
-        <h3 className="tracking-wide">
-          <b>Basic Info</b>
-        </h3>
-        <div className="flex">
-          <h4 className="mr-1">
-            {pokemonData.types.length > 1 ? "Types" : "Type"}
-          </h4>
-          <div className="flex ml-3 gap-2">
-            {pokemonData.types.map((t) => (
-              <Link key={t.type.name} href={`/pokedex?type=${t.type.name}`}>
-                <PokeTypeBox type={t.type.name} />
-              </Link>
-            ))}
-          </div>
-        </div>
-        <div className="flex gap-2">
-          <h4 className="mr-1">Abilities</h4>
-          {pokemonData.abilities.map((ability) => (
-            <div key={ability.ability.name} className="border px-2 shadow-xs">
-              {capitalizeFirst(ability.ability.name)}
+      <div className="mt-8 flex justify-between items-start h-81">
+        <div className="h-full flex flex-col">
+          <h3 className="font-semibold mb-2">Basic Info</h3>
+          <div className="flex flex-col px-8 py-4 h-full justify-between border rounded-lg shadow-sm text-zinc-800">
+            <div className="flex items-baseline ">
+              <h4 className="mr-1">
+                {pokemonData.types.length > 1 ? "Types" : "Type"}
+              </h4>
+              <div className="flex ml-3 gap-2">
+                {pokemonData.types.map((t) => (
+                  <Link key={t.type.name} href={`/pokedex?type=${t.type.name}`}>
+                    <PokeTypeBox type={t.type.name} />
+                  </Link>
+                ))}
+              </div>
             </div>
-          ))}
+            <div className="flex items-baseline gap-2">
+              <h4 className="mr-1">Abilities</h4>
+              {pokemonData.abilities.map((ability) => (
+                <div
+                  key={ability.ability.name}
+                  className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
+                >
+                  {capitalizeFirst(ability.ability.name)}
+                </div>
+              ))}
+            </div>
+            <div className="flex items-baseline gap-2">
+              <h4 className="mr-1">Egg Group</h4>
+              {speciesData.egg_groups.map((eggGroup) => (
+                <div
+                  key={eggGroup.name}
+                  className="text-zinc-500 font-semibold px-2 py-0.5 rounded-sm"
+                >
+                  {capitalizeFirst(eggGroup.name)}
+                </div>
+              ))}
+            </div>
+            <div className="flex items-baseline gap-4">
+              <h4>Height</h4>
+              <div className="text-zinc-500 font-semibold">
+                {pokemonData.height / 10} m
+              </div>
+            </div>
+            <div className="flex items-baseline gap-4">
+              <h4>Weight</h4>
+              <div className="text-zinc-500 font-semibold">
+                {pokemonData.weight / 10} kg
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="flex items-baseline gap-4">
-          <h4>Height</h4>
-          <div>{pokemonData.height / 10}m</div>
-        </div>
-        <div className="flex items-baseline gap-4">
-          <h4>Weight</h4>
-          <div>{pokemonData.weight / 10}kg</div>
+        <div className="">
+          <div className="h-9" />
+          <div className="w-fit border rounded-xl shadow-sm px-4">
+            <img
+              className="w-72 h-72 pixelated"
+              src={pokemonData.sprites.front_default || ""}
+              alt={pokemonData.name}
+              loading="lazy"
+              decoding="async"
+              width={192}
+              height={192}
+            />
+          </div>
         </div>
       </div>
 
       <div>
-        <h3 className="tracking-wide">
-          <b>Evolution Path</b>
-        </h3>
-        <EvolutionTree
-          chainLink={evolutionData.chain}
-          gap={
-            idFromUrl(speciesData.evolution_chain.url) === 67
-              ? "400px"
-              : "160px"
-          }
-          arrowColor={typesToColors[pokemonData.types[0].type.name]}
-        />
-      </div>
-
-      <div>
-        <h3 className="tracking-wide">
-          <b>Stats</b>
-        </h3>
+        <h3 className="mt-8 mb-2 font-semibold">Stats</h3>
         <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
             return {
@@ -176,40 +200,26 @@ export default async function PokemonPage({
         />
       </div>
 
-      {/* <div>
-        <h3 className="tracking-wide">
-          <b>Moves</b>
-        </h3>
-        <div className="border rounded-md shadow-md p-6 flex flex-col gap-2 w-full">
-          <Table>
-            <TableCaption>
-              A list of {capitalizeFirst(pokemonData.name)}'s moves
-            </TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Move</TableHead>
-                <TableHead>Level Learned</TableHead>
-                <TableHead>Method Learned</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {pokemonData.moves.map((move) => {
-                return (
-                  <TableRow key={move.move.name}>
-                    <TableCell>{capitalizeFirst(move.move.name)}</TableCell>
-                    <TableCell>
-                      {move.version_group_details[0].level_learned_at}
-                    </TableCell>
-                    <TableCell>
-                      {move.version_group_details[0].move_learn_method.name}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+      <div>
+        <h3 className="mt-8 font-semibold mb-2">Evolution Path</h3>
+
+        <div className="flex justify-self-center">
+          <EvolutionTree
+            chainLink={evolutionData.chain}
+            gap={
+              idFromUrl(speciesData.evolution_chain.url) === 67
+                ? "400px"
+                : "160px"
+            }
+            arrowColor={typesToColors[pokemonData.types[0].type.name]}
+          />
         </div>
-      </div> */}
+      </div>
+
+      <div>
+        <h3 className="mt-8 mb-2 font-semibold">Moves</h3>
+        <MovesTable moves={moves} />
+      </div>
     </div>
   );
 }

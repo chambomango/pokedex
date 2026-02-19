@@ -25,6 +25,30 @@ export function prettyName(s: string) {
     .join(" ");
 }
 
+export function prettyPrintMove(s: string) {
+  const parts = s.split("-");
+  let partsUppercase: string[] = [];
+  parts.forEach((part) =>
+    partsUppercase.push(part.charAt(0).toUpperCase() + part.slice(1)),
+  );
+  return partsUppercase.join(" ");
+}
+
+export function prettyMoveMethod(s: string) {
+  switch (s) {
+    case "machine":
+      return "TM/HM";
+    case "level-up":
+      return "Level Up";
+    case "tutor":
+      return "Move Tutor";
+    case "egg":
+      return "Egg Move";
+    default:
+      return s;
+  }
+}
+
 export function prettyStat(s: string) {
   const statToAbbr: Record<string, string> = {
     hp: "HP",

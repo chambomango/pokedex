@@ -13,7 +13,10 @@ export default function EvolutionTree({
   arrowColor: string;
 }) {
   return (
-    <div className="flex items-center" style={{ gap: gap }}>
+    <div
+      className="flex items-center border rounded-lg shadow-sm w-fit p-4"
+      style={{ gap: gap }}
+    >
       <Xwrapper>
         <EvolutionBranches
           chainLink={chainLink}

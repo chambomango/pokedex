@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import {
@@ -72,7 +73,8 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
         placeholder="Search"
         onChange={updateSearch}
         defaultValue={searchParams.get("search") || ""}
-      ></input>
+      />
+
       <div className="flex gap-3">
         <Select value={selectedGen} onValueChange={updateGen}>
           <SelectTrigger className="w-full max-w-48">
@@ -82,11 +84,23 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
               <SelectValue />
             )}
           </SelectTrigger>
-          <SelectContent position="popper">
+
+          <SelectContent
+            position="popper"
+            className="
+              p-1
+              bg-white/70 backdrop-blur-md supports-[backdrop-filter]:bg-white/50
+              border border-zinc-200/80 shadow-lg
+              [&_[data-highlighted]]:bg-zinc-900/5
+              [&_[data-highlighted]]:text-zinc-900
+              [&_[data-highlighted]]:outline-none
+              [&_[data-highlighted]]:transition-colors
+            "
+          >
             <SelectGroup>
               <SelectLabel>Generations</SelectLabel>
               <SelectItem value="all">All Generations</SelectItem>
-              {props?.generations?.map((t) => (
+              {props.generations.map((t) => (
                 <SelectItem key={t.name} value={t.name}>
                   {formatGeneration(t.name)}
                 </SelectItem>
@@ -94,6 +108,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
             </SelectGroup>
           </SelectContent>
         </Select>
+
         <Select value={selectedType} onValueChange={updateType}>
           <SelectTrigger className="w-full max-w-48">
             {selectedType === "" ? (
@@ -102,7 +117,19 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
               <SelectValue />
             )}
           </SelectTrigger>
-          <SelectContent position="popper">
+
+          <SelectContent
+            position="popper"
+            className="
+              p-1
+              bg-white/70 backdrop-blur-md supports-[backdrop-filter]:bg-white/50
+              border border-zinc-200/80 shadow-lg
+              [&_[data-highlighted]]:bg-zinc-900/5
+              [&_[data-highlighted]]:text-zinc-900
+              [&_[data-highlighted]]:outline-none
+              [&_[data-highlighted]]:transition-colors
+            "
+          >
             <SelectGroup>
               <SelectLabel>Types</SelectLabel>
               <SelectItem value="all">All Types</SelectItem>
