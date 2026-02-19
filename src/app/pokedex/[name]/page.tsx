@@ -63,7 +63,7 @@ export default async function PokemonPage({
   const moves: MoveWithVersions[] = await Promise.all(moveTasks);
 
   return (
-    <div className="mt-4 mb-40 max-w-6xl">
+    <div className="mt-2 mb-40 w-full mx-auto max-w-5xl">
       <PokemonBreadcrumb name={pokemonData.name} />
       <div className="mt-8 flex justify-between items-center">
         <div className="w-40">
@@ -76,8 +76,10 @@ export default async function PokemonPage({
                 />
                 <div className="text-center">
                   <div>
-                    #{idFromUrl(previousPokemon.url)}{" "}
-                    {capitalizeFirst(previousPokemon.name)}
+                    {capitalizeFirst(previousPokemon.name)}{" "}
+                    <span className="tracking-wide">{"("}</span>#
+                    {idFromUrl(previousPokemon.url)}
+                    <span className="tracking-wide">{")"}</span>
                   </div>
                 </div>
               </div>
@@ -89,9 +91,11 @@ export default async function PokemonPage({
             <Link href={`/pokedex/${nextPokemon.name}`}>
               <div className="flex gap-2 items-center text-zinc-600 hover:underline justify-end">
                 <div className="text-center">
-                  <div className="">
-                    #{idFromUrl(nextPokemon.url)}{" "}
-                    {capitalizeFirst(nextPokemon.name)}
+                  <div>
+                    {capitalizeFirst(nextPokemon.name)}{" "}
+                    <span className="tracking-wide">{"("}</span>#
+                    {idFromUrl(nextPokemon.url)}
+                    <span className="tracking-wide">{")"}</span>
                   </div>
                 </div>
                 <img
@@ -103,17 +107,22 @@ export default async function PokemonPage({
           )}
         </div>
       </div>
-      <h2 className="tracking-wide text-center mt-6">
-        {capitalizeFirst(pokemonData.name)}
-      </h2>
-      <h3 className="text-zinc-600 text-center">#{pokemonData.id}</h3>
+      <div className="mt-4 flex gap-3 align-center justify-center items-center">
+        <h2 className="tracking-wide text-center">
+          {capitalizeFirst(pokemonData.name)}
+        </h2>
+        <h2 className="font-medium text-zinc-400 text-center">
+          {"("}#{pokemonData.id}
+          {")"}
+        </h2>
+      </div>
 
-      <div className="mt-8 flex justify-between items-end h-81.5 gap-12">
+      <div className="mt-10 flex justify-between items-start gap-12">
         {/* BASIC INFO SECTION */}
-        <div className="h-full flex flex-col min-w-[520px]">
+        <div className="flex flex-col min-w-[520px]">
           <h3 className="font-semibold mb-2">Basic Info</h3>
 
-          <div className="flex flex-col h-72.5 px-8 py-6 h-full justify-between border rounded-lg shadow-sm text-zinc-800">
+          <div className="flex flex-col px-8 py-6 gap-4 border rounded-lg shadow-sm text-zinc-800">
             {/* TYPES */}
             <div className="flex items-baseline gap-4">
               <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
@@ -130,7 +139,7 @@ export default async function PokemonPage({
             </div>
 
             {/* ABILITIES */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4">
               <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
                 <Sparkles className="h-4 w-4 text-zinc-400" />
                 <span>Abilities</span>
@@ -148,7 +157,7 @@ export default async function PokemonPage({
             </div>
 
             {/* EGG GROUP */}
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4">
               <div className="w-28 flex items-center gap-2 text-zinc-700 font-semibold">
                 <Egg className="h-4 w-4 text-zinc-400" />
                 <span>Egg Group</span>
@@ -190,8 +199,10 @@ export default async function PokemonPage({
         </div>
 
         {/* POKEMON IMAGE */}
-        <div>
-          <div className="w-fit border rounded-xl shadow-sm px-4">
+        <div className="flex flex-col">
+          {/* matches "Basic Info" heading height */}
+          <div className="h-9" />{" "}
+          <div className="w-fit border rounded-xl shadow-sm px-4 flex items-center">
             <img
               className="w-72 h-72 pixelated"
               src={pokemonData.sprites.front_default || ""}
@@ -205,8 +216,9 @@ export default async function PokemonPage({
         </div>
       </div>
 
-      <div>
-        <h3 className="mt-8 mb-2 font-semibold">Stats</h3>
+      {/* STATS */}
+      <div className="mt-10 mb-2">
+        <h3 className="font-semibold">Stats</h3>
         <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
             return {
