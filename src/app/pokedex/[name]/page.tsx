@@ -63,9 +63,9 @@ export default async function PokemonPage({
   const moves: MoveWithVersions[] = await Promise.all(moveTasks);
 
   return (
-    <div className="mt-2 mb-40 w-full mx-auto max-w-5xl">
+    <div className="mb-40 mx-auto max-w-5xl">
       <PokemonBreadcrumb name={pokemonData.name} />
-      <div className="mt-8 flex justify-between items-center">
+      <div className="mt-6 flex justify-between items-center">
         <div className="w-40">
           {previousPokemon && (
             <Link href={`/pokedex/${previousPokemon.name}`}>
@@ -117,11 +117,10 @@ export default async function PokemonPage({
         </h2>
       </div>
 
-      <div className="mt-10 flex justify-between items-start gap-12">
+      <div className="flex items-end gap-20">
         {/* BASIC INFO SECTION */}
-        <div className="flex flex-col min-w-[520px]">
-          <h3 className="font-semibold mb-2">Basic Info</h3>
-
+        <div className="mt-8 flex flex-col min-w-[520px]">
+          <h3 className="font-semibold mb-2">Overview</h3>
           <div className="flex flex-col px-8 py-6 gap-4 border rounded-lg shadow-sm text-zinc-800">
             {/* TYPES */}
             <div className="flex items-baseline gap-4">
@@ -200,11 +199,9 @@ export default async function PokemonPage({
 
         {/* POKEMON IMAGE */}
         <div className="flex flex-col">
-          {/* matches "Basic Info" heading height */}
-          <div className="h-9" />{" "}
-          <div className="w-fit border rounded-xl shadow-sm px-4 flex items-center">
+          <div className="w-fit px-4 flex items-center border rounded-lg shadow-sm">
             <img
-              className="w-72 h-72 pixelated"
+              className="min-w-72 min-h-72 pixelated"
               src={pokemonData.sprites.front_default || ""}
               alt={pokemonData.name}
               loading="lazy"
@@ -217,8 +214,8 @@ export default async function PokemonPage({
       </div>
 
       {/* STATS */}
-      <div className="mt-10 mb-2">
-        <h3 className="font-semibold">Stats</h3>
+      <div className="mt-8">
+        <h3 className="font-semibold  mb-2">Battle Stats</h3>
         <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
             return {
@@ -230,8 +227,8 @@ export default async function PokemonPage({
         />
       </div>
 
-      <div>
-        <h3 className="mt-8 font-semibold mb-2">Evolution Path</h3>
+      <div className="mt-8">
+        <h3 className="font-semibold mb-2">Evolution Path</h3>
 
         <div className="flex justify-self-center">
           <EvolutionTree
