@@ -1,16 +1,19 @@
 import { capitalizeFirst, idFromUrl } from "@/helpers/gridHelpers";
 import Link from "next/link";
 import { NamedAPIResource } from "pokenode-ts";
+import { ReactNode } from "react";
 
 export default function PrevNextPokemon({
   previousPokemon,
   nextPokemon,
+  children,
 }: {
   previousPokemon: NamedAPIResource | null;
   nextPokemon: NamedAPIResource | null;
+  children: ReactNode;
 }) {
   return (
-    <div className="mb-2 flex justify-between items-center">
+    <div className="mb-2 flex justify-between items-baseline">
       <div className="w-34">
         {previousPokemon && (
           <Link href={`/pokedex/${previousPokemon.name}`}>
@@ -31,6 +34,7 @@ export default function PrevNextPokemon({
           </Link>
         )}
       </div>
+      <div>{children}</div>
       <div className="w-34">
         {nextPokemon && (
           <Link href={`/pokedex/${nextPokemon.name}`}>
