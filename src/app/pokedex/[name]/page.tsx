@@ -1,36 +1,23 @@
-import {
-  EvolutionClient,
-  MoveClient,
-  Pokemon,
-  PokemonClient,
-} from "pokenode-ts";
+import { Pokemon } from "pokenode-ts";
 import { capitalizeFirst, idFromUrl, prettyStat } from "@/helpers/gridHelpers";
-import PokeTypeBox, { typesToColors } from "@/components/pokeTypeBox";
+import { typesToColors } from "@/components/pokeTypeBox";
 import { PokemonStatsChart } from "@/components/pokemonStatsChart";
 import EvolutionTree from "@/components/evolutionTree";
-import Link from "next/link";
 import { PokemonBreadcrumb } from "@/components/pokemonBreadcrumb";
-import { MoveWithVersions } from "@/app/definitions/moveDefinitions";
 import MovesTable from "@/components/movesTable";
-import {
-  Layers,
-  Sparkles,
-  Egg,
-  Ruler,
-  Weight as WeightIcon,
-  Users,
-  Mars,
-  Venus,
-} from "lucide-react";
 import PrevNextPokemon from "@/components/prevNextPokemon";
 import PokemonOverview from "@/components/pokemonOverview";
+import {
+  evolutionClient,
+  moveClient,
+  pokemonClient,
+} from "@/singletons/pokenodeTsClients";
 export default async function PokemonPage({
   params,
 }: {
   params: Promise<{ name: string }>;
 }) {
   const { name } = await params;
-  const pokemonClient = new PokemonClient();
   const pokemonData: Pokemon = await pokemonClient.getPokemonByName(
     name as string,
   );
@@ -53,20 +40,9 @@ export default async function PokemonPage({
     pokemonData.species.name,
   );
 
-  const evolutionClient = new EvolutionClient();
   const evolutionData = await evolutionClient.getEvolutionChainById(
     idFromUrl(speciesData.evolution_chain.url),
   );
-
-  const moveClient = new MoveClient();
-  const moveTasks: Promise<MoveWithVersions>[] = pokemonData.moves.map(
-    async (move) => {
-      const moveData = await moveClient.getMoveByName(move.move.name);
-      return { ...moveData, version_group_details: move.version_group_details };
-    },
-  );
-
-  const moves: MoveWithVersions[] = await Promise.all(moveTasks);
 
   return (
     <div className="mb-40 mx-auto max-w-5xl">
@@ -86,7 +62,7 @@ export default async function PokemonPage({
       <div className="mt-6 flex items-start gap-18">
         {/* POKEMON IMAGE */}
         <div className="flex flex-col">
-          <h3 className="font-semibold mb-2">Sprite</h3>
+          <h3 className=" mb-2">Sprite</h3>
           <div className="w-fit px-4 flex items-center border rounded-lg shadow-sm">
             <img
               className="min-w-72 min-h-72 pixelated"
@@ -105,7 +81,7 @@ export default async function PokemonPage({
 
       {/* STATS */}
       <div className="mt-8">
-        <h3 className="font-semibold mb-2">Base Stats</h3>
+        <h3 className=" mb-2">Base Stats</h3>
         {/* todo: add total stat count, range at lvl 50, range at level 100 */}
         <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
@@ -119,7 +95,7 @@ export default async function PokemonPage({
       </div>
 
       <div className="mt-8">
-        <h3 className="font-semibold mb-2">Evolution Path</h3>
+        <h3 className=" mb-2">Evolution Path</h3>
 
         <EvolutionTree
           chainLink={evolutionData.chain}
@@ -133,8 +109,8 @@ export default async function PokemonPage({
       </div>
 
       <div>
-        <h3 className="mt-8 mb-2 font-semibold">Moves</h3>
-        <MovesTable moves={moves} />
+        <h3 className="mt-8 mb-2 ">Moves</h3>
+        <MovesTable initialMoves={pokemonData.moves} />
       </div>
     </div>
   );

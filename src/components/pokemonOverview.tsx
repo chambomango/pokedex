@@ -22,12 +22,12 @@ export default function PokemonOverview({
 }) {
   return (
     <div className="flex flex-col min-w-[520px] ">
-      <h3 className="font-semibold mb-2">Overview</h3>
+      <h3 className=" mb-2">Overview</h3>
 
       <div className="flex flex-col px-8 py-6 gap-4 text-zinc-800  border rounded-lg shadow-sm ">
         {/* TYPES */}
         <div className="flex items-baseline gap-4">
-          <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
+          <div className="w-30 flex items-center gap-2 text-zinc-700 ">
             <Layers className="h-4 w-4 text-zinc-400" />
             <span>{pokemonData.types.length > 1 ? "Types" : "Type"}</span>
           </div>
@@ -42,7 +42,7 @@ export default function PokemonOverview({
 
         {/* ABILITIES */}
         <div className="flex items-start gap-4">
-          <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
+          <div className="w-30 flex items-center gap-2 text-zinc-700 ">
             <Sparkles className="h-4 w-4 text-zinc-400" />
             <span>Abilities</span>
           </div>
@@ -50,7 +50,7 @@ export default function PokemonOverview({
             {pokemonData.abilities.map((ability) => (
               <div
                 key={ability.ability.name}
-                className="text-zinc-500 font-semibold pr-2 py-0.5 rounded-sm"
+                className="text-zinc-500  pr-2 py-0.5 rounded-sm"
               >
                 {capitalizeFirst(ability.ability.name)}
               </div>
@@ -60,7 +60,7 @@ export default function PokemonOverview({
 
         {/* EGG GROUP */}
         <div className="flex items-start gap-4">
-          <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
+          <div className="w-30 flex items-center gap-2 text-zinc-700 ">
             <Egg className="h-4 w-4 text-zinc-400" />
             <span>Egg Group</span>
           </div>
@@ -68,7 +68,7 @@ export default function PokemonOverview({
             {speciesData.egg_groups.map((eggGroup) => (
               <div
                 key={eggGroup.name}
-                className="text-zinc-500 font-semibold pr-2 py-0.5 rounded-sm"
+                className="text-zinc-500  pr-2 py-0.5 rounded-sm"
               >
                 {capitalizeFirst(eggGroup.name)}
               </div>
@@ -78,40 +78,36 @@ export default function PokemonOverview({
 
         {/* HEIGHT */}
         <div className="flex items-center gap-4">
-          <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
+          <div className="w-30 flex items-center gap-2 text-zinc-700 ">
             <Ruler className="h-4 w-4 text-zinc-400" />
             <span>Height</span>
           </div>
-          <div className="text-zinc-500 font-semibold">
-            {pokemonData.height / 10} m
-          </div>
+          <div className="text-zinc-500 ">{pokemonData.height / 10} m</div>
         </div>
 
         {/* WEIGHT */}
         <div className="flex items-center gap-4">
-          <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
+          <div className="w-30 flex items-center gap-2 text-zinc-700 ">
             <WeightIcon className="h-4 w-4 text-zinc-400" />
             <span>Weight</span>
           </div>
-          <div className="text-zinc-500 font-semibold">
-            {pokemonData.weight / 10} kg
-          </div>
+          <div className="text-zinc-500 ">{pokemonData.weight / 10} kg</div>
         </div>
         {/* GENDER RATIO */}
         <div className="flex items-center gap-4">
-          <div className="w-30 flex items-center gap-2 text-zinc-700 font-semibold">
+          <div className="w-30 flex items-center gap-2 text-zinc-700 ">
             <Users className="h-4 w-4 text-zinc-400" />
             <span>Gender</span>
           </div>
 
           {speciesData.gender_rate === -1 ? (
-            <div className="text-zinc-500 font-semibold">Genderless</div>
+            <div className="text-zinc-500 ">Genderless</div>
           ) : (
             (() => {
               const femalePct = (speciesData.gender_rate / 8) * 100;
               const malePct = 100 - femalePct;
               return (
-                <div className="flex items-center gap-3 text-zinc-500 font-semibold">
+                <div className="flex items-center gap-3 text-zinc-500 ">
                   {malePct > 0 && (
                     <div className="flex items-center gap-1">
                       <Mars className="h-4 w-4 text-blue-600" />

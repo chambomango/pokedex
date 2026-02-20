@@ -2,6 +2,7 @@ import { NamedAPIResource, PokemonClient } from "pokenode-ts";
 import PokeGrid from "@/components/pokeGrid";
 import { idFromUrl } from "@/helpers/gridHelpers";
 import { getGenerationById, getGenerations } from "@/api/pokemon";
+import { pokemonClient } from "@/singletons/pokenodeTsClients";
 
 export default async function PokedexPage({
   searchParams,
@@ -13,11 +14,11 @@ export default async function PokedexPage({
   const selectedGen = searchParamsResult?.gen;
   const search = searchParamsResult?.search || "";
 
-  const api = new PokemonClient();
-  const pokemons: NamedAPIResource[] = (await api.listPokemons(0, 1025))
-    .results;
+  const pokemons: NamedAPIResource[] = (
+    await pokemonClient.listPokemons(0, 1025)
+  ).results;
   const pokemonTypes: NamedAPIResource[] = (
-    await api.listTypes(0, 100)
+    await pokemonClient.listTypes(0, 100)
   ).results.filter(
     (type) => !["unknown", "shadow", "stellar"].includes(type.name),
   );
@@ -25,7 +26,7 @@ export default async function PokedexPage({
   await Promise.all(
     pokemonTypes.map(async (type) => {
       const pokemonNames = (
-        await api.getTypeById(idFromUrl(type.url))
+        await pokemonClient.getTypeById(idFromUrl(type.url))
       ).pokemon.map((res) => res.pokemon.name);
       typesToPokemon.set(type.name, new Set(pokemonNames));
     }),

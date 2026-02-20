@@ -11,9 +11,9 @@ export type MoveWithVersions = Move & {
 export type MoveColumn = {
   level: number;
   name: string;
-  type: string;
-  pp: number | null;
-  accuracy: number | null;
+  type?: string;
+  pp?: number | null;
+  accuracy?: number | null;
   methodLearned: string;
 };
 
@@ -61,7 +61,6 @@ export const MOVE_COLUMNS: ColumnDef<MoveColumn>[] = [
   {
     accessorKey: "type",
     header: ({ column }) => {
-      console.log(column.getIsSorted());
       return (
         <SortedHeader
           key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
@@ -78,7 +77,6 @@ export const MOVE_COLUMNS: ColumnDef<MoveColumn>[] = [
   {
     accessorKey: "pp",
     header: ({ column }) => {
-      console.log(column.getIsSorted());
       return (
         <SortedHeader
           key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
@@ -92,7 +90,6 @@ export const MOVE_COLUMNS: ColumnDef<MoveColumn>[] = [
   {
     accessorKey: "accuracy",
     header: ({ column }) => {
-      console.log(column.getIsSorted());
       return (
         <SortedHeader
           key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
@@ -110,7 +107,6 @@ export const MOVE_COLUMNS: ColumnDef<MoveColumn>[] = [
   {
     accessorKey: "methodLearned",
     header: ({ column }) => {
-      console.log(column.getIsSorted());
       return (
         <SortedHeader
           key={`${column.id}-${String(column.getIsSorted() ?? "none")}`}
