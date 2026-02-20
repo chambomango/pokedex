@@ -12,6 +12,7 @@ import {
   moveClient,
   pokemonClient,
 } from "@/singletons/pokenodeTsClients";
+import PokemonSpriteViewer from "@/components/pokemonSpriteViewer";
 export default async function PokemonPage({
   params,
 }: {
@@ -44,6 +45,9 @@ export default async function PokemonPage({
     idFromUrl(speciesData.evolution_chain.url),
   );
 
+  const blackAndWhite =
+    pokemonData.sprites.versions?.["generation-v"]?.["black-white"] ?? null;
+
   return (
     <div className="mb-40 mx-auto max-w-5xl">
       <PokemonBreadcrumb name={pokemonData.name} />
@@ -61,20 +65,21 @@ export default async function PokemonPage({
       </div>
       <div className="mt-6 flex items-start gap-18">
         {/* POKEMON IMAGE */}
-        <div className="flex flex-col">
-          <h3 className=" mb-2">Sprite</h3>
-          <div className="w-fit px-4 flex items-center border rounded-lg shadow-sm">
-            <img
-              className="min-w-72 min-h-72 pixelated"
-              src={pokemonData.sprites.front_default || ""}
-              alt={pokemonData.name}
-              loading="lazy"
-              decoding="async"
-              width={192}
-              height={192}
-            />
-          </div>
-        </div>
+        <PokemonSpriteViewer
+          pokemonId={pokemonData.id}
+          name={capitalizeFirst(pokemonData.name)}
+          sprites={{
+            frontDefault: pokemonData.sprites.front_default,
+            backDefault: pokemonData.sprites.back_default,
+            frontShiny: pokemonData.sprites.front_shiny,
+            backShiny: pokemonData.sprites.back_shiny,
+
+            frontAnimated: blackAndWhite?.animated?.front_default ?? null,
+            backAnimated: blackAndWhite?.animated?.back_default ?? null,
+            frontAnimatedShiny: blackAndWhite?.animated?.front_shiny ?? null,
+            backAnimatedShiny: blackAndWhite?.animated?.back_shiny ?? null,
+          }}
+        />
         {/* BASIC INFO SECTION */}
         <PokemonOverview speciesData={speciesData} pokemonData={pokemonData} />
       </div>

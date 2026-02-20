@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      <div className="overflow-hidden rounded-md border">
+      <div className="overflow-hidden rounded-lg shadow-sm border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -111,7 +111,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex items-center justify-between px-2">
+      <div className="flex items-center justify-between px-2 mt-2">
         <div className="text-muted-foreground flex-1 text-sm">
           {/* {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected. */}

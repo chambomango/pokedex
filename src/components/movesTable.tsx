@@ -35,7 +35,6 @@ export default function MovesTable(props: {
 
   React.useEffect(() => {
     if (!initialLoaded) return;
-    console.log("hi");
     const moveTasks: Promise<MoveWithVersions>[] = props.initialMoves.map(
       async (move) => {
         const moveData = await moveClient.getMoveByName(move.move.name);
