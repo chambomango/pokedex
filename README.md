@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ben Chamberlain - Personal Website
 
-## Getting Started
+**Live Demo:** [benchamberlain.vercel.app](https://benchamberlain.vercel.app/)
 
-First, run the development server:
+## About
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This is the code repository for my personal portfolio site. I started this repository in **Janurary 2026** to create fun, creative projects and experiement with different coding techniques.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project is built with **TypeScript**, **React 19**, and **Next.js**, leveraging:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **TailwindCSS** for utility-first styling
+- Customized **Shadcn UI** components for consistent, accessible design
+- React Server Components (RSC) for reduced client-side bundle size
+- SSR and streaming for fast initial render and improved SEO
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+My goal is to create scalable, accessible, and modern user interfaces with a strong focus on performance and thoughtful user experience.
 
-## Learn More
+## Site Structure
 
-To learn more about Next.js, take a look at the following resources:
+The application is organized using the Next.js App Router. These are the current routes:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`/` – Landing page (personal introduction & about section)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`/pokedex` – Searchable Pokémon grid with filtering & lazy loading
 
-## Deploy on Vercel
+`/pokedex/[name]` – Dynamic Pokémon detail pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Showcase: Interactive Pokédex
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### _Overview_
+
+A fully interactive Pokédex application powered by REST calls to the public [PokéAPI](https://pokeapi.co/).
+
+This project acts as a sandbox for exploring server-driven rendering, typed API integration, and scalable, high-performance UI components.
+
+### _Features_
+
+- Pokémon Grid with search and filtering capabilities
+- Detailed Pokémon info pages including:
+  - Pokémon Type, Abilities, and Egg Moves
+  - Evolution path visualization (with recursive dynamic arrow rendering)
+  - Paginated table of its learned moves (lazy-loaded for performance)
+  - Bar chart of the Pokémon's base stats with dynamic scaling
+  - Navigation between adjacent Pokémon in the Pokédex
+
+### _Architecture & Technical Highlights_
+
+- Parallel data fetching with `Promise.all` for improved load performance
+- Strategic caching and revalidation for API efficiency
+- Lazy-loading heavy data (e.g. move details) only when needed
+- Dynamic routes and search parameter handling with the Next.js App Router
+- Typed API integration using `pokenode-ts`
+- Generic, reusable table components built with `@tanstack/react-table`
+- Custom bar chart visualization for Pokémon stats
+- Server-Side Data Fetching using `Next.js` server components
+- Incremental Static Rendering (ISR) where appropriate
