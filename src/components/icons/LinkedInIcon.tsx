@@ -1,7 +1,7 @@
 export default function LinkedInIcon({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 24 24"
+      viewBox="-1 -1 26 26"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden="true"
