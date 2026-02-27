@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 import ThemeToggle from "./themeToggle";
 import NavLinks from "./navLinks";
@@ -7,10 +11,30 @@ import GitHubIcon from "./icons/GitHubIcon";
 import LinkedInIcon from "./icons/LinkedInIcon";
 import EmailIcon from "./icons/EmailIcon";
 
-export default async function NavBar() {
+const SCROLL_THRESHOLD = 120;
+
+export default function NavBar() {
+  const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY < SCROLL_THRESHOLD);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="sticky top-2 z-50 flex justify-center px-4 py-2  pointer-events-none">
-      <nav className="flex items-center gap-1 px-3 py-1 border rounded-full bg-background/70 backdrop-blur-sm shadow-sm pointer-events-auto">
+    <div className="sticky top-2 z-50 flex justify-center px-4 py-2 pointer-events-none">
+      <nav
+        className={cn(
+          "flex items-center gap-1 px-3 py-1 border rounded-full bg-background/70 backdrop-blur-sm shadow-sm pointer-events-auto transition-all duration-300",
+          visible
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 -translate-y-3 pointer-events-none",
+        )}
+      >
         <Link href="/">
           <span className="px-2">Ben Chamberlain</span>
         </Link>
