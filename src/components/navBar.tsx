@@ -10,9 +10,7 @@ export default async function NavBar({ label }: { label: string }) {
     <nav className="navBar">
       <div className="flex">
         <Link href="/">
-          <div className="navBarLogo">
-            Ben
-          </div>
+          <div className="navBarLogo">Benjamin</div>
         </Link>
         <DisplayPath />
       </div>
@@ -23,6 +21,7 @@ export default async function NavBar({ label }: { label: string }) {
         <li>
           <Link href="/pokedex">Pokédex</Link>
         </li>
+        <li className="text-muted-foreground">|</li>
         <li>
           <a href="https://www.linkedin.com/in/ben-chamberlain/">
             <div className="flex">
@@ -62,6 +61,7 @@ export default async function NavBar({ label }: { label: string }) {
             </a>
           </div>
         </li>
+        <li className="text-muted-foreground">|</li>
         <li>
           <ThemeToggle />
         </li>

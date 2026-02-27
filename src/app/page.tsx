@@ -224,7 +224,7 @@ export default function Home() {
                 </a>
               </div>
             </div>
-            <div className="rounded-xl shadow-sm flex min-h-48 min-w-48 items-center justify-center">
+            <div className="flex min-h-48 min-w-48 items-center justify-center">
               <img
                 className="h-48 w-48 [image-rendering:pixelated]"
                 src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/2.gif"
