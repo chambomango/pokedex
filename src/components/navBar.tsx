@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 import ThemeToggle from "./themeToggle";
@@ -11,14 +11,23 @@ import GitHubIcon from "./icons/GitHubIcon";
 import LinkedInIcon from "./icons/LinkedInIcon";
 import EmailIcon from "./icons/EmailIcon";
 
-const SCROLL_THRESHOLD = 120;
+const SCROLL_THRESHOLD = 50;
 
 export default function NavBar() {
   const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setVisible(window.scrollY < SCROLL_THRESHOLD);
+      const currentScrollY = window.scrollY;
+      if (currentScrollY < SCROLL_THRESHOLD) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY.current) {
+        setVisible(false);
+      } else {
+        setVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -32,7 +41,7 @@ export default function NavBar() {
           "flex items-center gap-1 px-3 py-1 border rounded-full bg-background/70 backdrop-blur-sm shadow-sm pointer-events-auto transition-all duration-300",
           visible
             ? "opacity-100 translate-y-0"
-            : "opacity-0 -translate-y-3 pointer-events-none",
+            : "opacity-0 -translate-y-full pointer-events-none",
         )}
       >
         <Link href="/">
