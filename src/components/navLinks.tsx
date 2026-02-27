@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Route } from "next";
 
-const links = [
+const links: { href: Route; label: string }[] = [
   { href: "/", label: "Home" },
   { href: "/pokedex", label: "Pokédex" },
 ];
