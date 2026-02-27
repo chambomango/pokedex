@@ -32,7 +32,7 @@ export default function PokemonSpriteViewer({
 }) {
   const [angle, setAngle] = React.useState<"front" | "back">("front");
   const [isShiny, setIsShiny] = React.useState(false);
-  const [animated, setAnimated] = React.useState(false);
+  const [animated, setAnimated] = React.useState(true);
 
   const staticSrc = React.useMemo(() => {
     return isShiny
@@ -100,7 +100,6 @@ export default function PokemonSpriteViewer({
                 decoding="async"
                 loading="eager"
                 draggable={false}
-
               />
             </div>
           )}
