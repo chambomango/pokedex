@@ -193,7 +193,7 @@ export default function Home() {
       <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
         <h2>Projects</h2>
         <hr className="mt-2 mb-6"></hr>
-        <div className="border p-8 rounded-xl">
+        <div className="bg-muted p-8 rounded-xl">
           <div className="flex gap-22 items-center justify-center">
             <div>
               <Link
