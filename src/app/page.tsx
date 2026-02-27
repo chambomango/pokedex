@@ -5,6 +5,7 @@ import MapPinIcon from "@/components/icons/MapPinIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import Link from "next/link";
 import React from "react";
+import { CodeXml } from "lucide-react";
 
 export default function Home() {
   const arrowRef = React.useRef<SVGSVGElement | null>(null);
@@ -192,34 +193,48 @@ export default function Home() {
       <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
         <h2>Projects</h2>
         <hr className="mt-2 mb-6"></hr>
-        <div className="w-80 border p-8 rounded-xl">
-          <Link
-            className="hover:underline hover:decoration-foreground"
-            href="/pokedex"
-          >
-            <h3 className="font-semibold mb-3">Pokédex</h3>
-          </Link>
-          <p className="text-muted-foreground">
-            View pokemon across all nine generations. Search for your favorite
-            or filter by type/generation.
-          </p>
-          {/* <p className="text-muted-foreground">
-              Click on a pokemon to view more information about it such as it's
-              stats and moves
-            </p> */}
-          <br />
-          <p className="text-muted-foreground mb-5">
-            Technical patterns used: filtering, lazy loading, pagination via
-            infinite scrolling, search parameter handling.
-          </p>
-          <div className="source-code">
-            <a
-              className="text-foreground font-semibold border px-3 py-1 rounded-md"
-              href="https://github.com/chambomango/portfolio"
-              onClick={stopPropagation}
-            >
-              Source code
-            </a>
+        <div className="border p-8 rounded-xl">
+          <div className="flex gap-22 items-center justify-center">
+            <div>
+              <Link
+                className="hover:underline hover:decoration-foreground"
+                href="/pokedex"
+              >
+                <h3 className="font-semibold mb-3">Pokédex</h3>
+              </Link>
+              <p className="text-muted-foreground">
+                View Pokémon across all nine generations. Search for your
+                favorite and filter by type/generation. Click on a Pokémon to
+                learn more about it.
+              </p>
+              <br />
+              <p className="text-muted-foreground mb-5">
+                The technical patterns used in this project are described in
+                more detail within the README.md of the source code linked
+                below.
+              </p>
+              <div className="source-code">
+                <a
+                  className="flex w-fit gap-2 text-foreground font-semibold border px-3 py-1 rounded-md"
+                  href="https://github.com/chambomango/portfolio"
+                  onClick={stopPropagation}
+                >
+                  <CodeXml />
+                  <span>Source Code</span>
+                </a>
+              </div>
+            </div>
+            <div className="rounded-xl shadow-sm flex min-h-48 min-w-48 items-center justify-center">
+              <img
+                className="h-48 w-48 [image-rendering:pixelated]"
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/2.gif"
+                alt={"pokedex-img"}
+                loading="lazy"
+                decoding="async"
+                width={192}
+                height={192}
+              />
+            </div>
           </div>
         </div>
       </section>
