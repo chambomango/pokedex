@@ -12,7 +12,7 @@ export default async function NavBar() {
     <div className="sticky top-2 z-50 flex justify-center px-4 py-2  pointer-events-none">
       <nav className="flex items-center gap-1 px-3 py-1 border rounded-full bg-background/70 backdrop-blur-sm shadow-sm pointer-events-auto">
         <Link href="/">
-          <span className="px-2">Ben</span>
+          <span className="px-2">Ben Chamberlain</span>
         </Link>
         <span className="text-muted-foreground px-1">|</span>
         <ul className="flex flex-row items-center">
