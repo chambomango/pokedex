@@ -4,6 +4,7 @@ import "./navBar.css";
 
 import { Space_Grotesk } from "next/font/google";
 import DisplayPath from "./displayPath";
+import ThemeToggle from "./themeToggle";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -66,6 +67,9 @@ export default async function NavBar({ label }: { label: string }) {
               </div>
             </a>
           </div>
+        </li>
+        <li>
+          <ThemeToggle />
         </li>
       </ul>
     </nav>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "../components/navBar";
+import { ThemeProvider } from "../components/themeProvider";
 
 export const metadata: Metadata = {
   title: "Ben Chamberlain",
@@ -13,10 +14,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <NavBar label="nav" />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NavBar label="nav" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

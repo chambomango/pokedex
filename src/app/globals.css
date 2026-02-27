@@ -171,9 +171,9 @@
 }
 
 .source-code a:hover {
-  background-color: #e0e0e0;
+  background-color: var(--accent);
 }
 
 .source-code a:active {
-  background-color: #d0d0d0;
+  background-color: var(--secondary);
 }

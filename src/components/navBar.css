@@ -5,10 +5,8 @@
   align-content: center;
   align-items: center;
   padding: 6px 12px;
-  color: #333;
-  background-color: #ffffff;
-  /* background-color: #f5f5f5;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  color: var(--foreground);
+  background-color: var(--background);
 }
 
 .navBarLinks {
@@ -20,7 +18,7 @@
 
 .navBarLinks a {
   text-decoration: none;
-  color: #555;
+  color: var(--muted-foreground);
   font-weight: 500;
   padding: 8px 12px;
   border-radius: 4px;
@@ -29,17 +27,22 @@
 }
 
 .navBarLinks a:hover {
-  background-color: #e0e0e0;
-  color: #000;
+  background-color: var(--accent);
+  color: var(--accent-foreground);
 }
 
 .navBarLinks a:active {
-  background-color: #d0d0d0;
-  color: #000;
+  background-color: var(--secondary);
+  color: var(--accent-foreground);
 }
 
 .navBarLogo {
   font-size: 24px;
   font-weight: 600;
   padding: 8px 0 8px 8px;
+}
+
+/* Logo images are black PNGs — must invert in dark mode */
+.dark .navBarLinks img {
+  filter: invert(1);
 }
