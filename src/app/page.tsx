@@ -1,43 +1,7 @@
 "use client";
 import TechStackSection from "@/components/techStackSection";
-import {
-  Space_Grotesk,
-  Orbitron,
-  Orbit,
-  DM_Serif_Text,
-  Space_Mono,
-} from "next/font/google";
 import Link from "next/link";
 import React from "react";
-
-//#region fonts
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-const orbitron = Orbitron({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
-
-const orbit = Orbit({
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-});
-
-const dmserif = DM_Serif_Text({
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
-//#endregion
 
 export default function Home() {
   const arrowRef = React.useRef<HTMLImageElement | null>(null);
@@ -106,25 +70,17 @@ export default function Home() {
       <span ref={arrowShowAnimation}></span>
       <section className="animate-show max-w-106 h-[100vh]">
         <div className="mt-30 flex flex-col">
-          <h4
-            className={`text-zinc-500 flex mb-6 font-semibold text-1xl ${spaceGrotesk.className}`}
-          >
+          <h4 className="text-muted-foreground flex mb-6 font-semibold text-1xl">
             Full-Stack Software Engineer
           </h4>
-          <div
-            className={`text-zinc-700 flex mb-4 font-semibold text-7xl ${spaceGrotesk.className}`}
-          >
+          <div className="text-foreground flex mb-4 font-semibold text-7xl">
             benjamin
           </div>
-          <div
-            className={`text-zinc-400 flex mb-8 font-semibold text-7xl ${spaceGrotesk.className}`}
-          >
+          <div className="text-muted-foreground flex mb-8 font-semibold text-7xl">
             chamberlain
           </div>
         </div>
-        <p
-          className={`text-justify mb-4 text-zinc-500 max-w-155 ${spaceGrotesk.className}`}
-        >
+        <p className="text-justify mb-4 text-muted-foreground max-w-155">
           Hi I'm Ben, welcome to my site. Here I post some of my side projects I
           work on for fun. This site and all of the projects within were created
           using TypeScript, React, and NextJS. To see the code for this site
@@ -149,11 +105,9 @@ export default function Home() {
         className="mb-60 animate-hidden w-200 "
       >
         <span ref={arrowHideAnimation}></span>
-        <h2 className="text-zinc-600">About Me</h2>
+        <h2>About Me</h2>
         <hr className="mt-2 mb-6"></hr>
-        <p
-          className={`text-justify mb-4 text-zinc-500 ${spaceGrotesk.className}`}
-        >
+        <p className="text-justify mb-4 text-muted-foreground">
           I'm a full-stack software developer with 4+ years experience
           developing enterprise applications. I've worked in two positions and
           specialize in responsive and clean UIs, scalable API services, and SQL
@@ -161,9 +115,9 @@ export default function Home() {
         </p>
         <div className="mt-10 flex gap-4 justify-between">
           <div className="flex flex-col items-center">
-            <h1 className="pt-4 text-zinc-600 h-22 content-center">4+</h1>
-            <p className="pt-4 px-4 text-zinc-500">Years of Professional</p>
-            <p className="pb-4 text-zinc-500">Experience</p>
+            <h1 className="pt-4 h-22 content-center">4+</h1>
+            <p className="pt-4 px-4 text-muted-foreground">Years of Professional</p>
+            <p className="pb-4 text-muted-foreground">Experience</p>
           </div>
 
           <div className="flex flex-col items-center">
@@ -174,9 +128,9 @@ export default function Home() {
               />
             </div>
             <div className="p-4 text-center">
-              <p className=" text-zinc-500">Bachelor's Degree</p>
-              <p className=" text-zinc-500">in Computer Science</p>
-              <p className=" text-zinc-500">University of New Hampshire</p>
+              <p className="text-muted-foreground">Bachelor's Degree</p>
+              <p className="text-muted-foreground">in Computer Science</p>
+              <p className="text-muted-foreground">University of New Hampshire</p>
             </div>
           </div>
           <div className="flex flex-col items-center">
@@ -187,15 +141,15 @@ export default function Home() {
               />
             </div>
             <div className="p-4 text-center">
-              <p className=" text-zinc-500">Located in Barrington,</p>
-              <p className=" text-zinc-500">New Hampshire</p>
+              <p className="text-muted-foreground">Located in Barrington,</p>
+              <p className="text-muted-foreground">New Hampshire</p>
             </div>
           </div>
         </div>
       </section>
 
       <section ref={sectionAnimations} className="mb-60 animate-hidden w-200 ">
-        <h2 className="text-zinc-600">Technology Stack</h2>
+        <h2>Technology Stack</h2>
         <hr className="mt-2 mb-6"></hr>
         <div className="flex flex-col gap-6 justify-between">
           <TechStackSection
@@ -235,31 +189,31 @@ export default function Home() {
       </section>
 
       <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
-        <h2 className="text-zinc-600">Projects</h2>
+        <h2>Projects</h2>
         <hr className="mt-2 mb-6"></hr>
         <div className="w-80 border p-8 rounded-xl">
           <Link
-            className="hover:underline hover:decoration-zinc-600"
+            className="hover:underline hover:decoration-foreground"
             href="/pokedex"
           >
-            <h3 className="font-semibold mb-3 text-zinc-600">Pokédex</h3>
+            <h3 className="font-semibold mb-3">Pokédex</h3>
           </Link>
-          <p className="text-zinc-500">
+          <p className="text-muted-foreground">
             View pokemon across all nine generations. Search for your favorite
             or filter by type/generation.
           </p>
-          {/* <p className="text-zinc-500">
+          {/* <p className="text-muted-foreground">
               Click on a pokemon to view more information about it such as it's
               stats and moves
             </p> */}
           <br />
-          <p className="text-zinc-500 mb-5">
+          <p className="text-muted-foreground mb-5">
             Technical patterns used: filtering, lazy loading, pagination via
             infinite scrolling, search parameter handling.
           </p>
           <div className="source-code">
             <a
-              className="text-zinc-600 font-semibold border px-3 py-1 rounded-md"
+              className="text-foreground font-semibold border px-3 py-1 rounded-md"
               href="https://github.com/chambomango/portfolio"
               onClick={stopPropagation}
             >

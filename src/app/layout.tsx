@@ -2,6 +2,13 @@ import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "../components/navBar";
 import { ThemeProvider } from "../components/themeProvider";
+import { Space_Grotesk } from "next/font/google";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  variable: "--font-body",
+});
 
 export const metadata: Metadata = {
   title: "Ben Chamberlain",
@@ -14,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={spaceGrotesk.variable}>
       <body>
         <ThemeProvider
           attribute="class"

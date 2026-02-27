@@ -53,10 +53,10 @@ export default async function PokemonPage({
       <PokemonBreadcrumb name={pokemonData.name} />
       <div className="flex justify-between items-baseline">
         <div className="mt-9 flex gap-4">
-          <h1 className="tracking-wide text-zinc-900">
+          <h1 className="tracking-wide">
             {capitalizeFirst(pokemonData.name)}
           </h1>
-          <h1 className="font-medium text-zinc-400">#{pokemonData.id}</h1>
+          <h1 className="font-medium text-muted-foreground">#{pokemonData.id}</h1>
         </div>
         <PrevNextPokemon
           previousPokemon={previousPokemon}

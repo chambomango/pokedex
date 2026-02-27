@@ -8,21 +8,26 @@
   h1 {
     font-size: 40px;
     font-weight: 700;
+    color: var(--foreground);
   }
   h2 {
     font-size: 32px;
     font-weight: 700;
+    color: var(--foreground);
   }
   h3 {
     font-size: 24px;
+    color: var(--foreground);
   }
   h4 {
     font-size: 20px;
+    color: var(--foreground);
   }
   * {
     @apply border-border outline-ring/50;
   }
   body {
+    font-family: var(--font-body), sans-serif;
     @apply bg-background text-foreground;
   }
 }

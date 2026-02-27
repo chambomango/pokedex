@@ -58,10 +58,10 @@ export default async function PokedexPage({
   return (
     <div className="flex h-full flex-col px-4 pt-6">
       <div className="mb-4">
-        <h1 className="text-4xl font-semibold tracking-wide text-zinc-800">
+        <h1 className="text-4xl font-semibold tracking-wide">
           Interactive Pokédex
         </h1>
-        <p className="mt-2 text-xs text-zinc-500">
+        <p className="mt-2 text-xs text-muted-foreground">
           Pokémon and Pokédex are trademarks of Nintendo. This project is a
           fan-made application for educational purposes only.
         </p>

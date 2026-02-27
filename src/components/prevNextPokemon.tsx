@@ -17,7 +17,7 @@ export default function PrevNextPokemon({
       <div className="w-25">
         {previousPokemon && (
           <Link href={`/pokedex/${previousPokemon.name}`}>
-            <div className="flex gap-2 items-center text-zinc-600 text-sm hover:underline">
+            <div className="flex gap-2 items-center text-foreground text-sm hover:underline">
               <img
                 className="w-1.5"
                 src="/logos/SVG/arrow-left-wide-line.svg"
@@ -37,7 +37,7 @@ export default function PrevNextPokemon({
       <div className="w-25">
         {nextPokemon && (
           <Link href={`/pokedex/${nextPokemon.name}`}>
-            <div className="flex gap-2 items-center text-zinc-600 hover:underline text-sm justify-end">
+            <div className="flex gap-2 items-center text-foreground hover:underline text-sm justify-end">
               <div className="text-center">
                 <div>
                   {capitalizeFirst(nextPokemon.name)}
