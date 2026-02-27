@@ -30,7 +30,7 @@ export default function EvolutionCard({
         onLoad={onAssetLoad}
       />
       <Link
-        className="hover:underline hover:decoration-zinc-600"
+        className="hover:underline hover:decoration-foreground"
         href={`/pokedex/${name}`}
       >
         {capitalizeFirst(name)}

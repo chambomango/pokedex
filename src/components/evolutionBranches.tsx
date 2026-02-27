@@ -80,7 +80,7 @@ export default function EvolutionBranches({
                   color={arrowColor}
                   labels={
                     label ? (
-                      <div className="border text-[11px] text-center text-zinc-500 bg-white dark:bg-zinc-900/70 px-1 rounded max-w-20">
+                      <div className="border text-[11px] text-center text-foreground bg-background px-1 py-0.5 rounded max-w-20">
                         {label}
                       </div>
                     ) : null

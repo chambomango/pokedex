@@ -44,7 +44,7 @@ export default function PokeGrid(props: PokeGridProps) {
   React.useEffect(() => setPokemonShown(BATCH_SIZE * 2), [props.pokemon]);
   return (
     <div className="w-full">
-      <div className="sticky top-0 z-20 -mx-4 bg-white/90 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-white/80 rounded-md">
+      <div className="sticky top-0 z-20 -mx-4 bg-background/90 px-4 py-3 backdrop-blur supports-[backdrop-filter]:bg-background/80 rounded-md">
         <PokeGridToolbar
           pokemonTypes={props.pokemonTypes}
           generations={props.generations}
@@ -64,7 +64,7 @@ export default function PokeGrid(props: PokeGridProps) {
 
       {pokemonShown < props.pokemon.length ? (
         <div className="my-6 flex justify-center">
-          <span className="text-sm text-zinc-500">Loading…</span>
+          <span className="text-sm text-muted-foreground">Loading…</span>
         </div>
       ) : null}
     </div>

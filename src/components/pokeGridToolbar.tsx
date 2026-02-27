@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { Input } from "./ui/input";
 import { capitalizeFirst, formatGeneration } from "@/helpers/gridHelpers";
 import { NamedAPIResource } from "pokenode-ts";
 
@@ -67,9 +68,9 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
 
   return (
     <div className="flex justify-between mb-2">
-      <input
+      <Input
         id="poke-search-input"
-        className="rounded-md w-75 border pl-2"
+        className="w-75"
         placeholder="Search"
         onChange={updateSearch}
         defaultValue={searchParams.get("search") || ""}
@@ -85,18 +86,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
             )}
           </SelectTrigger>
 
-          <SelectContent
-            position="popper"
-            className="
-              p-1
-              bg-white/70 backdrop-blur-md supports-[backdrop-filter]:bg-white/50
-              border border-zinc-200/80 shadow-lg
-              [&_[data-highlighted]]:bg-zinc-900/5
-              [&_[data-highlighted]]:text-zinc-900
-              [&_[data-highlighted]]:outline-none
-              [&_[data-highlighted]]:transition-colors
-            "
-          >
+          <SelectContent position="popper">
             <SelectGroup>
               <SelectLabel>Generations</SelectLabel>
               <SelectItem value="all">All Generations</SelectItem>
@@ -118,18 +108,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
             )}
           </SelectTrigger>
 
-          <SelectContent
-            position="popper"
-            className="
-              p-1
-              bg-white/70 backdrop-blur-md supports-[backdrop-filter]:bg-white/50
-              border border-zinc-200/80 shadow-lg
-              [&_[data-highlighted]]:bg-zinc-900/5
-              [&_[data-highlighted]]:text-zinc-900
-              [&_[data-highlighted]]:outline-none
-              [&_[data-highlighted]]:transition-colors
-            "
-          >
+          <SelectContent position="popper">
             <SelectGroup>
               <SelectLabel>Types</SelectLabel>
               <SelectItem value="all">All Types</SelectItem>
