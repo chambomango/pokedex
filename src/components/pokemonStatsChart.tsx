@@ -2,7 +2,13 @@
 
 import { Bar, BarChart, XAxis, YAxis } from "recharts";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   ChartContainer,
   ChartTooltip,
@@ -22,12 +28,17 @@ const chartConfig = {
 export function PokemonStatsChart({
   chartData,
   barColor,
+  footerText,
 }: {
   chartData: { key: string; value: number }[];
   barColor: string;
+  footerText: string;
 }) {
   return (
-    <Card className="">
+    <Card className="gap-2">
+      <CardHeader>
+        <CardTitle className="text-lg font-medium">Base Stats</CardTitle>
+      </CardHeader>
       <CardContent>
         <div className="h-48">
           <ChartContainer config={chartConfig} className="h-full w-full">
@@ -39,7 +50,7 @@ export function PokemonStatsChart({
                 left: -20,
               }}
             >
-              <XAxis type="number" dataKey="Value" domain={[0, 255]} />
+              <XAxis type="number" dataKey="value" domain={[0, 255]} />
               <YAxis
                 dataKey="key"
                 type="category"
@@ -47,10 +58,6 @@ export function PokemonStatsChart({
                 tickMargin={10}
                 axisLine={false}
                 tickFormatter={(value) => value.slice(0, 3)}
-              />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent hideLabel />}
               />
               <Bar
                 dataKey="value"
@@ -63,6 +70,11 @@ export function PokemonStatsChart({
           </ChartContainer>
         </div>
       </CardContent>
+      {footerText ? (
+        <CardFooter className="text-sm text-muted-foreground">
+          {footerText}
+        </CardFooter>
+      ) : null}
     </Card>
   );
 }

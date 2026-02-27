@@ -53,10 +53,10 @@ export default async function PokemonPage({
       <PokemonBreadcrumb name={pokemonData.name} />
       <div className="flex justify-between items-baseline">
         <div className="mt-9 flex gap-4">
-          <h1 className="tracking-wide">
-            {capitalizeFirst(pokemonData.name)}
+          <h1 className="tracking-wide">{capitalizeFirst(pokemonData.name)}</h1>
+          <h1 className="font-medium text-muted-foreground">
+            #{pokemonData.id}
           </h1>
-          <h1 className="font-medium text-muted-foreground">#{pokemonData.id}</h1>
         </div>
         <PrevNextPokemon
           previousPokemon={previousPokemon}
@@ -86,7 +86,7 @@ export default async function PokemonPage({
 
       {/* STATS */}
       <div className="mt-8">
-        <h3 className=" mb-2">Base Stats</h3>
+        <h3 className=" mb-2">Stats</h3>
         {/* todo: add total stat count, range at lvl 50, range at level 100 */}
         <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
@@ -96,6 +96,9 @@ export default async function PokemonPage({
             };
           })}
           barColor={typesToColors[pokemonData.types[0].type.name]}
+          footerText={`Base Stat Total (BST): ${pokemonData.stats
+            .reduce((sum, stat) => sum + stat.base_stat, 0)
+            .toString()}`}
         />
       </div>
 
