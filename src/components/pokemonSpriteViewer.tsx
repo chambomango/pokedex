@@ -71,35 +71,39 @@ export default function PokemonSpriteViewer({
 
       <div className="w-fit rounded-lg border px-4 shadow-sm">
         <div className="relative flex h-72 w-72 items-center justify-center">
-          {animated && canAnimate ? (
+          {staticSrc && (
             <div
-              className="absolute inset-0 flex items-center justify-center"
+              className={`absolute inset-0 flex items-center justify-center ${animated && canAnimate ? "opacity-0 pointer-events-none" : "opacity-100"}`}
+            >
+              <img
+                alt={`${name} animated`}
+                src={staticSrc}
+                className="pixelated h-full w-full object-contain"
+                decoding="async"
+                loading="eager"
+                draggable={false}
+              />
+            </div>
+          )}
+          {animatedSrc && (
+            <div
+              className={`absolute inset-0 flex items-center justify-center ${!(animated && canAnimate) ? "opacity-0 pointer-events-none" : "opacity-100"}`}
               style={{
                 transform: `scale(${animatedScale})`,
                 transformOrigin: "center",
               }}
             >
               <img
-                src={animatedSrc!}
-                alt={`${name} animated`}
-                className="pixelated h-full w-full object-contain"
-                decoding="async"
-                loading="eager"
-                draggable={false}
-              />
-            </div>
-          ) : staticSrc ? (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <img
-                src={staticSrc}
                 alt={name}
+                src={animatedSrc}
                 className="pixelated h-full w-full object-contain"
                 decoding="async"
                 loading="eager"
                 draggable={false}
+
               />
             </div>
-          ) : null}
+          )}
         </div>
       </div>
 
