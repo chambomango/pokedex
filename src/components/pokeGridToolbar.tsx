@@ -70,7 +70,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
     <div className="flex justify-between mb-2">
       <Input
         id="poke-search-input"
-        className="w-75"
+        className="w-90"
         placeholder="Search"
         autoComplete="off"
         onChange={updateSearch}
