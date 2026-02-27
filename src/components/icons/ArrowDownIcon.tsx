@@ -1,0 +1,18 @@
+import { forwardRef } from "react";
+
+const ArrowDownIcon = forwardRef<SVGSVGElement, { className?: string }>(
+  ({ className }, ref) => (
+    <svg
+      ref={ref}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="3.03212 9.11619 17.93578 6.51531"
+      fill="currentColor"
+      className={className}
+    >
+      <path d="M12 15.6315L20.9679 10.8838L20.0321 9.11619L12 13.3685L3.9679 9.11619L3.03212 10.8838L12 15.6315Z" />
+    </svg>
+  )
+);
+ArrowDownIcon.displayName = "ArrowDownIcon";
+
+export default ArrowDownIcon;

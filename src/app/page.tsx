@@ -1,10 +1,13 @@
 "use client";
 import TechStackSection from "@/components/techStackSection";
+import GraduationCapIcon from "@/components/icons/GraduationCapIcon";
+import MapPinIcon from "@/components/icons/MapPinIcon";
+import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import Link from "next/link";
 import React from "react";
 
 export default function Home() {
-  const arrowRef = React.useRef<HTMLImageElement | null>(null);
+  const arrowRef = React.useRef<SVGSVGElement | null>(null);
 
   const sectionAnimations = React.useCallback((node: HTMLDivElement | null) => {
     if (!node) return;
@@ -90,11 +93,9 @@ export default function Home() {
           className="mt-60 flex mx-auto cursor-pointer"
           onClick={scrollToAboutSection}
         >
-          <img
+          <ArrowDownIcon
             ref={arrowRef}
-            id="arrow-down"
-            className="block cursor-pointer animate-show w-16 mx-auto"
-            src="/logos/SVG/arrow-down-wide-fill-zinc-light.svg"
+            className="block cursor-pointer animate-show w-16 mx-auto text-muted-foreground"
           />
         </button>
       </section>
@@ -115,30 +116,30 @@ export default function Home() {
         </p>
         <div className="mt-10 flex gap-4 justify-between">
           <div className="flex flex-col items-center">
-            <h1 className="pt-4 h-22 content-center">4+</h1>
-            <p className="pt-4 px-4 text-muted-foreground">Years of Professional</p>
+            <h1 className="pt-4 h-22 content-center text-muted-foreground">
+              4+
+            </h1>
+            <p className="pt-4 px-4 text-muted-foreground">
+              Years of Professional
+            </p>
             <p className="pb-4 text-muted-foreground">Experience</p>
           </div>
 
           <div className="flex flex-col items-center">
             <div className="h-22 content-center">
-              <img
-                className="pt-4 w-18 h-18"
-                src="/logos/SVG/graduation-cap-fill-zinc.svg"
-              />
+              <GraduationCapIcon className="pt-4 w-18 h-18 text-muted-foreground" />
             </div>
             <div className="p-4 text-center">
               <p className="text-muted-foreground">Bachelor's Degree</p>
               <p className="text-muted-foreground">in Computer Science</p>
-              <p className="text-muted-foreground">University of New Hampshire</p>
+              <p className="text-muted-foreground">
+                University of New Hampshire
+              </p>
             </div>
           </div>
           <div className="flex flex-col items-center">
             <div className="h-22 content-center">
-              <img
-                className="pt-4 w-17 h-17"
-                src="/logos/SVG/map-pin-fill-zinc.svg"
-              />
+              <MapPinIcon className="pt-4 w-17 h-17 text-muted-foreground" />
             </div>
             <div className="p-4 text-center">
               <p className="text-muted-foreground">Located in Barrington,</p>

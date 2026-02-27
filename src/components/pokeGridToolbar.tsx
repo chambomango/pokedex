@@ -72,6 +72,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
         id="poke-search-input"
         className="w-75"
         placeholder="Search"
+        autoComplete="off"
         onChange={updateSearch}
         defaultValue={searchParams.get("search") || ""}
       />
