@@ -1,9 +1,8 @@
-import { NamedAPIResource, PokemonClient } from "pokenode-ts";
+import { NamedAPIResource } from "pokenode-ts";
 import PokeGrid from "@/components/pokeGrid";
 import { idFromUrl } from "@/helpers/gridHelpers";
 import { getGenerationById, getGenerations } from "@/api/pokemon";
 import { pokemonClient } from "@/singletons/pokenodeTsClients";
-
 export default async function PokedexPage({
   searchParams,
 }: {
@@ -56,12 +55,20 @@ export default async function PokedexPage({
   });
 
   return (
-    <div className="flex h-full flex-col px-4 pt-6">
-      <div className="mb-4">
-        <h1 className="text-4xl font-semibold tracking-wide">Pokémon Search</h1>
-        <p className="mt-2 text-xs text-muted-foreground">
-          Pokémon and Pokédex are trademarks of Nintendo. This project is a
-          fan-made application for educational purposes only.
+    <div className="flex h-full flex-col">
+      <div className="mb-6">
+        <div className="mb-3 flex items-center gap-3">
+          <span className="h-1 w-10 rounded-full bg-red-500" />
+          <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            {pokemonFiltered.length} Pokémon
+          </span>
+        </div>
+        <h1 className="text-5xl font-normal italic [font-family:var(--font-display)]">
+          Pokédex
+        </h1>
+        <p className="mt-2 max-w-md text-sm text-muted-foreground">
+          Browse and filter all {pokemons.length} Pokémon across every
+          generation. Search by name, type, or generation.
         </p>
       </div>
 
