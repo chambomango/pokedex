@@ -1,19 +1,12 @@
-# Ben Chamberlain - Personal Website
+# Ben Chamberlain - Pokédex App
 
-**Live Demo:** [benchamberlain.vercel.app](https://benchamberlain.vercel.app/)
+**Live Demo:** [bc-pokedex.vercel.app/](https://bc-pokedex.vercel.app/)
 
-## About
+## Overview
 
-This is the code repository for my personal portfolio site. I started this repository in **Janurary 2026** to create fun, creative projects and experiement with different coding techniques.
+A fully interactive Pokédex application powered by REST calls to [PokéAPI](https://pokeapi.co/).
 
-This project is built with **TypeScript**, **React 19**, and **Next.js**, leveraging:
-
-- **TailwindCSS** for utility-first styling
-- Customized **Shadcn UI** components for consistent, accessible design
-- React Server Components (RSC) for reduced client-side bundle size
-- SSR and streaming for fast initial render and improved SEO
-
-My goal is to create scalable, accessible, and modern user interfaces with a strong focus on performance and thoughtful user experience.
+This project acts as a sandbox for exploring creative UI solutions, server-driven rendering, caching, typed API integration, and scalable, high-performance UI components.
 
 ## Site Structure
 
@@ -23,15 +16,7 @@ The application is organized using the Next.js App Router. These are the current
 
 `/[name]` – Dynamic Pokémon detail pages
 
-## Project Showcase: Interactive Pokédex
-
-### _Overview_
-
-A fully interactive Pokédex application powered by REST calls to the public [PokéAPI](https://pokeapi.co/).
-
-This project acts as a sandbox for exploring server-driven rendering, typed API integration, and scalable, high-performance UI components.
-
-### _Features_
+## Features
 
 - Pokémon Grid with search and filtering capabilities
 - Detailed Pokémon info pages including:
@@ -41,7 +26,7 @@ This project acts as a sandbox for exploring server-driven rendering, typed API 
   - Bar chart of the Pokémon's base stats with dynamic scaling
   - Navigation between adjacent Pokémon in the Pokédex
 
-### _Architecture & Technical Highlights_
+## Architecture & Technical Highlights
 
 - Parallel data fetching with `Promise.all` for improved load performance
 - Strategic caching and revalidation for API efficiency
