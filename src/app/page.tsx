@@ -61,7 +61,7 @@ export default function Home() {
             ? currentHeadline.slice(0, displayText.length - 1)
             : currentHeadline.slice(0, displayText.length + 1),
         ),
-      isBackspacing ? 40 : 80,
+      isBackspacing ? 30 : 80,
     );
     return () => clearTimeout(id);
   }, [displayText, headlineIndex, isBackspacing]);
@@ -70,7 +70,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center mx-auto mb-40">
       <section className="animate-show max-w-207 h-[100vh]">
         <div className="mt-30 flex flex-col">
-          <span className="font-mono text-md text-muted-foreground mb-6 inline-flex items-baseline leading-none">
+          <span className="font-mono text-lg text-muted-foreground mb-6 inline-flex items-baseline leading-none">
             <span>// {displayText}</span>
             <span aria-hidden="true" className="caret-blink" />
           </span>
@@ -81,13 +81,14 @@ export default function Home() {
             chamberlain
           </div>
         </div>
-        <p className="font-mono text-sm leading-relaxed text-muted-foreground max-w-sm">
-          Hi, I'm Ben — welcome to my site. I post side projects I work on for
-          fun, built with TypeScript, React, and Next.js. Source code is linked
-          in the nav above.
+        <p className="font-mono text-md m leading-relaxed text-muted-foreground max-w-102">
+          Hi, I’m Ben — welcome to my site. I use this space to experiment,
+          build, and share projects I’m working on. The full source code for
+          everything here is available on my GitHub.
         </p>
       </section>
 
+      {/* About Me */}
       <section
         ref={sectionAnimations}
         id="about-section"
@@ -96,15 +97,24 @@ export default function Home() {
         <span className="font-mono text-2xl text-foreground">About Me</span>
         <hr className="mt-2 mb-6" />
         <p className="text-justify mb-8 text-muted-foreground">
-          I'm a full-stack software developer with 4+ years experience
-          developing enterprise applications. I've worked in two positions and
-          specialize in responsive and clean UIs, scalable API services, and SQL
-          management.
+          I build modern user interfaces with React and TypeScript, using
+          Tailwind CSS, Redux, custom hooks, and Jest to ship reliable features.
+          I also design and implement APIs, business logic, and data access
+          layers in C#, ASP.NET, Python, and Entity Framework backed by SQL
+          Server. I have worked at two B2B software companies serving clients
+          ranging from Fortune 500 organizations to small local businesses.
+        </p>
+        <p className="text-justify mb-8 text-muted-foreground">
+          I care a lot about staying current with the rapid changes in our
+          field, working with AI coding companions, refining my workflow, and
+          keeping up with new tools and evolving languages and frameworks while
+          collaborating closely with teammates to learn, teach, and ship
+          products that deliver real value.
         </p>
         <div className="mt-4 flex gap-4 justify-between">
           <div className="rounded-sm p-4 flex flex-col items-center flex-1">
             <h1 className="h-22 content-center text-muted-foreground dark:text-foreground">
-              4+
+              5+
             </h1>
             <p className="text-center text-sm text-muted-foreground">
               Years of Professional
@@ -182,11 +192,14 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Projects */}
       <section
         ref={sectionAnimations}
         className="mb-100 animate-hidden max-w-207 w-full"
       >
-        <span className="font-mono text-2xl text-foreground">Projects</span>
+        <span className="font-mono text-2xl text-foreground">
+          Project Showcase
+        </span>
         <hr className="mt-2 mb-6" />
         <div className="bg-muted p-8 rounded-xl">
           <div className="flex gap-22 items-center justify-center">
