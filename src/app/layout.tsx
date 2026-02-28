@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavBar from "../components/navBar";
 import { ThemeProvider } from "../components/themeProvider";
 import { Space_Grotesk } from "next/font/google";
 
@@ -29,7 +28,6 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar />
           {children}
         </ThemeProvider>
       </body>
