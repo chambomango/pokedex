@@ -3,7 +3,7 @@ import { NamedAPIResource } from "pokenode-ts";
 import { PokeDisplayCard } from "./pokeCard";
 import { idFromUrl } from "@/helpers/gridHelpers";
 import PokeGridToolbar from "./pokeGridToolbar";
-import React, { useEffect } from "react";
+import React from "react";
 
 type PokeGridProps = {
   pokemonTypes: NamedAPIResource[];
@@ -45,7 +45,7 @@ export default function PokeGrid(props: PokeGridProps) {
   React.useEffect(() => setPokemonShown(BATCH_SIZE * 2), [props.pokemon]);
   return (
     <div className="w-full">
-      <div className="sticky top-0 z-20 -mx-4 bg-background/90 px-4 pb-3 py-6 backdrop-blur supports-[backdrop-filter]:bg-background/80 rounded-md">
+      <div className="pb-3">
         <PokeGridToolbar
           pokemonTypes={props.pokemonTypes}
           generations={props.generations}
