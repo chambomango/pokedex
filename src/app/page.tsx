@@ -2,14 +2,20 @@
 import TechStackSection from "@/components/techStackSection";
 import GraduationCapIcon from "@/components/icons/GraduationCapIcon";
 import MapPinIcon from "@/components/icons/MapPinIcon";
-import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import Link from "next/link";
 import React from "react";
 import { CodeXml } from "lucide-react";
 
-export default function Home() {
-  const arrowRef = React.useRef<SVGSVGElement | null>(null);
+const HEADLINES = [
+  "full-stack software engineer",
+  "building with typescript & react",
+  "turning data into insight",
+  "api & database architect",
+  "cloud & ci/cd minded",
+  "ui/ux focused",
+];
 
+export default function Home() {
   const sectionAnimations = React.useCallback((node: HTMLDivElement | null) => {
     if (!node) return;
     const observer = new IntersectionObserver((entries) => {
@@ -18,49 +24,7 @@ export default function Home() {
       });
     });
     observer.observe(node);
-
     return () => observer.disconnect();
-  }, []);
-
-  const arrowHideAnimation = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      if (!node) return;
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (arrowRef.current && entry.isIntersecting) {
-            arrowRef.current.classList.add("arrow-hide");
-          }
-        });
-      });
-      observer.observe(node);
-
-      return () => observer.disconnect();
-    },
-    [],
-  );
-
-  const arrowShowAnimation = React.useCallback(
-    (node: HTMLDivElement | null) => {
-      if (!node) return;
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (arrowRef.current && entry.isIntersecting) {
-            arrowRef.current.classList.remove("arrow-hide");
-            arrowRef.current.classList.add("arrow-show");
-          }
-        });
-      });
-      observer.observe(node);
-
-      return () => observer.disconnect();
-    },
-    [],
-  );
-
-  const scrollToAboutSection = React.useCallback(() => {
-    document
-      .getElementById("about-section")
-      ?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   const stopPropagation = React.useCallback(
@@ -69,91 +33,119 @@ export default function Home() {
     [],
   );
 
+  const [displayText, setDisplayText] = React.useState("");
+  const [headlineIndex, setHeadlineIndex] = React.useState(0);
+  const [isBackspacing, setisBackspacing] = React.useState(false);
+
+  React.useEffect(() => {
+    const currentHeadline = HEADLINES[headlineIndex];
+
+    //Pause before next backspace animation
+    if (!isBackspacing && displayText === currentHeadline) {
+      const id = setTimeout(() => setisBackspacing(true), 2000);
+      return () => clearTimeout(id);
+    }
+
+    //Finished backspacing - prepping to start typing
+    if (isBackspacing && displayText === "") {
+      setisBackspacing(false);
+      setHeadlineIndex((index) => (index + 1) % HEADLINES.length);
+      return;
+    }
+
+    //Animation effect for typing/backspacing
+    const id = setTimeout(
+      () =>
+        setDisplayText(
+          isBackspacing
+            ? currentHeadline.slice(0, displayText.length - 1)
+            : currentHeadline.slice(0, displayText.length + 1),
+        ),
+      isBackspacing ? 40 : 80,
+    );
+    return () => clearTimeout(id);
+  }, [displayText, headlineIndex, isBackspacing]);
+
   return (
     <div className="flex flex-col items-center justify-center mx-auto mb-40">
-      <span ref={arrowShowAnimation}></span>
-      <section className="animate-show max-w-106 h-[100vh]">
+      <section className="animate-show max-w-207 h-[100vh]">
         <div className="mt-30 flex flex-col">
-          <h4 className="text-muted-foreground flex mb-6 font-semibold text-1xl">
-            Full-Stack Software Engineer
-          </h4>
-          <div className="text-foreground flex mb-4 font-semibold text-7xl">
+          <span className="font-mono text-md text-muted-foreground mb-6 inline-flex items-baseline leading-none">
+            <span>// {displayText}</span>
+            <span aria-hidden="true" className="caret-blink" />
+          </span>
+          <div className="text-foreground font-bold text-7xl mb-2">
             benjamin
           </div>
-          <div className="text-muted-foreground flex mb-8 font-semibold text-7xl">
+          <div className="text-muted-foreground dark:text-foreground font-bold text-7xl mb-8">
             chamberlain
           </div>
         </div>
-        <p className="text-justify mb-4 text-muted-foreground max-w-155">
-          Hi I'm Ben, welcome to my site. Here I post some of my side projects I
-          work on for fun. This site and all of the projects within were created
-          using TypeScript, React, and NextJS. To see the code for this site
-          click the link to my GitHub.
+        <p className="font-mono text-sm leading-relaxed text-muted-foreground max-w-sm">
+          Hi, I'm Ben — welcome to my site. I post side projects I work on for
+          fun, built with TypeScript, React, and Next.js. Source code is linked
+          in the nav above.
         </p>
-        <button
-          className="mt-60 flex mx-auto cursor-pointer"
-          onClick={scrollToAboutSection}
-        >
-          <ArrowDownIcon
-            ref={arrowRef}
-            className="block cursor-pointer animate-show w-16 mx-auto text-muted-foreground"
-          />
-        </button>
       </section>
 
       <section
         ref={sectionAnimations}
         id="about-section"
-        className="mb-60 animate-hidden w-200 "
+        className="mb-60 animate-hidden max-w-207 w-full"
       >
-        <span ref={arrowHideAnimation}></span>
-        <h2>About Me</h2>
-        <hr className="mt-2 mb-6"></hr>
-        <p className="text-justify mb-4 text-muted-foreground">
+        <span className="font-mono text-2xl text-foreground">About Me</span>
+        <hr className="mt-2 mb-6" />
+        <p className="text-justify mb-8 text-muted-foreground">
           I'm a full-stack software developer with 4+ years experience
           developing enterprise applications. I've worked in two positions and
           specialize in responsive and clean UIs, scalable API services, and SQL
           management.
         </p>
-        <div className="mt-10 flex gap-4 justify-between">
-          <div className="flex flex-col items-center">
-            <h1 className="pt-4 h-22 content-center text-muted-foreground">
+        <div className="mt-4 flex gap-4 justify-between">
+          <div className="rounded-sm p-4 flex flex-col items-center flex-1">
+            <h1 className="h-22 content-center text-muted-foreground dark:text-foreground">
               4+
             </h1>
-            <p className="pt-4 px-4 text-muted-foreground">
+            <p className="text-center text-sm text-muted-foreground">
               Years of Professional
             </p>
-            <p className="pb-4 text-muted-foreground">Experience</p>
+            <p className="text-center text-sm text-muted-foreground">
+              Experience
+            </p>
           </div>
-
-          <div className="flex flex-col items-center">
+          <div className="rounded-sm p-4 flex flex-col items-center flex-1">
             <div className="h-22 content-center">
-              <GraduationCapIcon className="pt-4 w-18 h-18 text-muted-foreground" />
+              <GraduationCapIcon className="w-16 h-16 text-muted-foreground dark:text-foreground" />
             </div>
-            <div className="p-4 text-center">
-              <p className="text-muted-foreground">Bachelor's Degree</p>
-              <p className="text-muted-foreground">in Computer Science</p>
-              <p className="text-muted-foreground">
-                University of New Hampshire
-              </p>
-            </div>
+            <p className="text-center text-sm text-muted-foreground mt-2">
+              B.S. Computer Science
+              <br />
+              University of New Hampshire
+            </p>
           </div>
-          <div className="flex flex-col items-center">
+          <div className="rounded-sm p-4 flex flex-col items-center flex-1">
             <div className="h-22 content-center">
-              <MapPinIcon className="pt-4 w-17 h-17 text-muted-foreground" />
+              <MapPinIcon className="w-15 h-15 text-muted-foreground dark:text-foreground" />
             </div>
-            <div className="p-4 text-center">
-              <p className="text-muted-foreground">Located in Barrington,</p>
-              <p className="text-muted-foreground">New Hampshire</p>
-            </div>
+            <p className="text-center text-sm text-muted-foreground mt-2">
+              Barrington,
+              <br />
+              New Hampshire
+            </p>
           </div>
         </div>
       </section>
 
-      <section ref={sectionAnimations} className="mb-60 animate-hidden w-200 ">
-        <h2>Technology Stack</h2>
-        <hr className="mt-2 mb-6"></hr>
-        <div className="flex flex-col gap-6 justify-between">
+      {/* Tech Stack */}
+      <section
+        ref={sectionAnimations}
+        className="mb-60 animate-hidden max-w-207 w-full"
+      >
+        <span className="font-mono text-2xl text-foreground">
+          Technology Stack
+        </span>
+        <hr className="mt-2 mb-6" />
+        <div className="flex flex-col gap-6">
           <TechStackSection
             title="Languages"
             items={[
@@ -190,9 +182,12 @@ export default function Home() {
         </div>
       </section>
 
-      <section ref={sectionAnimations} className="mb-100 animate-hidden w-200 ">
-        <h2>Projects</h2>
-        <hr className="mt-2 mb-6"></hr>
+      <section
+        ref={sectionAnimations}
+        className="mb-100 animate-hidden max-w-207 w-full"
+      >
+        <span className="font-mono text-2xl text-foreground">Projects</span>
+        <hr className="mt-2 mb-6" />
         <div className="bg-muted p-8 rounded-xl">
           <div className="flex gap-22 items-center justify-center">
             <div>
@@ -228,7 +223,7 @@ export default function Home() {
               <img
                 className="h-48 w-48 [image-rendering:pixelated]"
                 src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/2.gif"
-                alt={"pokedex-img"}
+                alt="pokedex-img"
                 loading="lazy"
                 decoding="async"
                 width={192}
