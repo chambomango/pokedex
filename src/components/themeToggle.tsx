@@ -1,6 +1,6 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useTheme } from "next-themes";
 
 import { Button } from "@/components/ui/button";
@@ -11,35 +11,64 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const THEME_OPTIONS = [
+  {
+    value: "light",
+    label: "Light",
+    ball: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/premier-ball.png",
+  },
+  {
+    value: "dark",
+    label: "Dark",
+    ball: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/luxury-ball.png",
+  },
+  {
+    value: "system",
+    label: "System",
+    ball: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png",
+  },
+] as const;
+
 export default function ThemeToggle() {
-  const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  const current =
+    THEME_OPTIONS.find((o) => o.value === theme) ?? THEME_OPTIONS[1];
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          size="icon"
-          className="rounded-full cursor-pointer"
+          className="border w-30 cursor-pointer justify-start gap-2 px-2 text-red-500 hover:text-red-400"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
+          <img
+            src={current.ball}
+            alt=""
+            width={20}
+            height={20}
+            className="scale-[1.5]"
+          />
+          <span className="text-sm">{current.label}</span>
+          <ChevronDown className="ml-auto size-3 opacity-80" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
         onCloseAutoFocus={(e) => e.preventDefault()}
       >
-        <DropdownMenuItem onClick={() => setTheme("light")}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
-          System
-        </DropdownMenuItem>
+        {THEME_OPTIONS.map((o) => (
+          <DropdownMenuItem key={o.value} onClick={() => setTheme(o.value)}>
+            <img
+              src={o.ball}
+              alt=""
+              width={20}
+              height={20}
+              className="scale-[1.5]"
+            />
+            {o.label}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   );

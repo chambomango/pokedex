@@ -15,6 +15,7 @@ const BATCH_SIZE = 32;
 
 export default function PokeGrid(props: PokeGridProps) {
   const [pokemonShown, setPokemonShown] = React.useState(BATCH_SIZE * 2);
+  const [shiny, setShiny] = React.useState(false);
 
   const visiblePokemon = React.useMemo(
     () => props.pokemon.slice(0, pokemonShown),
@@ -48,6 +49,8 @@ export default function PokeGrid(props: PokeGridProps) {
         <PokeGridToolbar
           pokemonTypes={props.pokemonTypes}
           generations={props.generations}
+          shiny={shiny}
+          onShinyToggle={() => setShiny((s) => !s)}
         />
       </div>
 
@@ -55,7 +58,7 @@ export default function PokeGrid(props: PokeGridProps) {
         {visiblePokemon.map((p) => {
           const id = idFromUrl(p.url);
           return (
-            <PokeDisplayCard key={p.name} name={p.name} id={id.toString()} />
+            <PokeDisplayCard key={p.name} name={p.name} id={id.toString()} shiny={shiny} />
           );
         })}
       </div>

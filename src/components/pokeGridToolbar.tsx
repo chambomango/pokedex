@@ -12,15 +12,23 @@ import {
   SelectValue,
 } from "./ui/select";
 import { Input } from "./ui/input";
+import { Toggle } from "./ui/toggle";
 import { capitalizeFirst, formatGeneration } from "@/helpers/gridHelpers";
 import { NamedAPIResource } from "pokenode-ts";
 
 type PokeGridToolbarProps = {
   pokemonTypes: NamedAPIResource[];
   generations: NamedAPIResource[];
+  shiny: boolean;
+  onShinyToggle: () => void;
 };
 
-export default function PokeGridToolbar(props: PokeGridToolbarProps) {
+export default function PokeGridToolbar({
+  pokemonTypes,
+  generations,
+  shiny,
+  onShinyToggle,
+}: PokeGridToolbarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedType, setSelectedType] = React.useState("");
@@ -78,6 +86,16 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
       />
 
       <div className="flex gap-3">
+        <Toggle
+          pressed={shiny}
+          onPressedChange={onShinyToggle}
+          aria-label="Toggle shiny sprites"
+          variant="outline"
+          className="flex data-[state=on]:bg-red-500/15 data-[state=on]:text-red-500 px-6"
+        >
+          Shiny
+        </Toggle>
+
         <Select value={selectedGen} onValueChange={updateGen}>
           <SelectTrigger className="w-full max-w-48">
             {selectedGen === "" ? (
@@ -91,7 +109,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
             <SelectGroup>
               <SelectLabel>Generations</SelectLabel>
               <SelectItem value="all">All Generations</SelectItem>
-              {props.generations.map((t) => (
+              {generations.map((t) => (
                 <SelectItem key={t.name} value={t.name}>
                   {formatGeneration(t.name)}
                 </SelectItem>
@@ -113,7 +131,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
             <SelectGroup>
               <SelectLabel>Types</SelectLabel>
               <SelectItem value="all">All Types</SelectItem>
-              {props.pokemonTypes.map((t) => (
+              {pokemonTypes.map((t) => (
                 <SelectItem key={t.name} value={t.name}>
                   {capitalizeFirst(t.name)}
                 </SelectItem>
