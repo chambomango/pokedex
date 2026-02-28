@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "../components/themeProvider";
-import { Space_Grotesk } from "next/font/google";
+import { Navbar } from "../components/navBar";
+import { Nunito } from "next/font/google";
 
-const spaceGrotesk = Space_Grotesk({
+const nunito = Nunito({
   subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  weight: ["400", "600", "700", "800"],
   variable: "--font-body",
 });
 
@@ -20,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={spaceGrotesk.variable}>
+    <html lang="en" suppressHydrationWarning className={nunito.variable}>
       <body>
         <ThemeProvider
           attribute="class"
@@ -28,9 +29,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="mx-auto mt-7 flex max-w-6xl flex-col">
+          <Navbar />
+          <div className="mx-auto flex max-w-6xl flex-col px-4 pt-6">
             {children}
-          </div>{" "}
+          </div>
         </ThemeProvider>
       </body>
     </html>
