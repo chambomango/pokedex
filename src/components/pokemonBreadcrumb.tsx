@@ -14,7 +14,7 @@ export function PokemonBreadcrumb({ name }: { name: string }) {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
-            <Link href="/pokedex">Pokédex</Link>
+            <Link href="/">Pokédex</Link>
           </BreadcrumbLink>
         </BreadcrumbItem>
 

@@ -38,7 +38,7 @@ export default function PokeGridToolbar(props: PokeGridToolbarProps) {
       const params = new URLSearchParams(window.location.search);
       if (value) params.set(name, value);
       else params.delete(name);
-      router.push(`/pokedex?${params.toString()}`);
+      router.push(`/?${params.toString()}`);
     },
     [router],
   );

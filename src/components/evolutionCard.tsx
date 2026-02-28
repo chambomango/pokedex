@@ -31,7 +31,7 @@ export default function EvolutionCard({
       />
       <Link
         className="hover:underline hover:decoration-foreground"
-        href={`/pokedex/${name}`}
+        href={`/${name}`}
       >
         {capitalizeFirst(name)}
       </Link>

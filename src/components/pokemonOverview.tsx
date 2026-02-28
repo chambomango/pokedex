@@ -33,7 +33,7 @@ export default function PokemonOverview({
           </div>
           <div className="flex flex-wrap gap-2">
             {pokemonData.types.map((t) => (
-              <Link key={t.type.name} href={`/pokedex?type=${t.type.name}`}>
+              <Link key={t.type.name} href={`/?type=${t.type.name}`}>
                 <PokeTypeBox type={t.type.name} />
               </Link>
             ))}
@@ -82,7 +82,9 @@ export default function PokemonOverview({
             <Ruler className="h-4 w-4 text-muted-foreground" />
             <span>Height</span>
           </div>
-          <div className="text-muted-foreground">{pokemonData.height / 10} m</div>
+          <div className="text-muted-foreground">
+            {pokemonData.height / 10} m
+          </div>
         </div>
 
         {/* WEIGHT */}
@@ -91,7 +93,9 @@ export default function PokemonOverview({
             <WeightIcon className="h-4 w-4 text-muted-foreground" />
             <span>Weight</span>
           </div>
-          <div className="text-muted-foreground">{pokemonData.weight / 10} kg</div>
+          <div className="text-muted-foreground">
+            {pokemonData.weight / 10} kg
+          </div>
         </div>
         {/* GENDER RATIO */}
         <div className="flex items-center gap-4">

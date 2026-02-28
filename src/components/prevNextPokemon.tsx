@@ -16,7 +16,7 @@ export default function PrevNextPokemon({
     <div className="flex justify-between items-center">
       <div className="w-25">
         {previousPokemon && (
-          <Link href={`/pokedex/${previousPokemon.name}`}>
+          <Link href={`/${previousPokemon.name}`}>
             <div className="flex gap-2 items-center text-foreground text-sm hover:underline">
               <img
                 className="w-1.5"
@@ -36,7 +36,7 @@ export default function PrevNextPokemon({
       <div>{children}</div>
       <div className="w-25">
         {nextPokemon && (
-          <Link href={`/pokedex/${nextPokemon.name}`}>
+          <Link href={`/${nextPokemon.name}`}>
             <div className="flex gap-2 items-center text-foreground hover:underline text-sm justify-end">
               <div className="text-center">
                 <div>

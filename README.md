@@ -19,11 +19,9 @@ My goal is to create scalable, accessible, and modern user interfaces with a str
 
 The application is organized using the Next.js App Router. These are the current routes:
 
-`/` – Landing page (personal introduction & about section)
+`/` – Searchable Pokémon grid with filtering & lazy loading
 
-`/pokedex` – Searchable Pokémon grid with filtering & lazy loading
-
-`/pokedex/[name]` – Dynamic Pokémon detail pages
+`/[name]` – Dynamic Pokémon detail pages
 
 ## Project Showcase: Interactive Pokédex
 
