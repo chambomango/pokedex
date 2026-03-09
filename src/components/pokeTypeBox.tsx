@@ -1,4 +1,4 @@
-import { capitalizeFirst } from "@/helpers/gridHelpers";
+import { formatDisplayName } from "@/helpers/formatters";
 
 // Reference: https://www.pokemonaaah.net/art/colordex/
 export const typesToColors: Record<string, string> = {
@@ -31,7 +31,7 @@ export default function PokeTypeBox({ type }: { type: string }) {
       className="w-fit px-2.5 p-1 font-semibold tracking-wider border rounded-full"
       style={{ backgroundColor: color, color: "white" }}
     >
-      {capitalizeFirst(type)}
+      {formatDisplayName(type)}
     </div>
   );
 }

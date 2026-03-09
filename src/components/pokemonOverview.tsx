@@ -1,4 +1,3 @@
-import { capitalizeFirst } from "@/helpers/gridHelpers";
 import {
   Layers,
   Sparkles,
@@ -12,6 +11,7 @@ import {
 import PokeTypeBox from "./pokeTypeBox";
 import { Pokemon, PokemonSpecies } from "pokenode-ts";
 import Link from "next/link";
+import { formatDisplayName } from "@/helpers/formatters";
 
 export default function PokemonOverview({
   pokemonData,
@@ -52,7 +52,7 @@ export default function PokemonOverview({
                 key={ability.ability.name}
                 className="text-muted-foreground pr-2 py-0.5 rounded-sm"
               >
-                {capitalizeFirst(ability.ability.name)}
+                {formatDisplayName(ability.ability.name)}
               </div>
             ))}
           </div>
@@ -70,7 +70,7 @@ export default function PokemonOverview({
                 key={eggGroup.name}
                 className="text-muted-foreground pr-2 py-0.5 rounded-sm"
               >
-                {capitalizeFirst(eggGroup.name)}
+                {formatDisplayName(eggGroup.name)}
               </div>
             ))}
           </div>

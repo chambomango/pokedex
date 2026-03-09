@@ -1,5 +1,4 @@
 import { Pokemon } from "pokenode-ts";
-import { capitalizeFirst, idFromUrl, prettyStat } from "@/helpers/gridHelpers";
 import { typesToColors } from "@/components/pokeTypeBox";
 import { PokemonStatsChart } from "@/components/pokemonStatsChart";
 import EvolutionTree from "@/components/evolutionTree";
@@ -13,6 +12,11 @@ import {
   pokemonClient,
 } from "@/singletons/pokenodeTsClients";
 import PokemonSpriteViewer from "@/components/pokemonSpriteViewer";
+import {
+  formatPokemonDisplayName,
+  getStatAbbreviation,
+} from "@/helpers/formatters";
+import { idFromUrl } from "@/helpers/parsers";
 export default async function PokemonPage({
   params,
 }: {
@@ -53,7 +57,9 @@ export default async function PokemonPage({
       <PokemonBreadcrumb name={pokemonData.name} />
       <div className="flex justify-between items-baseline">
         <div className="mt-9 flex gap-4">
-          <h1 className="tracking-wide">{capitalizeFirst(pokemonData.name)}</h1>
+          <h1 className="tracking-wide">
+            {formatPokemonDisplayName(pokemonData.name)}
+          </h1>
           <h1 className="font-medium text-muted-foreground">
             #{pokemonData.id}
           </h1>
@@ -67,7 +73,7 @@ export default async function PokemonPage({
         {/* POKEMON IMAGE */}
         <PokemonSpriteViewer
           pokemonId={pokemonData.id}
-          name={capitalizeFirst(pokemonData.name)}
+          name={formatPokemonDisplayName(pokemonData.name)}
           sprites={{
             frontDefault: pokemonData.sprites.front_default,
             backDefault: pokemonData.sprites.back_default,
@@ -91,7 +97,7 @@ export default async function PokemonPage({
         <PokemonStatsChart
           chartData={pokemonData.stats.map((stat) => {
             return {
-              key: prettyStat(stat.stat.name),
+              key: getStatAbbreviation(stat.stat.name),
               value: stat.base_stat,
             };
           })}

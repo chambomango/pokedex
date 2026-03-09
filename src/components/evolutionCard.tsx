@@ -1,4 +1,5 @@
-import { capitalizeFirst, idFromUrl } from "@/helpers/gridHelpers";
+import { formatPokemonDisplayName } from "@/helpers/formatters";
+import { idFromUrl } from "@/helpers/parsers";
 import Link from "next/link";
 import { ChainLink } from "pokenode-ts";
 
@@ -33,7 +34,7 @@ export default function EvolutionCard({
         className="hover:underline hover:decoration-foreground"
         href={`/${name}`}
       >
-        {capitalizeFirst(name)}
+        {formatPokemonDisplayName(name)}
       </Link>
     </div>
   );

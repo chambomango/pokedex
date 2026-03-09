@@ -13,8 +13,8 @@ import {
 } from "./ui/select";
 import { Input } from "./ui/input";
 import { Toggle } from "./ui/toggle";
-import { capitalizeFirst, formatGeneration } from "@/helpers/gridHelpers";
 import { NamedAPIResource } from "pokenode-ts";
+import { formatDisplayName, formatGeneration } from "@/helpers/formatters";
 
 type PokeGridToolbarProps = {
   pokemonTypes: NamedAPIResource[];
@@ -133,7 +133,7 @@ export default function PokeGridToolbar({
               <SelectItem value="all">All Types</SelectItem>
               {pokemonTypes.map((t) => (
                 <SelectItem key={t.name} value={t.name}>
-                  {capitalizeFirst(t.name)}
+                  {formatDisplayName(t.name)}
                 </SelectItem>
               ))}
             </SelectGroup>

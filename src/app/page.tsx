@@ -1,8 +1,8 @@
 import { NamedAPIResource } from "pokenode-ts";
 import PokeGrid from "@/components/pokeGrid";
-import { idFromUrl } from "@/helpers/gridHelpers";
 import { getGenerationById, getGenerations } from "@/api/pokemon";
 import { pokemonClient } from "@/singletons/pokenodeTsClients";
+import { idFromUrl } from "@/helpers/parsers";
 export default async function PokedexPage({
   searchParams,
 }: {

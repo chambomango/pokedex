@@ -5,9 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "dev:trace": "cross-env NODE_OPTIONS=--trace-deprecation next dev",
+    "typecheck": "next typegen && tsc --noEmit",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "eslint .",
     "lint:fix": "eslint --fix"
   },
   "dependencies": {

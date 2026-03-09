@@ -1,9 +1,9 @@
 "use client";
 import { NamedAPIResource } from "pokenode-ts";
 import { PokeDisplayCard } from "./pokeCard";
-import { idFromUrl } from "@/helpers/gridHelpers";
 import PokeGridToolbar from "./pokeGridToolbar";
 import React from "react";
+import { idFromUrl } from "@/helpers/parsers";
 
 type PokeGridProps = {
   pokemonTypes: NamedAPIResource[];
@@ -58,7 +58,12 @@ export default function PokeGrid(props: PokeGridProps) {
         {visiblePokemon.map((p) => {
           const id = idFromUrl(p.url);
           return (
-            <PokeDisplayCard key={p.name} name={p.name} id={id.toString()} shiny={shiny} />
+            <PokeDisplayCard
+              key={p.name}
+              name={p.name}
+              id={id.toString()}
+              shiny={shiny}
+            />
           );
         })}
       </div>

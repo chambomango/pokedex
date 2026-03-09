@@ -3,8 +3,8 @@
 import * as React from "react";
 import Xarrow, { Xwrapper, useXarrow } from "react-xarrows";
 import type { ChainLink } from "pokenode-ts";
-import { formatEvolutionMethod } from "@/helpers/gridHelpers";
 import EvolutionCard from "./evolutionCard";
+import { formatEvolutionMethod } from "@/helpers/formatters";
 
 function useRafXarrowUpdate() {
   const updateXarrow = useXarrow();

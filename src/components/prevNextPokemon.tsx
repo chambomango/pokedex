@@ -1,4 +1,4 @@
-import { capitalizeFirst, idFromUrl } from "@/helpers/gridHelpers";
+import { formatPokemonDisplayName } from "@/helpers/formatters";
 import Link from "next/link";
 import { NamedAPIResource } from "pokenode-ts";
 import { ReactNode } from "react";
@@ -23,11 +23,7 @@ export default function PrevNextPokemon({
                 src="/logos/SVG/arrow-left-wide-line.svg"
               />
               <div className="text-center">
-                <div>
-                  {capitalizeFirst(previousPokemon.name)}
-                  {/* {" "} */}
-                  {/* {idFromUrl(previousPokemon.url)} */}
-                </div>
+                <div>{formatPokemonDisplayName(previousPokemon.name)}</div>
               </div>
             </div>
           </Link>
@@ -39,11 +35,7 @@ export default function PrevNextPokemon({
           <Link href={`/${nextPokemon.name}`}>
             <div className="flex gap-2 items-center text-foreground hover:underline text-sm justify-end">
               <div className="text-center">
-                <div>
-                  {capitalizeFirst(nextPokemon.name)}
-                  {/* {" "} */}
-                  {/* {idFromUrl(nextPokemon.url)} */}
-                </div>
+                <div>{formatPokemonDisplayName(nextPokemon.name)}</div>
               </div>
               <img
                 className="w-1.5"

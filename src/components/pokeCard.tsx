@@ -1,6 +1,14 @@
 import Link from "next/link";
 
-export function PokeDisplayCard({ name, id, shiny = false }: { name: string; id: string; shiny?: boolean }) {
+export function PokeDisplayCard({
+  name,
+  id,
+  shiny = false,
+}: {
+  name: string;
+  id: string;
+  shiny?: boolean;
+}) {
   const spriteUrl = shiny
     ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`
     : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
@@ -17,7 +25,7 @@ export function PokeDisplayCard({ name, id, shiny = false }: { name: string; id:
             decoding="async"
             width={96}
             height={96}
-          />{" "}
+          />
         </div>
 
         <div className="flex items-baseline justify-between px-2.5 py-2">

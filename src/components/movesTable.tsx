@@ -4,11 +4,11 @@ import {
   MOVE_COLUMNS,
   MoveWithVersions,
 } from "@/app/definitions/moveDefinitions";
-import { prettyPrintMove, prettyMoveMethod } from "@/helpers/gridHelpers";
 import { DataTable } from "./dataTable";
 import { PokemonMove } from "pokenode-ts";
 import React from "react";
 import { moveClient } from "@/singletons/pokenodeTsClients";
+import { formatDisplayName, formatMoveMethod } from "@/helpers/formatters";
 
 export default function MovesTable(props: {
   initialMoves: PokemonMove[];
@@ -22,8 +22,8 @@ export default function MovesTable(props: {
       const levelLearned = move.version_group_details[0].level_learned_at;
       const mc: MoveColumn = {
         level: levelLearned,
-        name: prettyPrintMove(move.move.name),
-        methodLearned: prettyMoveMethod(
+        name: formatDisplayName(move.move.name),
+        methodLearned: formatMoveMethod(
           move.version_group_details[0].move_learn_method.name,
         ),
       };
@@ -49,11 +49,11 @@ export default function MovesTable(props: {
         const levelLearned = move.version_group_details[0].level_learned_at;
         const mc: MoveColumn = {
           level: levelLearned,
-          name: prettyPrintMove(move.name),
+          name: formatDisplayName(move.name),
           type: move.type.name,
           pp: move.pp,
           accuracy: move.accuracy,
-          methodLearned: prettyMoveMethod(
+          methodLearned: formatMoveMethod(
             move.version_group_details[0].move_learn_method.name,
           ),
         };
