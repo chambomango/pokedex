@@ -1,7 +1,7 @@
 import { NamedAPIResourceList } from "pokenode-ts";
 
 export async function getGenerations(): Promise<NamedAPIResourceList> {
-  return await fetch("https://pokeapi.co/api/v2/generation")
+  return await fetch("https://pokeapi.co/api/v2/generation", { next: { revalidate: 86400 } })
     .then((results) => {
       if (results.ok) return results.json();
       throw new Error(`HTTP Error. Status code: ${results.status}`);
@@ -10,7 +10,7 @@ export async function getGenerations(): Promise<NamedAPIResourceList> {
 }
 
 export async function getGenerationById(id: number) {
-  return await fetch(`https://pokeapi.co/api/v2/generation/${id}/`)
+  return await fetch(`https://pokeapi.co/api/v2/generation/${id}/`, { next: { revalidate: 86400 } })
     .then((results) => {
       if (results.ok) return results.json();
       throw new Error(`HTTP Error. Status code: ${results.status}`);
